@@ -18,17 +18,17 @@ Builds:
     sudo:
       - apt-get update
       - apt-get install -y -t bookworm-backports nodejs npm
-    output: android/app/build/outputs/apk/release/app-release-unsigned.apk
-    scanignore:
-      - node_modules
     init:
       - npm ci --ignore-scripts
       - npx expo prebuild -p android --no-install
       - sed -i.bak '/release {/,/}/{/signingConfig/d;}' android/app/build.gradle
+    output: android/app/build/outputs/apk/release/app-release-unsigned.apk
+    scanignore:
+      - node_modules
     build: cd android && gradle assembleRelease
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v[0-9.]+$
-UpdateCheckData: app.json|"versionCode":\s*(\d+)|app.json|"version":\s*"([\d.]+)"
+UpdateCheckData: app.json|"versionCode":\s*(\d+)||
 CurrentVersion: 1.2.1
 CurrentVersionCode: 5

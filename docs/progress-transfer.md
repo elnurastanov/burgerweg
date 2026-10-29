@@ -83,8 +83,8 @@ with that key claim transfer links, so remove it once the F-Droid key is known. 
 ## Export
 
 - Link: `transferLink(code)` = `webAppUrl() + '/transfer#' + code`. `webAppUrl()` is `EXPO_PUBLIC_WEB_APP_URL`
-  (set at build time, e.g. by `scripts/build-site.mjs`), falling back to the current address on web. If neither
-  exists (an Android build without the variable), the bare code is used.
+  (from `.env`, overridden by `scripts/build-site.mjs` for the site), falling back to the current address on web. If
+  neither exists, the bare code is used.
 - Web file: Blob → hidden `<a download="buergerweg-progress.txt">` (contains the link).
 - Native: write to `Paths.cache` with `expo-file-system` `File`, then `Sharing.shareAsync`.
 
