@@ -9,20 +9,21 @@
  *   SITE_URL=https://your-domain.example node scripts/build-site.mjs           # export app + build site
  *   SITE_URL=… node scripts/build-site.mjs --skip-export                         # reuse an existing ./dist
  *
- * SITE_URL is used for canonical URLs, Open Graph tags, the sitemap and transfer links.
- * REPO_URL is the public source repository linked from the landing page.
+ * SITE_URL is used for canonical URLs, Open Graph tags, the sitemap and transfer links. On Cloudflare Pages
+ * it falls back to CF_PAGES_URL (the deployment's own URL), which suits preview deployments; set SITE_URL
+ * for production. REPO_URL is the public source repository linked from the landing page.
  */
 import { execSync } from 'node:child_process';
 import { cpSync, existsSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
-const SITE_URL = (process.env.SITE_URL || 'https://example.org').replace(/\/+$/, '');
+const SITE_URL = (process.env.SITE_URL || process.env.CF_PAGES_URL || 'https://example.org').replace(/\/+$/, '');
 const REPO_URL = process.env.REPO_URL || 'https://github.com/elnurastanov/burgerweg';
 const out = join(root, 'site');
 const dist = join(root, 'dist');
 
-if (!process.env.SITE_URL) console.warn('⚠ SITE_URL is not set; using https://example.org. Set it before deploying.');
+if (!process.env.SITE_URL) console.warn(`⚠ SITE_URL is not set; using ${SITE_URL}. Set it for production deployments.`);
 if (!process.env.REPO_URL) console.warn(`⚠ REPO_URL is not set; linking the source code to ${REPO_URL}.`);
 
 if (!process.argv.includes('--skip-export')) {
@@ -45,8 +46,11 @@ walk(out, (file) => {
   writeFileSync(file, text.replaceAll('{{SITE_URL}}', SITE_URL).replaceAll('{{YEAR}}', String(new Date().getFullYear())).replaceAll('{{REPO_URL}}', REPO_URL));
 });
 
-// 2. The web app under /app.
+// 2. The web app under /app. Hosts can't serve "questions/[id].html" for /app/questions/<id> on their own,
+//    so the template gets a plain name that _redirects rewrites to; the app's 404 page lives at app/404.html.
 cpSync(dist, join(out, 'app'), { recursive: true });
+cpSync(join(out, 'app', 'questions', '[id].html'), join(out, 'app', 'question-page.html'));
+cpSync(join(out, 'app', '+not-found.html'), join(out, 'app', '404.html'));
 
 // 3. PWA + SEO tags in the static HTML of every app page. Expo adds them at runtime via <Head>,
 //    but install prompts and crawlers read the static HTML.

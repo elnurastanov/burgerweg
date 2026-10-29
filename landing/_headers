@@ -1,0 +1,13 @@
+# Cloudflare Pages response headers (also understood by Netlify).
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
+# The service worker must always be revalidated so app updates reach users.
+/app/sw.js
+  Cache-Control: no-cache
+
+# Hashed bundles never change.
+/app/_expo/static/*
+  Cache-Control: public, max-age=31536000, immutable

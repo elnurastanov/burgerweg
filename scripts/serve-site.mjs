@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Serves ./site locally the way static hosts do (clean URLs: /app/exam → /app/exam.html).
+ * Serves ./site locally the way Cloudflare Pages does: clean URLs (/app/exam → /app/exam.html), the
+ * question rewrite from _redirects, and the nearest 404.html with status 404.
  * Usage: node scripts/serve-site.mjs [port]   (default 8090)
  */
 import { createReadStream, existsSync, statSync } from 'node:fs';
@@ -25,8 +26,11 @@ function resolve(urlPath) {
 }
 
 createServer((req, res) => {
-  const file = resolve(req.url || '/') || resolve('/app/+not-found');
+  const path = (req.url || '/').split('?')[0];
+  const rewritten = /^\/app\/questions\/[^/]+\/?$/.test(path) ? '/app/question-page' : path;
+  const found = resolve(rewritten);
+  const file = found || resolve(path.startsWith('/app/') ? '/app/404.html' : '/404.html');
   if (!file) return res.writeHead(404).end('Not found');
-  res.writeHead(file.endsWith('+not-found.html') ? 404 : 200, { 'Content-Type': types[extname(file)] || 'application/octet-stream' });
+  res.writeHead(found ? 200 : 404, { 'Content-Type': types[extname(file)] || 'application/octet-stream' });
   createReadStream(file).pipe(res);
 }).listen(port, () => console.log(`Serving ./site at http://localhost:${port}`));

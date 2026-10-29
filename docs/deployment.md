@@ -7,7 +7,11 @@ Cloudflare Pages, Netlify and others.
 site/
   index.html, en/index.html   landing page (German at /, English at /en/), no JavaScript
   styles.css, images/, favicon.ico, icon-192.png, apple-touch-icon.png, robots.txt, sitemap.xml
+  404.html                    landing-style "page not found"
+  _headers, _redirects        Cloudflare Pages / Netlify rules (security + cache headers, question rewrite)
   app/                        the Expo web app (PWA), exported with base path /app
+    question-page.html        copy of questions/[id].html, served for /app/questions/<id> via _redirects
+    404.html                  copy of +not-found.html (app-style 404)
     index.html, exam.html, …  one pre-rendered HTML file per route
     _expo/static/…            hashed JS bundles
     manifest.webmanifest, sw.js, icons/
@@ -34,6 +38,34 @@ npm run serve:site          # local preview at http://localhost:8090
    the static HTML. (A custom `src/app/+html.tsx` is **not** used: it broke Expo's dev-server script injection.)
 
 `--skip-export` reuses an existing `dist/`, which is handy when only the landing page changed.
+
+## Cloudflare Pages (chosen host)
+
+Connect the GitHub repository in *Workers & Pages → Create → Pages → Connect to Git*, then:
+
+| Setting | Value |
+| --- | --- |
+| Production branch | `master` |
+| Framework preset | None |
+| Build command | `npm run build:site` |
+| Build output directory | `site` |
+| Root directory | *(empty)* |
+| Environment variable (Production) | `SITE_URL` = the production URL, e.g. `https://burgerweg.pages.dev` or the custom domain |
+
+- Node comes from `.node-version` (22). Dependencies are installed automatically from `package-lock.json`.
+  No Python is needed: generated data and images are committed.
+- Without `SITE_URL`, the build uses `CF_PAGES_URL`, the deployment's own URL. That suits preview deployments
+  (branches and pull requests), but production needs `SITE_URL`, otherwise canonical URLs, the sitemap and transfer
+  links point to a one-off deployment URL.
+- Clean URLs are built in. `_redirects` rewrites `/app/questions/<id>` to the question template, and `404.html`
+  files make unknown paths return 404. Without a top-level `404.html`, Pages would treat the site as a single-page
+  app and answer every unknown path with the landing page.
+- `_headers` sets `no-cache` on `sw.js` (so updates reach users), long caching for hashed bundles, and basic security
+  headers.
+- **Custom domain:** *Custom domains → Set up a domain*. Then change `SITE_URL` to it and redeploy. Progress is
+  stored per origin, so settle the final domain before announcing the site.
+- `scripts/serve-site.mjs` imitates these rules locally. `npx wrangler pages dev site` would be the exact runtime, but
+  npm's install-script approval must allow `workerd` first.
 
 ## Hosting requirements
 
@@ -80,7 +112,7 @@ start fresh unless they move their progress with a transfer link, so pick the fi
 
 ## Before going live
 
-- [ ] Choose the domain → `SITE_URL`. Publish the repository → `REPO_URL`.
+- [ ] Choose the domain → `SITE_URL` (Cloudflare Pages production variable). Repository: published.
 - [ ] Decide whether a legal notice (*Impressum*) and privacy page are required for the operator, and add them to
       the landing footer.
 - [ ] Update the F-Droid badge on the landing page once the app is listed (`badge-soon` → link to
