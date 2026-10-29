@@ -138,6 +138,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | PW-2 | It MUST be installable (web manifest with name, icons 192/512 + maskable, theme color, standalone display; Apple touch icon and meta tags for iOS). | ✅ |
 | PW-3 | After the first visit it MUST work offline (service worker: network-first pages, cache-first static files). | ✅ |
 | PW-4 | The service worker MUST only run in production builds, never in development. | ✅ |
+| PW-5 | An **installed** PWA MUST be able to update itself: Settings → About checks `version.json` and offers **Update now** (reload) when a newer version is published. Browser tabs and the Android app don't show it. Reinstalling is never needed and creates a second app. | ✅ |
 
 ### 3.10 Landing page
 
@@ -189,7 +190,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 - [x] App name (Bürgerweg) and icon set (app icon, Android adaptive + monochrome, splash, favicon, PWA icons).
 - [x] F-Droid listing (fastlane metadata, de + en, screenshots) and draft build recipe.
 - [x] Repository published on GitHub (`REPO_URL` default points to it).
-- [ ] Release tag for the current version (`v1.1.1`).
+- [ ] Release tag for the current version (`v1.2.0`).
 - [x] Address chosen: `https://astanov.com/burgerweg`.
 - [ ] Site deployed on Cloudflare (Workers static assets, route `astanov.com/burgerweg*`) and checked.
 - [ ] F-Droid merge request opened and accepted.

@@ -1,13 +1,14 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Switch, View } from 'react-native';
 
 import { useDialog } from '@/components/dialog';
 import { SelectOption } from '@/components/select-option';
-import { Card, Chip, Header, Row, Screen, Txt } from '@/components/ui';
+import { Button, Card, Chip, Header, Row, Screen, Txt } from '@/components/ui';
 import { LANGUAGES, useT } from '@/lib/i18n';
+import { applyUpdate, fetchLatestVersion, isInstalledPwa, isNewer } from '@/lib/pwa';
 import { CATALOG_VERSION, STATES, stateName } from '@/lib/questions';
 import { useApp, type ThemeMode } from '@/lib/store';
 import { space, useTheme } from '@/lib/theme';
@@ -103,11 +104,50 @@ export default function Settings() {
         <Txt variant="small" style={{ marginBottom: space.sm }}>
           {t('appVersion', { version: APP_VERSION })}
         </Txt>
+        {isInstalledPwa() && <PwaUpdate />}
         <Txt variant="small" muted>
           {t('aboutText', { version: new Date(CATALOG_VERSION).toLocaleDateString(settings.lang === 'de' ? 'de-DE' : 'en-GB') })}
         </Txt>
       </Section>
     </Screen>
+  );
+}
+
+/**
+ * Installed PWAs have no reload button, so they get an update check here. It runs when Settings opens; browser
+ * tabs and the Android app don't show it (a tab reloads, the Android app updates through F-Droid).
+ */
+function PwaUpdate() {
+  const t = useT();
+  const [status, setStatus] = useState<{ kind: 'checking' | 'latest' | 'error' } | { kind: 'available'; version: string }>({ kind: 'checking' });
+
+  const check = useCallback(async () => {
+    setStatus({ kind: 'checking' });
+    const latest = await fetchLatestVersion();
+    if (!latest) setStatus({ kind: 'error' });
+    else if (isNewer(latest, APP_VERSION)) setStatus({ kind: 'available', version: latest });
+    else setStatus({ kind: 'latest' });
+  }, []);
+
+  useEffect(() => {
+    check();
+  }, [check]);
+
+  const message = {
+    checking: t('updateChecking'),
+    latest: t('updateLatest'),
+    error: t('updateError'),
+    available: status.kind === 'available' ? t('updateAvailable', { version: status.version }) : '',
+  }[status.kind];
+
+  return (
+    <View style={{ gap: space.sm, marginBottom: space.md }}>
+      <Txt variant="small" muted={status.kind !== 'available'}>
+        {message}
+      </Txt>
+      {status.kind === 'available' && <Button label={t('updateNow')} icon="refresh" onPress={applyUpdate} />}
+      {(status.kind === 'latest' || status.kind === 'error') && <Button label={t('updateCheckAgain')} icon="refresh" kind="secondary" onPress={check} />}
+    </View>
   );
 }
 

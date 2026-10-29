@@ -1,6 +1,6 @@
 {
   "name": "buergerweg",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Bürgerweg: calm, free, offline practice for the German citizenship test (Einbürgerungstest).",
   "license": "MIT",
   "private": true,
@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit",
     "build:site": "node scripts/build-site.mjs",
     "serve:site": "node scripts/serve-site.mjs",
-    "android:release": "expo prebuild -p android --clean && cd android && ./gradlew assembleRelease"
+    "android:release": "node -e \"require('fs').rmSync(require('path').join(require('os').tmpdir(), 'metro-cache'), { recursive: true, force: true })\" && expo prebuild -p android --clean && cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",

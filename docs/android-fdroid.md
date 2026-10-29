@@ -42,7 +42,8 @@ recipe sets it. After F-Droid's first build, publish F-Droid's signing fingerpri
 progress-transfer.md).
 
 If `ANDROID_HOME` isn't set in your shell, Gradle fails with "SDK location not found". Add
-`export ANDROID_HOME=$HOME/Library/Android/sdk` to `~/.zshrc`. Don't run two builds at once: `npm run
+`export ANDROID_HOME=$HOME/Library/Android/sdk` to `~/.zshrc`. `android:release` first deletes Metro's cache (`<tmp>/metro-cache`), because a stale cache can keep an old
+`app.json` (e.g. the previous version number) inlined in the bundle. Don't run two builds at once: `npm run
 android:release` regenerates `android/` (`prebuild --clean`) and breaks a build already running there.
 
 Locally the release APK is signed with the debug key from the template. That's fine for testing; F-Droid re-signs
@@ -65,7 +66,7 @@ with its own key.
 
 ## Publishing on F-Droid: checklist
 
-1. Publish the repository (Codeberg, GitLab or GitHub) and tag the release: `git tag v1.1.1` (the current `expo.version`).
+1. Publish the repository (Codeberg, GitLab or GitHub) and tag the release: `git tag v1.2.0` (the current `expo.version`).
 2. Fill in the URLs in `fdroid/com.buergerweg.app.yml` (repository, issue tracker, website, `EXPO_PUBLIC_WEB_APP_URL`).
 3. Fork <https://gitlab.com/fdroid/fdroiddata>, add the file as `metadata/com.buergerweg.app.yml`, and open a merge
    request. Test it locally with `fdroid build -v -l com.buergerweg.app` in the fdroidserver Docker image if you can.

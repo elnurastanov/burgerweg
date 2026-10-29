@@ -105,6 +105,12 @@ const en = {
   reset: 'Reset',
   about: 'About',
   appVersion: 'Version {version}',
+  updateChecking: 'Checking for updates…',
+  updateLatest: 'You have the latest version.',
+  updateAvailable: 'Version {version} is available.',
+  updateNow: 'Update now',
+  updateCheckAgain: 'Check again',
+  updateError: 'Couldn’t check for updates. Are you online?',
   aboutText:
     'Questions from the official BAMF catalog "Leben in Deutschland" / Einbürgerungstest (as of {version}). Translations are unofficial and for learning only.',
 
@@ -228,6 +234,12 @@ const de: Record<StringKey, string> = {
   reset: 'Zurücksetzen',
   about: 'Über die App',
   appVersion: 'Version {version}',
+  updateChecking: 'Suche nach Updates …',
+  updateLatest: 'Du hast die neueste Version.',
+  updateAvailable: 'Version {version} ist verfügbar.',
+  updateNow: 'Jetzt aktualisieren',
+  updateCheckAgain: 'Erneut prüfen',
+  updateError: 'Updates konnten nicht geprüft werden. Bist du online?',
   aboutText:
     'Fragen aus dem offiziellen BAMF-Gesamtfragenkatalog „Leben in Deutschland“ / Einbürgerungstest (Stand {version}). Übersetzungen sind inoffiziell und dienen nur dem Lernen.',
 

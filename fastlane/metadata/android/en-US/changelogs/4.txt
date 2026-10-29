@@ -1,0 +1,1 @@
+Installed web app (PWA): Settings shows when a new version is available and updates with one tap.

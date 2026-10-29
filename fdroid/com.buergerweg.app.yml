@@ -1,5 +1,5 @@
 # DRAFT build recipe for F-Droid (fdroiddata repository: metadata/com.buergerweg.app.yml).
-# Tag the release (v1.1.1) and open a merge request on
+# Tag the release (v1.2.0) and open a merge request on
 # https://gitlab.com/fdroid/fdroiddata. F-Droid builds the APK from source and signs it.
 # See docs/android-fdroid.md for the full checklist and open questions.
 
@@ -17,9 +17,9 @@ RepoType: git
 Repo: https://github.com/elnurastanov/burgerweg.git
 
 Builds:
-  - versionName: 1.1.1
-    versionCode: 3
-    commit: v1.1.1
+  - versionName: 1.2.0
+    versionCode: 4
+    commit: v1.2.0
     subdir: android/app
     sudo:
       - apt-get update
@@ -38,5 +38,5 @@ Builds:
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v[0-9.]+$
 UpdateCheckData: app.json|"versionCode":\s*(\d+)|app.json|"version":\s*"([\d.]+)"
-CurrentVersion: 1.1.1
-CurrentVersionCode: 3
+CurrentVersion: 1.2.0
+CurrentVersionCode: 4

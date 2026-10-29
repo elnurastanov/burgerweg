@@ -1,0 +1,1 @@
+Installierte Web-App (PWA): Die Einstellungen zeigen, wenn eine neue Version verfügbar ist, und aktualisieren mit einem Tippen.

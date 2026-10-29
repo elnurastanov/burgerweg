@@ -36,7 +36,8 @@ if (!process.env.REPO_URL) console.warn(`⚠ REPO_URL is not set; linking the so
 
 if (!process.argv.includes('--skip-export')) {
   rmSync(dist, { recursive: true, force: true });
-  execSync('npx expo export -p web', {
+  // --clear: Metro's cache can keep the previous app.json (e.g. an old version number) inlined in the bundle.
+  execSync('npx expo export -p web --clear', {
     cwd: root,
     stdio: 'inherit',
     env: { ...process.env, EXPO_NO_TELEMETRY: '1', EXPO_PUBLIC_WEB_APP_URL: `${SITE_URL}/app`, EXPO_PUBLIC_BASE_PATH: BASE },
@@ -76,6 +77,12 @@ const app = join(content, 'app');
 cpSync(dist, app, { recursive: true });
 cpSync(join(app, 'questions', '[id].html'), join(app, 'question-page.html'));
 cpSync(join(app, '+not-found.html'), join(app, '404.html'));
+// The published version, for the in-app update check of installed PWAs, and in the service worker so each
+// release replaces it (and its caches).
+const { version } = JSON.parse(readFileSync(join(root, 'app.json'), 'utf8')).expo;
+writeFileSync(join(app, 'version.json'), JSON.stringify({ version }));
+const sw = join(app, 'sw.js');
+writeFileSync(sw, readFileSync(sw, 'utf8').replace("const VERSION = 'dev';", `const VERSION = '${version}';`));
 const manifest = join(app, 'manifest.webmanifest');
 writeFileSync(manifest, readFileSync(manifest, 'utf8').replaceAll('"/app/', `"${BASE}/app/`));
 
