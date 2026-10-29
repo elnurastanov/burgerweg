@@ -56,7 +56,7 @@ npm run android:release # → android/app/build/outputs/apk/release/app-release.
 ## Documentation
 
 Start with **[docs/README.md](docs/README.md)**. The specification is [docs/SPEC.md](docs/SPEC.md); there are
-also docs for the architecture, question data, transfer, deployment, F-Droid, branding and the decision log.
+also docs for the architecture, question data, transfer, deployment, F-Droid and branding.
 
 ## Project layout
 

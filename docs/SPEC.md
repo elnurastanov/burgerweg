@@ -6,7 +6,7 @@ This is the contract for what the app must do. Other docs explain *how* it's don
 [product.md](product.md) (screens), [architecture.md](architecture.md) (code),
 [question-data.md](question-data.md), [progress-transfer.md](progress-transfer.md),
 [deployment.md](deployment.md) (web, PWA, landing page), [android-fdroid.md](android-fdroid.md).
-When behavior changes, update this spec first, then the code, then [decisions.md](decisions.md).
+When behavior changes, update this spec first, then the code, then the doc that covers the area.
 
 Requirement keywords: **MUST** = required for release, **SHOULD** = expected unless there's a recorded reason,
 **MAY** = optional. Status column: ✅ done · ⚠️ done with caveat · ⏳ not done.
@@ -187,8 +187,9 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 - [ ] TR-3: phone camera → transfer link tested on real iPhone and Android; file export/import tested on Android.
 - [x] App name (Bürgerweg) and icon set (app icon, Android adaptive + monochrome, splash, favicon, PWA icons).
 - [x] F-Droid listing (fastlane metadata, de + en, screenshots) and draft build recipe.
-- [ ] Repository published (Codeberg/GitHub), `REPO_URL` set, `v1.0.0` tag.
-- [ ] Domain chosen; site built with `SITE_URL` and deployed to a free static host.
+- [x] Repository published on GitHub (`REPO_URL` default points to it).
+- [ ] `v1.0.0` tag.
+- [ ] Domain chosen; site deployed on Cloudflare Pages with `SITE_URL` set.
 - [ ] F-Droid merge request opened and accepted.
 - [ ] Legal page if required for the operator (e.g. German *Impressum*), decided by the maintainer.
 

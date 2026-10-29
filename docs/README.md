@@ -18,7 +18,6 @@ test (*Einbürgerungstest* / *Leben in Deutschland*). One Expo / React Native co
 | [android-fdroid.md](android-fdroid.md) | build the Android APK or work on the F-Droid release |
 | [development.md](development.md) | set up, run and test locally |
 | [branding.md](branding.md) | change the name, icon, splash or favicon |
-| [decisions.md](decisions.md) | want to know *why* something is the way it is, and what is still open |
 
 ## Status (2026-10-29)
 
@@ -27,12 +26,14 @@ test (*Einbürgerungstest* / *Leben in Deutschland*). One Expo / React Native co
 - **Scope:** web + PWA + Android/F-Droid. No native iOS build (iPhone users install the PWA).
 - Landing page in German (`/`) and English (`/en/`); the app lives at `/app/`.
 - App id `com.buergerweg.app`, version 1.0.0 (versionCode 1). Icon: "rainbow arcs", see [branding](branding.md).
-- Prepared for open source: MIT license, `NOTICE.md`, contributing guide, code of conduct, security policy,
-  F-Droid metadata. Git repository (branch `master`, remote `github.com/elnurastanov/burgerweg`) with only the
-  template's initial commit; **all project work is uncommitted**.
+- Open source on GitHub (`github.com/elnurastanov/burgerweg`, branch `master`): MIT license, `NOTICE.md`,
+  contributing guide, code of conduct, security policy, F-Droid metadata.
+- Website hosting: Cloudflare Pages ([deployment.md](deployment.md#cloudflare-pages-chosen-host)).
 - **Open before release:** review the answer key and translations ([question-data.md](question-data.md#review-status)),
-  clarify the rights to five third-party catalog photos (`NOTICE.md`), pick a domain, commit and publish the
-  repository, and submit to F-Droid. Full list: [SPEC.md §6](SPEC.md#6-release-acceptance-checklist).
+  clarify the rights to five third-party catalog photos (`NOTICE.md`), set the production domain, tag `v1.0.0` and
+  submit to F-Droid. Full list: [SPEC.md §6](SPEC.md#6-release-acceptance-checklist).
+- **Smaller open items:** CI (typecheck + site build); lint is blocked by the npm install-script policy. Deep links into
+  feature screens skip onboarding (a guard in `_layout.tsx` would fix it). Per-ABI APK splits.
 
 ## Golden rules
 

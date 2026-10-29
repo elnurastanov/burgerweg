@@ -19,7 +19,7 @@
 src/
   app/                    routes (every file is a screen; see product.md for the table)
     _layout.tsx           AppProvider → ThemeProvider → DialogProvider → Stack. Hides splash when storage is loaded.
-                          Also sets the web tab title + theme color with expo-router `Head` (no custom +html.tsx, see decisions).
+                          Also sets the web tab title + theme color with expo-router `Head` (no custom +html.tsx, see deployment.md).
   components/
     ui.tsx                Txt, Screen, Header, Card, Button, IconButton, Chip, Row, Divider (design system)
     question-view.tsx     QuestionView (question + options), Bilingual (German + faint translation), QuestionImage
@@ -56,6 +56,8 @@ docs/                     this folder
   - `Progress`: `stats: Record<questionId, QStat>`, `exams: ExamRecord[]`, `updatedAt`.
   - It loads from AsyncStorage once (`ready`), then saves with a 300 ms debounce on every change.
   - Mutations: `updateSettings`, `recordAnswer`, `toggleStar`, `addExam`, `replaceProgress`, `resetProgress`.
+- **Learning boxes, not spaced repetition:** each question has a box 0–5 (no due dates). It is simpler and fits the
+  3-character-per-question transfer encoding.
 - **Transient state lives in modules, not the store**: the running exam (`exam-session.ts`), the practice list
   order (`practice.ts`). They are lost on reload by design; screens redirect if their session is missing.
 

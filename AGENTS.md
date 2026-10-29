@@ -1,8 +1,8 @@
 # Bürgerweg (Einbürgerungstest app)
 
 **Read `docs/README.md` first.** It indexes the project docs: product requirements, architecture, the question
-data pipeline, progress transfer, the dev setup on this machine, and the decision log. Keep those docs up to date
-when you change behavior (add an entry to `docs/decisions.md`).
+data pipeline, progress transfer, deployment, Android/F-Droid and the dev setup. Keep those docs up to date
+when you change behavior: update `docs/SPEC.md` first, and note the *why* in the doc that covers the area.
 
 **Scope:** web app + PWA (served at `/app/`, landing page in `landing/`) and an Android app published only on
 F-Droid. No native iOS builds, and no proprietary dependencies (Google Play Services, Firebase, ML Kit, analytics).
