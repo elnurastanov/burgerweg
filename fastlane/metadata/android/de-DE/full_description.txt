@@ -1,0 +1,10 @@
+<p>Bürgerweg begleitet dich zum bestandenen <i>Einbürgerungstest</i> und zum Test <i>Leben in Deutschland</i> – ruhig, kostenlos und ohne Konto.</p>
+<ul>
+<li><b>Alle Fragen</b>: die 300 allgemeinen Fragen und die 10 Fragen deines Bundeslandes aus dem offiziellen BAMF-Gesamtfragenkatalog (Stand 07.05.2025), inklusive aller Bildfragen. Suche und Filter für neue, falsche oder markierte Fragen.</li>
+<li><b>Testsimulation</b>: 33 Fragen, 60 Minuten, bestanden ab 17 – wie der echte Test. Immer auf Deutsch, mit optionaler Übersetzung dezent unter dem Text.</li>
+<li><b>Lernkarten</b>: eine zufällige Frage nach der anderen mit sofortigem Feedback.</li>
+<li><b>Fortschritt</b>: sieh, wie viele Fragen du sicher beherrschst und wann du bereit bist.</li>
+<li><b>Private Übertragung</b>: Fortschritt per QR-Code, Link oder Datei auf ein anderes Handy, Tablet oder in den Browser übertragen – ohne Konto, ohne Server.</li>
+</ul>
+<p>Oberfläche auf Deutsch und Englisch. Funktioniert komplett offline. Keine Werbung, kein Tracking.</p>
+<p>Bürgerweg ist ein unabhängiges Projekt und steht in keiner Verbindung zum BAMF. Übersetzungen sind inoffiziell.</p>

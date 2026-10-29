@@ -1,56 +1,80 @@
-# Welcome to your Expo app 👋
+# Bürgerweg
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Calm, free and private practice for the German citizenship test** (*Einbürgerungstest* / *Leben in Deutschland*).
+No account, no tracking, works offline. Interface in English and German.
 
-## Get started
+<p>
+  <img src="landing/images/en-home.webp" alt="Home screen with progress" width="200">
+  <img src="landing/images/en-exam.webp" alt="Exam simulator in German with translation" width="200">
+  <img src="landing/images/en-flashcards.webp" alt="Flashcards" width="200">
+  <img src="landing/images/en-transfer.webp" alt="Account-free transfer via QR code" width="200">
+</p>
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- **All questions**: the 300 general questions plus the 10 for your federal state, from the official BAMF catalog
+  (as of 7 May 2025), including all 43 picture questions. Search and filters.
+- **Exam simulator**: 33 questions, 60 minutes, pass with 17, just like the real test. Always in German, with an
+  optional translation shown quietly *under* the German text.
+- **Flashcards**: one random question at a time, instant feedback, Shuffle.
+- **Progress**: mastery ring, stats, exam history and a readiness hint.
+- **Account-free transfer**: progress becomes a short link (QR code, copy or file). Scan it with any phone camera to
+  continue on another device. The data travels in the URL fragment, so it never reaches a server.
 
-2. Start the app
+## Platforms
 
-   ```bash
-   npx expo start
-   ```
+| Platform | How |
+| --- | --- |
+| Any browser | Phones, tablets and computers: landing page at `/`, app at `/app/`, nothing to download |
+| iPhone / iPad | Install as an app (PWA): Safari → Share → *Add to Home Screen* |
+| Android | Install as an app (PWA): Chrome menu → *Install app*, or the native app via **F-Droid** (planned; no Google dependencies) |
+| Computer | Install as an app (PWA) in Chrome or Edge, from the install icon in the address bar |
 
-In the output, you'll find options to open the app in a
+Everything is free to host (any static host) and free to use.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Quick start
 
 ```bash
-npm run reset-project
+npm install
+npm run web             # develop in the browser (app served at http://localhost:8081/app)
+npm run typecheck
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Build the deployable website (landing page and PWA):
 
-### Other setup steps
+```bash
+SITE_URL=https://your-domain.example REPO_URL=https://github.com/elnurastanov/burgerweg npm run build:site
+npm run serve:site      # preview ./site at http://localhost:8090
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Build the Android release APK (needs the Android SDK and JDK 17):
 
-## Learn more
+```bash
+npm run android:release # → android/app/build/outputs/apk/release/app-release.apk
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Documentation
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Start with **[docs/README.md](docs/README.md)**. The specification is [docs/SPEC.md](docs/SPEC.md); there are
+also docs for the architecture, question data, transfer, deployment, F-Droid, branding and the decision log.
 
-## Join the community
+## Project layout
 
-Join our community of developers creating universal apps.
+```
+src/app/        screens (Expo Router)          landing/      static SEO landing page (de, en)
+src/lib/        state, i18n, questions, …      public/       PWA manifest, service worker, icons
+src/data/       generated question data        fastlane/     F-Droid store listing (de, en)
+assets/         icons, question images         fdroid/       draft F-Droid build recipe
+scripts/        data pipeline, site build      docs/         documentation
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Contributing
+
+Help is very welcome, especially **checking answers** and **improving translations**. See
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+Code: [MIT](LICENSE). The question catalog comes from the BAMF, and five catalog photos belong to third parties.
+See [NOTICE.md](NOTICE.md). Bürgerweg is an independent project, not affiliated with the BAMF; translations and the
+answer key are unofficial.

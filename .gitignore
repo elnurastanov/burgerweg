@@ -41,3 +41,13 @@ example
 # generated native folders
 /ios
 /android
+
+# Bürgerweg build output
+/site
+*.apk
+*.aab
+
+# Python (data + icon scripts)
+__pycache__/
+*.pyc
+.venv/

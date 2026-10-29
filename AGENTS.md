@@ -1,3 +1,13 @@
+# Bürgerweg (Einbürgerungstest app)
+
+**Read `docs/README.md` first.** It indexes the project docs: product requirements, architecture, the question
+data pipeline, progress transfer, the dev setup on this machine, and the decision log. Keep those docs up to date
+when you change behavior (add an entry to `docs/decisions.md`).
+
+**Scope:** web app + PWA (served at `/app/`, landing page in `landing/`) and an Android app published only on
+F-Droid. No native iOS builds, and no proprietary dependencies (Google Play Services, Firebase, ML Kit, analytics).
+EAS and App Store notes below are general Expo guidance, not part of this project's release process.
+
 This is an Expo/React Native mobile application. Prioritize mobile-first patterns, performance, and cross-platform compatibility.
 
 ## Expo has changed — do not trust your training data

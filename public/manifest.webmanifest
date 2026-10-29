@@ -1,0 +1,19 @@
+{
+  "name": "Bürgerweg – Einbürgerungstest",
+  "short_name": "Bürgerweg",
+  "description": "Calm preparation for the German citizenship test (Einbürgerungstest / Leben in Deutschland). Free, offline, no account.",
+  "lang": "de",
+  "start_url": "/app/",
+  "scope": "/app/",
+  "id": "/app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F3EE",
+  "theme_color": "#4A4544",
+  "categories": ["education"],
+  "icons": [
+    { "src": "/app/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/app/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/app/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

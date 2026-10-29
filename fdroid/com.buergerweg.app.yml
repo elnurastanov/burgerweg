@@ -1,0 +1,42 @@
+# DRAFT build recipe for F-Droid (fdroiddata repository: metadata/com.buergerweg.app.yml).
+# Fill in the repository URLs, tag the release (v1.0.0) and open a merge request on
+# https://gitlab.com/fdroid/fdroiddata. F-Droid builds the APK from source and signs it.
+# See docs/android-fdroid.md for the full checklist and open questions.
+
+Categories:
+  - Science & Education
+License: MIT
+AuthorName: Bürgerweg contributors
+SourceCode: https://github.com/elnurastanov/burgerweg
+IssueTracker: https://github.com/elnurastanov/burgerweg/issues
+WebSite: https://example.org                                   # TODO: real site (SITE_URL)
+
+AutoName: Bürgerweg
+
+RepoType: git
+Repo: https://github.com/elnurastanov/burgerweg.git
+
+Builds:
+  - versionName: 1.0.0
+    versionCode: 1
+    commit: v1.0.0
+    subdir: android/app
+    sudo:
+      - apt-get update
+      - apt-get install -y -t bookworm-backports nodejs npm    # Node >= 20 is required by Expo SDK 58
+    init:
+      - cd ../..
+      - npm ci --ignore-scripts
+      - EXPO_NO_TELEMETRY=1 EXPO_PUBLIC_WEB_APP_URL=https://example.org/app npx expo prebuild -p android --no-install
+    gradle:
+      - yes
+    scanignore:
+      - node_modules
+    # React Native ships prebuilt binaries in node_modules (e.g. hermesc); F-Droid reviewers may ask to
+    # build them from source or to scandelete them. Discuss in the merge request.
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags ^v[0-9.]+$
+UpdateCheckData: app.json|"versionCode":\s*(\d+)|app.json|"version":\s*"([\d.]+)"
+CurrentVersion: 1.0.0
+CurrentVersionCode: 1

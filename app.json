@@ -1,42 +1,52 @@
 {
   "expo": {
-    "name": "einbuergerungstest",
-    "slug": "einbuergerungstest",
+    "name": "Bürgerweg",
+    "slug": "buergerweg",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "einbuergerungstest",
+    "scheme": "buergerweg",
     "userInterfaceStyle": "automatic",
-    "ios": {
-      "icon": "./assets/expo.icon"
-    },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#4A4544",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.buergerweg.app",
+      "versionCode": 1
     },
     "web": {
-      "output": "server",
-      "favicon": "./assets/images/favicon.png"
+      "output": "static",
+      "favicon": "./assets/images/favicon.png",
+      "name": "Bürgerweg",
+      "shortName": "Bürgerweg",
+      "lang": "de",
+      "themeColor": "#4A4544",
+      "backgroundColor": "#F5F3EE"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#F5F3EE",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 120,
+          "dark": {
+            "backgroundColor": "#111816"
+          }
         }
-      ]
+      ],
+      "expo-localization",
+      "expo-sharing"
     ],
     "experiments": {
       "typedRoutes": true,
-      "reactCompiler": true
+      "reactCompiler": true,
+      "baseUrl": "/app"
     }
   }
 }

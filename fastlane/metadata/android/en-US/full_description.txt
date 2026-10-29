@@ -1,0 +1,10 @@
+<p>Bürgerweg helps you prepare for the German citizenship test (<i>Einbürgerungstest</i>) and the <i>Leben in Deutschland</i> test – calmly, for free and without an account.</p>
+<ul>
+<li><b>All questions</b>: the 300 general questions plus the 10 for your federal state, from the official BAMF catalog (as of 7 May 2025), including all picture questions. Search and filter by new, wrong or starred.</li>
+<li><b>Exam simulator</b>: 33 questions, 60 minutes, pass with 17 – just like the real test. Always in German, with an optional translation shown quietly below the text.</li>
+<li><b>Flashcards</b>: one random question at a time with instant feedback.</li>
+<li><b>Progress</b>: see how many questions you have mastered and when you are ready.</li>
+<li><b>Private transfer</b>: move your progress to another phone, tablet or browser with a QR code, a link or a file – no account, no server.</li>
+</ul>
+<p>Interface in English and German. Works completely offline. No ads, no tracking.</p>
+<p>Bürgerweg is an independent project and not affiliated with the BAMF. Translations are unofficial.</p>
