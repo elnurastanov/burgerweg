@@ -2,9 +2,9 @@ Categories:
   - Science & Education
 License: MIT
 AuthorName: Bürgerweg contributors
+WebSite: https://astanov.com/burgerweg/
 SourceCode: https://github.com/elnurastanov/burgerweg
 IssueTracker: https://github.com/elnurastanov/burgerweg/issues
-WebSite: https://astanov.com/burgerweg/
 
 AutoName: Bürgerweg
 
@@ -12,24 +12,23 @@ RepoType: git
 Repo: https://github.com/elnurastanov/burgerweg.git
 
 Builds:
-  - versionName: 1.2.0
-    versionCode: 4
-    commit: v1.2.0
-    subdir: android/app
+  - versionName: 1.2.1
+    versionCode: 5
+    commit: v1.2.1
     sudo:
       - apt-get update
       - apt-get install -y -t bookworm-backports nodejs npm
-    init:
-      - cd ../..
-      - npm ci --ignore-scripts
-      - EXPO_NO_TELEMETRY=1 EXPO_PUBLIC_WEB_APP_URL=https://astanov.com/burgerweg/app npx expo prebuild -p android --no-install
-    gradle:
-      - yes
+    output: android/app/build/outputs/apk/release/app-release-unsigned.apk
     scanignore:
       - node_modules
+    init:
+      - npm ci --ignore-scripts
+      - npx expo prebuild -p android --no-install
+      - sed -i.bak '/release {/,/}/{/signingConfig/d;}' android/app/build.gradle
+    build: cd android && gradle assembleRelease
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v[0-9.]+$
 UpdateCheckData: app.json|"versionCode":\s*(\d+)|app.json|"version":\s*"([\d.]+)"
-CurrentVersion: 1.2.0
-CurrentVersionCode: 4
+CurrentVersion: 1.2.1
+CurrentVersionCode: 5

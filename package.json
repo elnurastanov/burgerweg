@@ -1,6 +1,6 @@
 {
   "name": "buergerweg",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Bürgerweg: calm, free, offline practice for the German citizenship test (Einbürgerungstest).",
   "license": "MIT",
   "private": true,

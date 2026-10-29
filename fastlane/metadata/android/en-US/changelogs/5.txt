@@ -1,0 +1,1 @@
+Fixes the Android build for F-Droid. No visible changes.
