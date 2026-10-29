@@ -27,7 +27,7 @@ first run.
 
 ```bash
 export ANDROID_HOME=$HOME/Library/Android/sdk          # adjust for your OS
-EXPO_PUBLIC_WEB_APP_URL=https://your-domain.example/app npm run android:release
+EXPO_PUBLIC_WEB_APP_URL=https://astanov.com/burgerweg/app npm run android:release
 # → android/app/build/outputs/apk/release/app-release.apk
 ```
 

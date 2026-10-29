@@ -43,8 +43,8 @@ npm run typecheck
 Build the deployable website (landing page and PWA):
 
 ```bash
-SITE_URL=https://your-domain.example REPO_URL=https://github.com/elnurastanov/burgerweg npm run build:site
-npm run serve:site      # preview ./site at http://localhost:8090
+SITE_URL=https://astanov.com/burgerweg npm run build:site
+npm run serve:site      # preview ./site at http://localhost:8090/burgerweg/
 ```
 
 Build the Android release APK (needs the Android SDK and JDK 17):

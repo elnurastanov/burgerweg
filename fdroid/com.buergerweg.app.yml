@@ -1,5 +1,5 @@
 # DRAFT build recipe for F-Droid (fdroiddata repository: metadata/com.buergerweg.app.yml).
-# Fill in the repository URLs, tag the release (v1.0.0) and open a merge request on
+# Tag the release (v1.0.0) and open a merge request on
 # https://gitlab.com/fdroid/fdroiddata. F-Droid builds the APK from source and signs it.
 # See docs/android-fdroid.md for the full checklist and open questions.
 
@@ -9,7 +9,7 @@ License: MIT
 AuthorName: Bürgerweg contributors
 SourceCode: https://github.com/elnurastanov/burgerweg
 IssueTracker: https://github.com/elnurastanov/burgerweg/issues
-WebSite: https://example.org                                   # TODO: real site (SITE_URL)
+WebSite: https://astanov.com/burgerweg/
 
 AutoName: Bürgerweg
 
@@ -27,7 +27,7 @@ Builds:
     init:
       - cd ../..
       - npm ci --ignore-scripts
-      - EXPO_NO_TELEMETRY=1 EXPO_PUBLIC_WEB_APP_URL=https://example.org/app npx expo prebuild -p android --no-install
+      - EXPO_NO_TELEMETRY=1 EXPO_PUBLIC_WEB_APP_URL=https://astanov.com/burgerweg/app npx expo prebuild -p android --no-install
     gradle:
       - yes
     scanignore:

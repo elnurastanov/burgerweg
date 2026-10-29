@@ -189,7 +189,8 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 - [x] F-Droid listing (fastlane metadata, de + en, screenshots) and draft build recipe.
 - [x] Repository published on GitHub (`REPO_URL` default points to it).
 - [ ] `v1.0.0` tag.
-- [ ] Domain chosen; site deployed on Cloudflare (Workers static assets) with `SITE_URL` set.
+- [x] Address chosen: `https://astanov.com/burgerweg`.
+- [ ] Site deployed on Cloudflare (Workers static assets, route `astanov.com/burgerweg*`) and checked.
 - [ ] F-Droid merge request opened and accepted.
 - [ ] Legal page if required for the operator (e.g. German *Impressum*), decided by the maintainer.
 

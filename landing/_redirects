@@ -1,3 +1,3 @@
-# Cloudflare Pages (also understood by Netlify). Question detail pages are one pre-rendered
+# Cloudflare (also understood by Netlify). Question detail pages are one pre-rendered
 # template; serve it for every /app/questions/<id> (build-site.mjs copies it to question-page.html).
 /app/questions/:id  /app/question-page  200

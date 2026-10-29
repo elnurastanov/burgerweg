@@ -1,7 +1,10 @@
 import { Platform } from 'react-native';
 
-/** Path the web app is served under. Must match `experiments.baseUrl` in app.json and the PWA manifest scope. */
-export const WEB_BASE = '/app';
+/**
+ * Path the web app is served under, e.g. "/app" or "/burgerweg/app". Must match `experiments.baseUrl`
+ * (app.config.js) and the PWA manifest scope; all three follow EXPO_PUBLIC_BASE_PATH at build time.
+ */
+export const WEB_BASE = `${process.env.EXPO_PUBLIC_BASE_PATH ?? ''}/app`;
 
 /**
  * Public URL of the hosted web app, e.g. "https://example.org/app" (no trailing slash).

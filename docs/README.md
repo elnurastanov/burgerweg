@@ -28,9 +28,10 @@ test (*Einbürgerungstest* / *Leben in Deutschland*). One Expo / React Native co
 - App id `com.buergerweg.app`, version 1.0.0 (versionCode 1). Icon: "rainbow arcs", see [branding](branding.md).
 - Open source on GitHub (`github.com/elnurastanov/burgerweg`, branch `master`): MIT license, `NOTICE.md`,
   contributing guide, code of conduct, security policy, F-Droid metadata.
-- Website hosting: Cloudflare Workers, static assets only ([deployment.md](deployment.md#cloudflare-workers-chosen-host)).
+- Website: **https://astanov.com/burgerweg/** on Cloudflare Workers, static assets only
+  ([deployment.md](deployment.md#cloudflare-workers-chosen-host)). The base path follows `SITE_URL`.
 - **Open before release:** review the answer key and translations ([question-data.md](question-data.md#review-status)),
-  clarify the rights to five third-party catalog photos (`NOTICE.md`), set the production domain, tag `v1.0.0` and
+  clarify the rights to five third-party catalog photos (`NOTICE.md`), finish the Cloudflare route, tag `v1.0.0` and
   submit to F-Droid. Full list: [SPEC.md §6](SPEC.md#6-release-acceptance-checklist).
 - **Smaller open items:** CI (typecheck + site build); lint is blocked by the npm install-script policy. Deep links into
   feature screens skip onboarding (a guard in `_layout.tsx` would fix it). Per-ABI APK splits.
