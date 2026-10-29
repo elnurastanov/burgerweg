@@ -1,4 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Switch, View } from 'react-native';
@@ -10,6 +11,9 @@ import { LANGUAGES, useT } from '@/lib/i18n';
 import { CATALOG_VERSION, STATES, stateName } from '@/lib/questions';
 import { useApp, type ThemeMode } from '@/lib/store';
 import { space, useTheme } from '@/lib/theme';
+
+// From app.json at build time, e.g. "1.1.0".
+const APP_VERSION = Constants.expoConfig?.version ?? '?';
 
 export default function Settings() {
   const { settings, updateSettings, resetProgress } = useApp();
@@ -96,6 +100,9 @@ export default function Settings() {
       </Section>
 
       <Section title={t('about')}>
+        <Txt variant="small" style={{ marginBottom: space.sm }}>
+          {t('appVersion', { version: APP_VERSION })}
+        </Txt>
         <Txt variant="small" muted>
           {t('aboutText', { version: new Date(CATALOG_VERSION).toLocaleDateString(settings.lang === 'de' ? 'de-DE' : 'en-GB') })}
         </Txt>

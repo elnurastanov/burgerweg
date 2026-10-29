@@ -16,9 +16,11 @@
  * SITE_URL is used for canonical URLs, Open Graph tags, the sitemap and transfer links. On Cloudflare Pages
  * it falls back to CF_PAGES_URL (the deployment's own URL), which suits preview deployments; set SITE_URL
  * for production. REPO_URL is the public source repository linked from the landing page.
+ * ANDROID_CERT_SHA256 (comma-separated SHA-256 signing-certificate fingerprints) writes
+ * site/.well-known/assetlinks.json at the domain root, so Android opens transfer links in the installed app.
  */
 import { execSync } from 'node:child_process';
-import { cpSync, existsSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
@@ -94,6 +96,20 @@ walk(app, (file) => {
   const html = readFileSync(file, 'utf8');
   if (!html.includes('rel="manifest"')) writeFileSync(file, html.replace('</head>', `${headTags}</head>`));
 });
+
+// 4. Android App Links verification. It must live at the domain root (outside BASE).
+const fingerprints = (process.env.ANDROID_CERT_SHA256 || '').split(',').map((f) => f.trim().toUpperCase()).filter(Boolean);
+if (fingerprints.length) {
+  const pkg = JSON.parse(readFileSync(join(root, 'app.json'), 'utf8')).expo.android.package;
+  const statement = [
+    {
+      relation: ['delegate_permission/common.handle_all_urls'],
+      target: { namespace: 'android_app', package_name: pkg, sha256_cert_fingerprints: fingerprints },
+    },
+  ];
+  mkdirSync(join(out, '.well-known'), { recursive: true });
+  writeFileSync(join(out, '.well-known', 'assetlinks.json'), JSON.stringify(statement, null, 2));
+}
 
 console.log(`✓ Site built in ./site for ${SITE_URL}  (landing at ${BASE}/, app at ${BASE}/app/)`);
 

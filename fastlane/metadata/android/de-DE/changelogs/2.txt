@@ -1,0 +1,1 @@
+Zeigt die App-Version in den Einstellungen. Gescannte Übertragungs-QR-Codes öffnen jetzt die installierte App (Android-App oder installierte Web-App) statt des Browsers.

@@ -122,6 +122,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | TR-1 | The user MUST be able to move progress between any two devices/platforms **without creating an account** and **without a server**. | ✅ |
 | TR-2 | Export as a **QR code**, a **copyable link** and a **file**. The QR code and the link point to the web app's transfer screen with the code in the URL fragment (`…/app/transfer#EBT1.…`), so **any phone camera** can open it. | ✅ |
 | TR-3 | Import by **opening a transfer link** (web/PWA imports it automatically and removes it from the address bar), **pasting a link or code**, or **opening the file**. There is no in-app camera scanner (see TR-9). | ✅ / ⏳ camera → link untested on real phones |
+| TR-10 | Where the app is installed, a transfer link SHOULD open it instead of the browser: Android app via verified App Links (`assetlinks.json`), installed PWA via its manifest scope / `handle_links`. Not possible on iOS. | ✅ code / ⏳ needs the release fingerprint and the `/.well-known` route |
 | TR-9 | The transfer code MUST NOT be sent to any server; the fragment (`#…`) is never transmitted by browsers. | ✅ |
 | TR-4 | Before applying, the app MUST show what was found (answered count, exams, state) and offer **Merge** or **Replace**. | ✅ |
 | TR-5 | Merge MUST keep the more practised record per question, OR stars, and combine exam history without duplicates. Replace MUST make this device match the source, including the federal state. | ✅ |
@@ -155,7 +156,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | --- | --- | --- |
 | ST-1 | Language, federal state, appearance (system / light / dark). | ✅ |
 | ST-2 | Toggle "show translations while practising" (non-German UI). | ✅ |
-| ST-3 | Links to progress transfer and reset; About with source and catalog date. | ✅ |
+| ST-3 | Links to progress transfer and reset; About with the **app version** (e.g. `1.1.0`), source and catalog date. | ✅ |
 
 ## 4. Non-functional requirements
 
@@ -188,7 +189,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 - [x] App name (Bürgerweg) and icon set (app icon, Android adaptive + monochrome, splash, favicon, PWA icons).
 - [x] F-Droid listing (fastlane metadata, de + en, screenshots) and draft build recipe.
 - [x] Repository published on GitHub (`REPO_URL` default points to it).
-- [ ] `v1.0.0` tag.
+- [ ] Release tag for the current version (`v1.1.0`).
 - [x] Address chosen: `https://astanov.com/burgerweg`.
 - [ ] Site deployed on Cloudflare (Workers static assets, route `astanov.com/burgerweg*`) and checked.
 - [ ] F-Droid merge request opened and accepted.

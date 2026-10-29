@@ -20,6 +20,7 @@ import {
   decodeTransfer,
   encodeTransfer,
   mergeProgress,
+  onTransferLink,
   peekTransferFromUrl,
   type Decoded,
 } from '@/lib/transfer';
@@ -52,11 +53,20 @@ export default function Transfer() {
     [t, notify],
   );
 
-  // A broken link (e.g. cut off while copying) gets the same message as a broken pasted code.
+  // A broken link (e.g. cut off while copying) gets the same message as a broken pasted code. Links that
+  // arrive while this screen is open (Android App Links) replace the import card.
   useEffect(() => {
-    if (peekTransferFromUrl() !== 'invalid') return;
-    clearTransferFromUrl();
-    notify(t('importInvalid'));
+    const check = () => {
+      const fromUrl = peekTransferFromUrl();
+      if (fromUrl === 'invalid') {
+        clearTransferFromUrl();
+        notify(t('importInvalid'));
+      } else if (fromUrl) {
+        setIncoming(fromUrl);
+      }
+    };
+    check();
+    return onTransferLink(check);
   }, [notify, t]);
 
   const dismiss = () => {

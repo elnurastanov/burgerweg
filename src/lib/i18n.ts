@@ -104,6 +104,7 @@ const en = {
   cancel: 'Cancel',
   reset: 'Reset',
   about: 'About',
+  appVersion: 'Version {version}',
   aboutText:
     'Questions from the official BAMF catalog "Leben in Deutschland" / Einbürgerungstest (as of {version}). Translations are unofficial and for learning only.',
 
@@ -226,6 +227,7 @@ const de: Record<StringKey, string> = {
   cancel: 'Abbrechen',
   reset: 'Zurücksetzen',
   about: 'Über die App',
+  appVersion: 'Version {version}',
   aboutText:
     'Fragen aus dem offiziellen BAMF-Gesamtfragenkatalog „Leben in Deutschland“ / Einbürgerungstest (Stand {version}). Übersetzungen sind inoffiziell und dienen nur dem Lernen.',
 

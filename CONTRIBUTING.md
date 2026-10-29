@@ -37,6 +37,7 @@ python3 scripts/build_data.py questions.json scripts/catalog/en img/ src/data
 
 - Keep changes focused, and describe *why* in the pull request.
 - Match the existing code style. Keep the UI calm: use the palette in `src/lib/theme.ts`.
+- Bump the version as described in `AGENTS.md` (feature → minor, fix → patch, versionCode +1, changelog).
 - If you change behavior, update `docs/SPEC.md` and explain the reason in the doc that covers the area, or in the pull request.
 - By contributing you agree that your contribution is licensed under the MIT License.
 

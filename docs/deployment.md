@@ -65,6 +65,10 @@ Cloudflare, proxied). In the Worker: *Settings → Domains & Routes → Add → 
 in `site/burgerweg/`, the request path matches the file path 1:1. The `workers.dev` address redirects `/` to
 `/burgerweg/`, so it works for testing too (transfer links still point to `SITE_URL`).
 
+- **Android App Links:** add a second route `astanov.com/.well-known/assetlinks.json` to the same Worker, and set the
+  build variable `ANDROID_CERT_SHA256` to the app's signing-certificate fingerprint(s). The build then writes
+  `site/.well-known/assetlinks.json` (see progress-transfer.md). Check it after a deploy:
+  `curl https://astanov.com/.well-known/assetlinks.json`.
 - **`wrangler.jsonc` must stay in the repo.** Without it, `wrangler deploy` auto-detects "Expo", runs
   `expo export` again and uploads only `dist/`: the bare app at `/` without the landing page, with broken asset
   paths. This is what happened on the first deploy.

@@ -90,17 +90,39 @@ export function decodeTransfer(code: string): Decoded | null {
   }
 }
 
-// A transfer link (…/transfer#EBT1.…) opened in the browser. Captured once at app start, before the router
-// initializes (it re-renders screens and rewrites the URL during startup), and kept until the user decides.
+// A transfer link (…/transfer#EBT1.…) that opened the app. On web it is captured once at app start, before the
+// router initializes (it re-renders screens and rewrites the URL during startup); on Android it arrives through
+// App Links (+native-intent.tsx), also while the app is running. Kept until the user decides.
 let pendingFromUrl: Decoded | 'invalid' | null = null;
+const listeners = new Set<() => void>();
+
+function setPending(value: Decoded | 'invalid') {
+  pendingFromUrl = value;
+  listeners.forEach((listener) => listener());
+}
 
 /** Web: read a transfer code from the URL fragment and remove it from the address bar. Call once at startup. */
 export function captureTransferFromUrl() {
   if (typeof window === 'undefined' || typeof window.location?.hash !== 'string') return;
   const hash = window.location.hash;
   if (!hash.includes(PREFIX)) return;
-  pendingFromUrl = decodeTransfer(hash) ?? 'invalid';
+  setPending(decodeTransfer(hash) ?? 'invalid');
   window.history.replaceState(window.history.state, '', window.location.pathname + window.location.search);
+}
+
+/** Native: keep the code from an incoming link. Returns false when the link carries no transfer code. */
+export function captureTransferFromLink(url: string): boolean {
+  if (!url.includes(PREFIX)) return false;
+  setPending(decodeTransfer(url) ?? 'invalid');
+  return true;
+}
+
+/** Called whenever a new link was captured (e.g. the transfer screen is already open). Returns an unsubscribe. */
+export function onTransferLink(listener: () => void) {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
 }
 
 export const peekTransferFromUrl = () => pendingFromUrl;
