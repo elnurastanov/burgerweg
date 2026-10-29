@@ -1,8 +1,3 @@
-# DRAFT build recipe for F-Droid (fdroiddata repository: metadata/com.buergerweg.app.yml).
-# Tag the release (v1.2.0) and open a merge request on
-# https://gitlab.com/fdroid/fdroiddata. F-Droid builds the APK from source and signs it.
-# See docs/android-fdroid.md for the full checklist and open questions.
-
 Categories:
   - Science & Education
 License: MIT
@@ -23,7 +18,7 @@ Builds:
     subdir: android/app
     sudo:
       - apt-get update
-      - apt-get install -y -t bookworm-backports nodejs npm    # Node >= 20 is required by Expo SDK 58
+      - apt-get install -y -t bookworm-backports nodejs npm
     init:
       - cd ../..
       - npm ci --ignore-scripts
@@ -32,8 +27,6 @@ Builds:
       - yes
     scanignore:
       - node_modules
-    # React Native ships prebuilt binaries in node_modules (e.g. hermesc); F-Droid reviewers may ask to
-    # build them from source or to scandelete them. Discuss in the merge request.
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v[0-9.]+$

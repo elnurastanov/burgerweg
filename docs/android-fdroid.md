@@ -58,6 +58,19 @@ with its own key.
   `armeabi-v7a`, `x86`, `x86_64`); the app's own content is ~2 MB. Before publishing, consider per-ABI APKs (ABI
   splits, each with its own versionCode), which F-Droid supports and which would be roughly a quarter of the size.
 
+## Build recipe
+
+`fdroid/com.buergerweg.app.yml` is the recipe to copy into fdroiddata as `metadata/com.buergerweg.app.yml`. Keep it
+free of comments: `fdroid lint` rejects comment indentation (`comments-indentation`) and `fdroid rewritemeta` drops
+comments anyway. Notes that used to live in it:
+- `sudo` installs Node from bookworm-backports because Expo SDK 58 needs Node ≥ 20.
+- `scanignore: node_modules` is a starting point; reviewers may instead ask to `scandelete` or build React Native's
+  prebuilt binaries (e.g. `hermesc`) from source.
+
+Check it from your fdroiddata checkout (with an app ID, so other apps' metadata isn't parsed; Homebrew's
+fdroidserver 2.4.x is too old for current fdroiddata as a whole):
+`fdroid lint com.buergerweg.app`, `fdroid rewritemeta com.buergerweg.app`, `fdroid build -v -l com.buergerweg.app`.
+
 ## Store listing
 
 `fastlane/metadata/android/{en-US,de-DE}/`: `title.txt`, `short_description.txt` (≤ 80 chars),
