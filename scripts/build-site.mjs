@@ -97,6 +97,10 @@ walk(app, (file) => {
   if (!html.includes('rel="manifest"')) writeFileSync(file, html.replace('</head>', `${headTags}</head>`));
 });
 
+// Crawlers read robots.txt only at the domain root. For a site under a path, serve one there too (the host must
+// route /robots.txt to this site), pointing to the sitemap.
+if (BASE) writeFileSync(join(out, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+
 // 4. Android App Links verification. It must live at the domain root (outside BASE).
 const fingerprints = (process.env.ANDROID_CERT_SHA256 || '').split(',').map((f) => f.trim().toUpperCase()).filter(Boolean);
 if (fingerprints.length) {

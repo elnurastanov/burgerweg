@@ -65,7 +65,7 @@ with its own key.
 
 ## Publishing on F-Droid: checklist
 
-1. Publish the repository (Codeberg, GitLab or GitHub) and tag the release: `git tag v1.1.0` (the current `expo.version`).
+1. Publish the repository (Codeberg, GitLab or GitHub) and tag the release: `git tag v1.1.1` (the current `expo.version`).
 2. Fill in the URLs in `fdroid/com.buergerweg.app.yml` (repository, issue tracker, website, `EXPO_PUBLIC_WEB_APP_URL`).
 3. Fork <https://gitlab.com/fdroid/fdroiddata>, add the file as `metadata/com.buergerweg.app.yml`, and open a merge
    request. Test it locally with `fdroid build -v -l com.buergerweg.app` in the fdroidserver Docker image if you can.

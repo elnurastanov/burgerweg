@@ -65,6 +65,12 @@ Cloudflare, proxied). In the Worker: *Settings → Domains & Routes → Add → 
 in `site/burgerweg/`, the request path matches the file path 1:1. The `workers.dev` address redirects `/` to
 `/burgerweg/`, so it works for testing too (transfer links still point to `SITE_URL`).
 
+- **robots.txt and Search Console:** crawlers read `robots.txt` only at the domain root. Add a route
+  `astanov.com/robots.txt` to the same Worker; the build writes `site/robots.txt` (pointing to the sitemap) when
+  the site lives under a path. Without it, `astanov.com/robots.txt` returns a 5xx error, which makes Google pause
+  crawling the whole domain. If another app later owns the domain root, merge this into its robots.txt instead.
+  Ownership is verified with the `google-site-verification` meta tag in both landing pages (URL-prefix property
+  `https://astanov.com/burgerweg/`).
 - **Android App Links:** add a second route `astanov.com/.well-known/assetlinks.json` to the same Worker, and set the
   build variable `ANDROID_CERT_SHA256` to the app's signing-certificate fingerprint(s). The build then writes
   `site/.well-known/assetlinks.json` (see progress-transfer.md). Check it after a deploy:
@@ -76,9 +82,8 @@ in `site/burgerweg/`, the request path matches the file path 1:1. The `workers.d
   generated data and images are committed.
 - `_redirects` (question detail rewrite, root redirect) and `_headers` (`no-cache` for `sw.js`, immutable hashed
   bundles, security headers) are applied by Cloudflare and not served as files.
-- **SEO under a sub-path:** crawlers read `robots.txt` only at the domain root (`astanov.com/robots.txt`), which this
-  site doesn't control. Submit `https://astanov.com/burgerweg/sitemap.xml` in Google Search Console / Bing Webmaster
-  Tools instead, or reference it from astanov.com's own `robots.txt`.
+- **SEO under a sub-path:** besides the root `robots.txt` above, submit `https://astanov.com/burgerweg/sitemap.xml` in
+  Google Search Console and Bing Webmaster Tools.
 - Progress is stored per origin (`astanov.com`, shared with anything else on that domain that uses the same
   `localStorage` key, which is unlikely: `ebt:v1`). Don't move the site later without telling users to transfer.
 - Without `SITE_URL` the build falls back to `CF_PAGES_URL` (only set on Cloudflare Pages) or `https://example.org`.

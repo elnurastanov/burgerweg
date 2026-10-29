@@ -189,7 +189,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 - [x] App name (Bürgerweg) and icon set (app icon, Android adaptive + monochrome, splash, favicon, PWA icons).
 - [x] F-Droid listing (fastlane metadata, de + en, screenshots) and draft build recipe.
 - [x] Repository published on GitHub (`REPO_URL` default points to it).
-- [ ] Release tag for the current version (`v1.1.0`).
+- [ ] Release tag for the current version (`v1.1.1`).
 - [x] Address chosen: `https://astanov.com/burgerweg`.
 - [ ] Site deployed on Cloudflare (Workers static assets, route `astanov.com/burgerweg*`) and checked.
 - [ ] F-Droid merge request opened and accepted.
