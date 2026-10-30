@@ -46,6 +46,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | ON-1 | On first launch the user MUST choose a UI language and then their federal state before seeing the dashboard. | ✅ |
 | ON-2 | The default UI language SHOULD follow the device locale (German if the device is German, else English). | ✅ |
 | ON-3 | Both choices MUST be changeable later in Settings. | ✅ |
+| ON-4 | On Android, onboarding SHOULD end with a skippable step that opens the system "Open by default" screen, so that transfer links open in the app. Settings MUST offer the same shortcut. | ✅ |
 
 ### 3.2 Dashboard (main page)
 

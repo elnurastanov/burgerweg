@@ -8,6 +8,7 @@ import { useDialog } from '@/components/dialog';
 import { SelectOption } from '@/components/select-option';
 import { Button, Card, Chip, Header, Row, Screen, Txt } from '@/components/ui';
 import { LANGUAGES, useT } from '@/lib/i18n';
+import { canOpenLinksInApp, openLinkSettings } from '@/lib/link-settings';
 import { applyUpdate, fetchLatestVersion, isInstalledPwa, isNewer } from '@/lib/pwa';
 import { CATALOG_VERSION, STATES, stateName } from '@/lib/questions';
 import { useApp, type ThemeMode } from '@/lib/store';
@@ -97,6 +98,12 @@ export default function Settings() {
       <Section title={t('data')}>
         <LinkRow icon="swap-horizontal-outline" label={t('transferProgress')} onPress={() => router.push('/transfer')} />
         <View style={[styles.sep, { backgroundColor: c.border }]} />
+        {canOpenLinksInApp() && (
+          <>
+            <LinkRow icon="open-outline" label={t('linksTitle')} onPress={openLinkSettings} />
+            <View style={[styles.sep, { backgroundColor: c.border }]} />
+          </>
+        )}
         <LinkRow icon="trash-outline" label={t('resetProgress')} onPress={reset} color={c.danger} />
       </Section>
 
@@ -162,7 +169,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function LinkRow({ icon, label, onPress, color }: { icon: 'trash-outline' | 'swap-horizontal-outline'; label: string; onPress: () => void; color?: string }) {
+function LinkRow({ icon, label, onPress, color }: { icon: 'trash-outline' | 'swap-horizontal-outline' | 'open-outline'; label: string; onPress: () => void; color?: string }) {
   const { c } = useTheme();
   return (
     <Pressable onPress={onPress} style={({ pressed }) => pressed && { opacity: 0.7 }}>

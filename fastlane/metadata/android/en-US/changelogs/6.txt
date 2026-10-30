@@ -1,0 +1,1 @@
+New onboarding step and Settings row that take you to the Android setting for opening progress transfer links in the app.
