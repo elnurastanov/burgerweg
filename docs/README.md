@@ -25,7 +25,7 @@ test (*Einbürgerungstest* / *Leben in Deutschland*). One Expo / React Native co
   and a release APK).
 - **Scope:** web + PWA + Android/F-Droid. No native iOS build (iPhone users install the PWA).
 - Landing page in German (`/`) and English (`/en/`); the app lives at `/app/`.
-- App id `com.buergerweg.app`, version 1.2.0 (versionCode 4); every change bumps it (see `AGENTS.md`). Icon: "rainbow arcs", see [branding](branding.md).
+- App id `com.buergerweg.app`, version 1.3.0 (versionCode 6); every change bumps it (see `AGENTS.md`). Icon: "rainbow arcs", see [branding](branding.md).
 - Open source on GitHub (`github.com/elnurastanov/burgerweg`, branch `master`): MIT license, `NOTICE.md`,
   contributing guide, code of conduct, security policy, F-Droid metadata.
 - Website: **https://astanov.com/burgerweg/** on Cloudflare Workers, static assets only

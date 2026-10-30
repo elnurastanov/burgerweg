@@ -15,6 +15,10 @@ const en = {
   chooseStateHint: 'The test includes 3 questions about your federal state.',
   continue: 'Continue',
   getStarted: 'Get started',
+  linksTitle: 'Open transfer links in this app',
+  linksHint: 'When you scan a progress QR code, Android opens the link here only if you allow it.',
+  linksSteps: 'In the settings, choose "In the app". If {host} isn\'t listed as a link yet, tap "Add link" and tick it.',
+  linksOpenSettings: 'Open Android settings',
 
   // home
   progress: 'Your progress',
@@ -151,6 +155,10 @@ const de: Record<StringKey, string> = {
   chooseStateHint: 'Der Test enthält 3 Fragen zu deinem Bundesland.',
   continue: 'Weiter',
   getStarted: 'Los geht’s',
+  linksTitle: 'Übertragungslinks in dieser App öffnen',
+  linksHint: 'Wenn du einen Fortschritts-QR-Code scannst, öffnet Android den Link nur hier, wenn du es erlaubst.',
+  linksSteps: 'Wähle in den Einstellungen „In der App“. Ist {host} noch nicht als Link aufgeführt, tippe auf „Link hinzufügen“ und wähle ihn aus.',
+  linksOpenSettings: 'Android-Einstellungen öffnen',
 
   progress: 'Dein Fortschritt',
   mastered: 'gelernt',

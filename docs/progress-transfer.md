@@ -73,6 +73,10 @@ A scanned QR code opens `…/app/transfer#EBT1.…`. Where Bürgerweg is install
 | **PWA on desktop Chrome/Edge** | Manifest `handle_links: "preferred"` + `launch_handler: navigate-existing`. | Depends on browser support/flags. |
 | **PWA on iPhone/iPad** | Not possible: iOS always opens links in Safari. | Limitation. In Safari the import works, but home-screen apps have separate storage, so use paste/file into the installed PWA. |
 
+**When verification hasn't happened:** Android doesn't let an app add itself to its "Open by default" list; only the
+user can. So the last onboarding step and a Settings row (`src/lib/link-settings.ts`) open that system screen, and the
+user turns the link host on there. `autoVerify` still does this without the user once `assetlinks.json` is live.
+
 **Fingerprints:** the local test build is signed with React Native's public debug key
 (`FA:C6:17:45:…:3B:9C`, see `android/app/debug.keystore`). F-Droid signs with its own key, whose SHA-256 is shown on
 the app's F-Droid page after the first release. Put the release fingerprint into the `ANDROID_CERT_SHA256` build

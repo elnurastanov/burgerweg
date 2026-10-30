@@ -7,6 +7,7 @@ import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
 import { SelectOption as Option } from '@/components/select-option';
 import { Button, Screen, Txt } from '@/components/ui';
 import { LANGUAGES, useT } from '@/lib/i18n';
+import { canOpenLinksInApp, linkHost, openLinkSettings } from '@/lib/link-settings';
 import { STATES, stateName } from '@/lib/questions';
 import { useApp } from '@/lib/store';
 import { space, useTheme } from '@/lib/theme';
@@ -15,7 +16,7 @@ export default function Onboarding() {
   const { settings, updateSettings } = useApp();
   const t = useT();
   const { c } = useTheme();
-  const [step, setStep] = useState<'lang' | 'state'>('lang');
+  const [step, setStep] = useState<'lang' | 'state' | 'links'>('lang');
 
   const finish = () => {
     updateSettings({ onboarded: true });
@@ -27,6 +28,8 @@ export default function Onboarding() {
       footer={
         step === 'lang' ? (
           <Button label={t('continue')} icon="arrow-forward" onPress={() => setStep('state')} />
+        ) : step === 'state' && canOpenLinksInApp() ? (
+          <Button label={t('continue')} icon="arrow-forward" disabled={!settings.state} onPress={() => setStep('links')} />
         ) : (
           <Button label={t('getStarted')} icon="checkmark" disabled={!settings.state} onPress={finish} />
         )
@@ -50,6 +53,17 @@ export default function Onboarding() {
           {LANGUAGES.map((l) => (
             <Option key={l.code} label={l.name} active={settings.lang === l.code} onPress={() => updateSettings({ lang: l.code })} />
           ))}
+        </Animated.View>
+      ) : step === 'links' ? (
+        <Animated.View key="links" entering={FadeInRight.duration(350)} style={{ gap: space.md }}>
+          <View style={{ gap: 2 }}>
+            <Txt variant="heading">{t('linksTitle')}</Txt>
+            <Txt variant="small" muted>
+              {t('linksHint')}
+            </Txt>
+          </View>
+          <Txt>{t('linksSteps', { host: linkHost() ?? '' })}</Txt>
+          <Button label={t('linksOpenSettings')} icon="open-outline" kind="secondary" onPress={openLinkSettings} />
         </Animated.View>
       ) : (
         <Animated.View key="state" entering={FadeInRight.duration(350)} style={{ gap: space.md }}>

@@ -1,0 +1,1 @@
+Neuer Einführungsschritt und neue Zeile in den Einstellungen führen zur Android-Einstellung, mit der Übertragungslinks in der App geöffnet werden.
