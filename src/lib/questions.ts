@@ -24,7 +24,6 @@ export type Translation = { q: string; o: string[] };
 export const CATALOG_VERSION = '2025-05-07';
 
 export const QUESTIONS = base as Question[];
-export const QUESTION_INDEX = new Map(QUESTIONS.map((q, i) => [q.id, i]));
 const byId = new Map(QUESTIONS.map((q) => [q.id, q]));
 
 export const getQuestion = (id: string) => byId.get(id);

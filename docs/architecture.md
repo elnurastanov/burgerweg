@@ -21,7 +21,7 @@ src/
     _layout.tsx           AppProvider → ThemeProvider → DialogProvider → Stack. Hides splash when storage is loaded.
                           Also sets the web tab title + theme color with expo-router `Head` (no custom +html.tsx, see deployment.md).
   components/
-    ui.tsx                Txt, Screen, Header, Card, Button, IconButton, Chip, Row, Divider (design system)
+    ui.tsx                Txt, Screen, Header, Card, Button, IconButton, Chip, Row (design system)
     question-view.tsx     QuestionView (question + options), Bilingual (German + faint translation), QuestionImage
     progress-ring.tsx     animated SVG ring
     select-option.tsx     radio-style option row (onboarding, settings)
