@@ -85,7 +85,6 @@ const en = {
 
   // exam result (shown in UI language)
   result: 'Result',
-  score: '{score} of {total} correct',
   passMark: 'You need at least {mark} correct answers to pass.',
   timeUsed: 'Time used: {time}',
   reviewAnswers: 'Review answers',
@@ -219,7 +218,6 @@ const de: Record<StringKey, string> = {
   examOverview: 'Übersicht',
 
   result: 'Ergebnis',
-  score: '{score} von {total} richtig',
   passMark: 'Zum Bestehen brauchst du mindestens {mark} richtige Antworten.',
   timeUsed: 'Benötigte Zeit: {time}',
   reviewAnswers: 'Antworten ansehen',
@@ -280,8 +278,6 @@ export const LANGUAGES = [
   { code: 'en', name: 'English' },
   { code: 'de', name: 'Deutsch' },
 ] as const;
-
-export type Lang = (typeof LANGUAGES)[number]['code'];
 
 export function translate(lang: string, key: StringKey, params?: Record<string, string | number>) {
   let s = (dictionaries[lang] ?? en)[key] ?? en[key];

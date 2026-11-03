@@ -199,11 +199,6 @@ export function Row({ children, style, gap = space.sm }: { children: ReactNode; 
   return <View style={[{ flexDirection: 'row', alignItems: 'center', gap }, style]}>{children}</View>;
 }
 
-export function Divider() {
-  const { c } = useTheme();
-  return <View style={{ height: StyleSheet.hairlineWidth, backgroundColor: c.border, marginVertical: space.md }} />;
-}
-
 export const styles = StyleSheet.create({
   flex: { flex: 1 },
   content: { width: '100%', maxWidth: maxContentWidth, alignSelf: 'center', paddingHorizontal: space.lg, gap: space.lg },

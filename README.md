@@ -1,9 +1,15 @@
-# Bürgerweg
+<div align="center">
+  <img src="assets/images/icon.png" alt="Bürgerweg app icon" width="112">
+  <h1>Bürgerweg</h1>
+  <p>
+    <strong>Calm, free and private practice for the German citizenship test</strong><br>
+    (<em>Einbürgerungstest</em> / <em>Leben in Deutschland</em>)
+  </p>
+  <p>No account, no tracking, works offline. Interface in English and German.</p>
+  <p><a href="https://astanov.com/burgerweg/">Website</a> · <a href="https://astanov.com/burgerweg/app/">Open the app</a></p>
+</div>
 
-**Calm, free and private practice for the German citizenship test** (*Einbürgerungstest* / *Leben in Deutschland*).
-No account, no tracking, works offline. Interface in English and German.
-
-<p>
+<p align="center">
   <img src="landing/images/en-home.webp" alt="Home screen with progress" width="200">
   <img src="landing/images/en-exam.webp" alt="Exam simulator in German with translation" width="200">
   <img src="landing/images/en-flashcards.webp" alt="Flashcards" width="200">
