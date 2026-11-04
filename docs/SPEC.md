@@ -32,8 +32,9 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 - **Platforms (MUST), one codebase (Expo / React Native):**
   - **Web app**, also installable as a **PWA** (offline, home-screen icon). This covers iPhone/iPad, desktop and
     Android browsers.
-  - **Android app**, distributed **only through F-Droid**, so it must build from source with no proprietary
-    dependencies.
+  - **Android app**, distributed **through F-Droid**, so it must build from source with no proprietary
+    dependencies. Each version tag also attaches a signed APK to the GitHub release (built by CI from the same
+    source, signed with the project's release key), for people who install APKs directly.
   - iOS native builds are **not** part of the MVP (they need a paid Apple developer account).
 - **Landing page (MUST):** a calm, SEO-friendly page that introduces the app and links into it (section 3.10).
 
@@ -191,7 +192,8 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 - [x] App name (Bürgerweg) and icon set (app icon, Android adaptive + monochrome, splash, favicon, PWA icons).
 - [x] F-Droid listing (fastlane metadata, de + en, screenshots) and draft build recipe.
 - [x] Repository published on GitHub (`REPO_URL` default points to it).
-- [ ] Release tag for the current version (`v1.2.0`).
+- [x] Release tags for each version (`v1.2.1` onwards).
+- [ ] Release signing key created and its secrets added to GitHub, so tags publish a signed APK (`.github/workflows/release-apk.yml`).
 - [x] Address chosen: `https://astanov.com/burgerweg`.
 - [ ] Site deployed on Cloudflare (Workers static assets, route `astanov.com/burgerweg*`) and checked.
 - [ ] F-Droid merge request opened and accepted.

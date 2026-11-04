@@ -1,0 +1,1 @@
+Signierte APKs jeder Version liegen jetzt auch den GitHub-Releases bei. Keine Änderungen in der App.

@@ -10,8 +10,8 @@ when you change behavior: update `docs/SPEC.md` first, and note the *why* in the
 - add `fastlane/metadata/android/{en-US,de-DE}/changelogs/<versionCode>.txt` (one or two plain sentences, ≤ 500 chars);
 - keep `fdroid/com.buergerweg.app.yml` (build entry, `CurrentVersion*`) in step until the app is on F-Droid.
 
-**Scope:** web app + PWA (served at `/app/`, landing page in `landing/`) and an Android app published only on
-F-Droid. No native iOS builds, and no proprietary dependencies (Google Play Services, Firebase, ML Kit, analytics).
+**Scope:** web app + PWA (served at `/app/`, landing page in `landing/`) and an Android app published on
+F-Droid, with a signed APK also attached to each GitHub release (`.github/workflows/release-apk.yml`). No native iOS builds, and no proprietary dependencies (Google Play Services, Firebase, ML Kit, analytics).
 EAS and App Store notes below are general Expo guidance, not part of this project's release process.
 
 This is an Expo/React Native mobile application. Prioritize mobile-first patterns, performance, and cross-platform compatibility.

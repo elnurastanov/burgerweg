@@ -33,7 +33,7 @@
 | --- | --- |
 | Any browser | Phones, tablets and computers: landing page at `/`, app at `/app/`, nothing to download |
 | iPhone / iPad | Install as an app (PWA): Safari → Share → *Add to Home Screen* |
-| Android | Install as an app (PWA): Chrome menu → *Install app*, or the native app via **F-Droid** (planned; no Google dependencies) |
+| Android | Install as an app (PWA): Chrome menu → *Install app*, or the native app: the APK from [GitHub Releases](https://github.com/elnurastanov/burgerweg/releases), F-Droid planned (no Google dependencies) |
 | Computer | Install as an app (PWA) in Chrome or Edge, from the install icon in the address bar |
 
 Everything is free to host (any static host) and free to use.
