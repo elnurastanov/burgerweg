@@ -106,8 +106,9 @@ IzzyOnDroid F-Droid-compatible repository could also pick up those APKs (optiona
 
 `.github/workflows/release-apk.yml` runs when a tag `v*` is pushed. It builds the APK the same way as the F-Droid
 recipe (Node 24.22.2, JDK 17, `npm ci --ignore-scripts`, prebuild, the debug signing removed, `assembleRelease`),
-then aligns it (`zipalign -P 16`, 16 KB pages), signs it with the release key (`apksigner`) and attaches
-`buergerweg-<version>.apk`, its `.sha256` and a copy named `buergerweg.apk` to the release of that tag. The landing
+then aligns it (`zipalign -P 16`, 16 KB pages), signs it with the release key (`apksigner`) and attaches it as
+`buergerweg.apk` to the release of that tag. That is the only asset (since 1.6.1): one fixed name keeps the
+release page clear, and GitHub already shows each asset's SHA-256, so no `.sha256` file is needed. The landing
 page's download button links to `<repo>/releases/latest/download/buergerweg.apk`, which GitHub always resolves to the
 newest release, so the site needs no rebuild per release (and no JavaScript). Until a release has `buergerweg.apk`
 (1.6.0 onwards), that link returns 404, so tag right after merging. The release notes are the en-US changelog

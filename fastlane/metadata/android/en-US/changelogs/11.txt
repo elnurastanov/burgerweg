@@ -1,0 +1,1 @@
+GitHub releases now contain a single APK file, buergerweg.apk. No changes inside the app.
