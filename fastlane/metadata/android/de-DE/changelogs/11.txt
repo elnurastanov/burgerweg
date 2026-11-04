@@ -1,0 +1,1 @@
+GitHub-Releases enthalten jetzt nur noch eine APK-Datei, buergerweg.apk. Keine Änderungen in der App.
