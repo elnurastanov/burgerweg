@@ -57,6 +57,41 @@ python3 scripts/build_data.py questions.json scripts/catalog/en img/ src/data
   (states where the municipal voting age is 18: BY, HE, SN), Bremen's Landtag term of 4 years, flag colors
   (always option 2 in this catalog), the head-of-government title, and "which minister does X not have" (foreign).
 
+## Translation rules
+
+The German text is the official BAMF wording and is never edited (except the PDF caption fix in `FIX_Q`). Translations
+live only in `scripts/catalog/en/` (and the state templates in `build_data.py`), and `src/data/translations/en.json`
+must match them.
+
+- **Exact translation.** Same meaning, same sentence shape: an unfinished German sentence ("… ist …") stays an
+  unfinished English one, and a question stays a question. Nothing is added or left out.
+- **No hints.** The English must not make the right answer easier to spot than the German does. Example: *Schöffe*
+  is "lay assessor", not "lay judge", because the correct answer to g150 is "an honorary judge" and the German
+  question doesn't say *Richter*.
+- **Allowed helps:** the German term in brackets after German institutions and concepts, e.g. "youth welfare office
+  (Jugendamt)", and small aids like "22:00 (10 pm)". Use "they" for *sie/er*.
+- **Terms** (follow the official English translation of the Basic Law where it has one):
+
+  | German | English |
+  | --- | --- |
+  | Grundgesetz | Basic Law (Grundgesetz) |
+  | Rechtsstaat | state governed by the rule of law (Rechtsstaat) |
+  | Meinungsfreiheit | freedom of expression |
+  | Bundestag, Bundesrat | Bundestag, Bundesrat (not translated) |
+  | Bundesversammlung | Federal Convention |
+  | Landtag | state parliament (Landtag) |
+  | Bundesland | federal state |
+  | Ministerpräsident/in | Minister-President |
+  | Fraktion | parliamentary group (Fraktion) |
+  | Schöffe | lay assessor (Schöffe) |
+  | Ehrenamt, ehrenamtlich | honorary office (Ehrenamt), honorary |
+  | DDR | GDR |
+
+**Review 2026-11-04:** all 460 questions were translated with DeepL (DE → EN-GB) as an independent second opinion
+and compared with ours; differing questions were checked against the German, and every English text was scanned for
+additions. DeepL's own output was not used as the translation (it changed meanings, e.g. parties as "she",
+*Faustrecht* as "rule of thumb"). Fixes went into 1.5.0.
+
 ## Review status
 
 Answers were compiled by the AI agent from its own knowledge plus a visual check of every picture question;
@@ -67,6 +102,7 @@ they were **not** taken from an official answer key. Before release:
       g72 (chancellor: Friedrich Merz), g73 (largest groups: CDU/CSU and AfD), g75 (head of state: Steinmeier),
       g213 (84 million inhabitants).
 - [ ] Have a fluent speaker proofread the English translations (they are unofficial and marked as such in the app).
+      A machine-assisted review against the rules above was done on 2026-11-04.
 - Already fixed after the visual check: g209 is image 4 (GDR emblem), g226 is image 2 (EU flag).
 
 ## Updating for a new catalog
