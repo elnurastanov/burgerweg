@@ -120,11 +120,19 @@ section { scroll-margin-top: 80px; }
 .card h3 { margin: 0 0 8px; font-size: 20px; }
 .card p, .card ol { color: var(--muted); margin: 0 0 12px; }
 .card ol { padding-left: 20px; }
-.badge-soon { display: inline-block; font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--primary-soft); color: var(--primary); }
 .option { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; }
 .option p { margin-bottom: 20px; }
-.option .btn, .option .badge-soon { margin-top: auto; }
-.option .badge-soon { padding: 10px 16px; font-size: 15px; border-radius: 12px; }
+.option .btn { margin-top: auto; }
+/* APK download: store-badge style, inverted against the page in both themes */
+.btn-apk { margin-top: auto; display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 14px; border-radius: 16px; background: var(--text); color: var(--bg); text-decoration: none; text-align: left; box-shadow: var(--shadow); transition: transform .15s ease, box-shadow .15s ease; }
+.btn-apk:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(31, 42, 46, 0.16); }
+.btn-apk-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--primary); color: var(--primary-ink); }
+.btn-apk-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.btn-apk-text { display: flex; flex-direction: column; line-height: 1.15; }
+.btn-apk-text small { font-size: 12px; opacity: .75; letter-spacing: .2px; }
+.btn-apk-text strong { font-size: 19px; letter-spacing: -.2px; }
+.apk-meta { margin: 12px 0 0 !important; font-size: 13px; color: var(--muted); }
+.apk-meta a { white-space: nowrap; }
 .option-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px; background: var(--primary-soft); color: var(--primary); margin-bottom: 16px; }
 .option-icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 @media (max-width: 880px) { .cards { grid-template-columns: 1fr; } }

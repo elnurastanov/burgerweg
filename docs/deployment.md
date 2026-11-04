@@ -144,5 +144,5 @@ start fresh unless they move their progress with a transfer link, so pick the fi
 - [ ] Route `astanov.com/burgerweg*` added to the Worker; first deploy checked (landing, app, a question reload, a 404).
 - [ ] Decide whether a legal notice (*Impressum*) and privacy page are required for the operator, and add them to
       the landing footer.
-- [ ] Update the F-Droid badge on the landing page once the app is listed (`badge-soon` → link to
-      `https://f-droid.org/packages/com.buergerweg.app/`).
+- [ ] Add an F-Droid link next to the APK download button once the app is listed
+      (`https://f-droid.org/packages/com.buergerweg.app/`).
