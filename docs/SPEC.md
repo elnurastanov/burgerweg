@@ -106,6 +106,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | LN-4 | Translations MUST be presented as secondary: under the German text, smaller, fainter. | ✅ |
 | LN-5 | Adding a language SHOULD need only data files (UI strings + question translations), no screen changes. | ✅ |
 | LN-6 | Translations MUST be labeled unofficial in the app's About section. | ✅ |
+| LN-7 | The German question text MUST stay exactly as in the official BAMF catalog. A translation MUST be an exact translation of it, with the same sentence shape and no added hints or explanations. The only additions allowed are the German term in brackets for German institutions and concepts (e.g. "lay assessor (Schöffe)"), and small aids like "22:00 (10 pm)". See [question-data.md](question-data.md#translation-rules). | ✅ (en, reviewed 2026-11-04) |
 
 ### 3.7 Progress and storage
 
