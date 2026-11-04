@@ -149,7 +149,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | --- | --- | --- |
 | LP-1 | A static, JavaScript-free landing page in **German (`/`)** and **English (`/en/`)**, in the app's calm style, with light and dark mode. | ✅ |
 | LP-2 | It MUST introduce the app with real screenshots and link prominently to the app (`/app/`). | ✅ |
-| LP-6 | It MUST present the three ways to use Bürgerweg (browser on any device, installed as an app (PWA), Android app via F-Droid) and include an install guide split by device (iPhone/iPad, Android, computer) covering the common browsers (Safari, Chrome, Edge, Firefox, Samsung Internet). | ✅ |
+| LP-6 | It MUST present the three ways to use Bürgerweg (browser on any device, installed as an app (PWA), Android app: APK download from the latest GitHub release, F-Droid later) and include an install guide split by device (iPhone/iPad, Android, computer) covering the common browsers (Safari, Chrome, Edge, Firefox, Samsung Internet). | ✅ |
 | LP-3 | SEO: unique title (≤ 60 chars) and meta description (≤ 160 chars), one `h1`, canonical URL, `hreflang` alternates, Open Graph/Twitter cards with a 1200×630 image, JSON-LD (`WebApplication`, `FAQPage`), `robots.txt`, `sitemap.xml`, descriptive `alt` text, image dimensions set. | ✅ |
 | LP-4 | It MUST state that the project is independent of the BAMF and that translations are unofficial, and describe the privacy model (no cookies, no tracking). | ✅ |
 | LP-5 | Absolute URLs come from `SITE_URL` at build time. | ✅ |

@@ -85,10 +85,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           APK: buergerweg-${{ steps.version.outputs.version }}.apk
           NOTES: fastlane/metadata/android/en-US/changelogs/${{ steps.version.outputs.code }}.txt
+        # buergerweg.apk is the same file under a fixed name: the landing page links to
+        # releases/latest/download/buergerweg.apk, which always serves the newest release.
         run: |
+          cp "$APK" buergerweg.apk
           if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" "$APK" "$APK.sha256" --clobber
+            gh release upload "$GITHUB_REF_NAME" "$APK" "$APK.sha256" buergerweg.apk --clobber
           else
-            gh release create "$GITHUB_REF_NAME" "$APK" "$APK.sha256" --title "Bürgerweg $GITHUB_REF_NAME" \
+            gh release create "$GITHUB_REF_NAME" "$APK" "$APK.sha256" buergerweg.apk --title "Bürgerweg $GITHUB_REF_NAME" \
               --notes-file "$NOTES" --verify-tag
           fi
