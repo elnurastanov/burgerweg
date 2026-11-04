@@ -1,7 +1,7 @@
 # Android app and F-Droid
 
-The native Android app is distributed **only through [F-Droid](https://f-droid.org)**, the free and open-source
-app store. F-Droid builds every app itself from the published source code, signs it, and rejects apps that contain
+The native Android app is distributed through **[F-Droid](https://f-droid.org)**, the free and open-source
+app store, and as a signed APK on each GitHub release (see *GitHub releases* below). F-Droid builds every app itself from the published source code, signs it, and rejects apps that contain
 proprietary code.
 
 ## What keeps the app F-Droid-compatible
@@ -99,8 +99,49 @@ fdroidserver 2.4.x is too old for current fdroiddata as a whole):
    final `sudo`/`init`/`scandelete` lines. Other React Native apps on F-Droid are useful references.
 5. After the first release, add `changelogs/<versionCode>.txt` for every new version and bump `versionCode`.
 
-**Fallback while F-Droid review is pending:** the APK could be attached to the repository's releases, and the
-IzzyOnDroid F-Droid-compatible repository accepts such APKs. That's optional; the plan is F-Droid only.
+**While F-Droid review is pending:** the signed APK on GitHub releases is the way to install the native app. The
+IzzyOnDroid F-Droid-compatible repository could also pick up those APKs (optional).
+
+## GitHub releases
+
+`.github/workflows/release-apk.yml` runs when a tag `v*` is pushed. It builds the APK the same way as the F-Droid
+recipe (Node 24.22.2, JDK 17, `npm ci --ignore-scripts`, prebuild, the debug signing removed, `assembleRelease`),
+then aligns it (`zipalign -P 16`, 16 KB pages), signs it with the release key (`apksigner`) and attaches
+`buergerweg-<version>.apk` and its `.sha256` to the release of that tag. The release notes are the en-US changelog
+of the versionCode. The job fails if the tag doesn't match `expo.version` in `app.json`, so bump first, then tag.
+The job summary prints the signing certificate's SHA-256.
+
+Third-party actions are pinned to full commit hashes (with the version in a comment); update them deliberately
+after checking their advisories. The workflow token only gets `contents: write`.
+
+**One-time setup of the release key** (keep the keystore and password safe and backed up: an app signed with a lost
+key can never be updated in place, users would have to uninstall first):
+
+```bash
+keytool -genkeypair -keystore buergerweg-release.keystore -alias buergerweg \
+  -keyalg RSA -keysize 4096 -validity 10000 -dname "CN=Bürgerweg"
+base64 -i buergerweg-release.keystore | pbcopy          # macOS: copies the keystore as text
+keytool -list -keystore buergerweg-release.keystore     # shows the SHA-256 fingerprint
+```
+
+Then in the GitHub repository: *Settings → Secrets and variables → Actions → New repository secret*:
+
+| Secret | Value |
+| --- | --- |
+| `ANDROID_KEYSTORE_BASE64` | the base64 text copied above |
+| `ANDROID_KEYSTORE_PASSWORD` | the keystore password chosen in `keytool` |
+| `ANDROID_KEY_ALIAS` | `buergerweg` |
+
+Keep the keystore file outside the repository (`*.jks` and `*.keystore` are ignored anyway). Add the fingerprint to
+the Cloudflare build variable `ANDROID_CERT_SHA256`, comma-separated next to the existing ones, so transfer links
+open the GitHub-installed app too (see progress-transfer.md).
+
+**Different signatures:** F-Droid signs its builds with its own key, so an APK from GitHub and one from F-Droid
+can't update each other; switching means uninstalling first (export progress before). Once F-Droid builds the app,
+the build could be made reproducible so F-Droid ships the APK with this release signature instead.
+
+To run it again for an existing tag (for example after adding the secrets), use *Actions → Release APK → Re-run*;
+the upload replaces the files (`--clobber`).
 
 ## Testing on the emulator
 

@@ -1,0 +1,94 @@
+# Builds the Android APK for every version tag (v1.2.3), signs it with the release key and attaches it to the
+# GitHub release of that tag. The build mirrors the F-Droid recipe (fdroid/com.buergerweg.app.yml): same Node,
+# JDK 17, `npm ci --ignore-scripts`, prebuild, and an unsigned assembleRelease that is signed afterwards.
+# Secrets and the one-time key setup: docs/android-fdroid.md, "GitHub releases".
+name: Release APK
+
+on:
+  push:
+    tags: ['v*']
+
+permissions: {}
+
+concurrency:
+  group: release-apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    env:
+      EXPO_NO_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check that the tag matches app.json
+        id: version
+        run: |
+          version=$(node -p "require('./app.json').expo.version")
+          code=$(node -p "require('./app.json').expo.android.versionCode")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME doesn't match app.json version $version"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24.22.2
+
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Generate the Android project
+        run: |
+          npm ci --ignore-scripts
+          npx expo prebuild -p android --no-install
+          sed -i.bak '/release {/,/}/{/signingConfig/d;}' android/app/build.gradle
+
+      - name: Build the unsigned APK
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Sign the APK
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          APK: buergerweg-${{ steps.version.outputs.version }}.apk
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PASSWORD" ] || [ -z "$KEY_ALIAS" ]; then
+            echo "::error::Release signing secrets are missing (see docs/android-fdroid.md)"
+            exit 1
+          fi
+          tools="$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)"
+          keystore="$RUNNER_TEMP/release.keystore"
+          echo "$KEYSTORE_BASE64" | base64 -d > "$keystore"
+          "$tools/zipalign" -f -P 16 4 android/app/build/outputs/apk/release/app-release-unsigned.apk "$APK"
+          "$tools/apksigner" sign --ks "$keystore" --ks-pass env:KEYSTORE_PASSWORD --ks-key-alias "$KEY_ALIAS" "$APK"
+          rm -f "$keystore"
+          # In the AB:CD:… form that ANDROID_CERT_SHA256 (assetlinks.json) expects.
+          fingerprint=$("$tools/apksigner" verify --print-certs "$APK" | grep -m1 'SHA-256' | awk '{print $NF}' \
+            | tr a-f A-F | sed 's/../&:/g; s/:$//')
+          echo "Signing certificate SHA-256: \`$fingerprint\`" >> "$GITHUB_STEP_SUMMARY"
+          sha256sum "$APK" > "$APK.sha256"
+
+      - name: Publish to the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APK: buergerweg-${{ steps.version.outputs.version }}.apk
+          NOTES: fastlane/metadata/android/en-US/changelogs/${{ steps.version.outputs.code }}.txt
+        run: |
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "$APK" "$APK.sha256" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "$APK" "$APK.sha256" --title "Bürgerweg $GITHUB_REF_NAME" \
+              --notes-file "$NOTES" --verify-tag
+          fi
