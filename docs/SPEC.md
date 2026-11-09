@@ -44,18 +44,19 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 
 | ID | Requirement | Status |
 | --- | --- | --- |
-| ON-1 | On first launch the user MUST choose a UI language and then their federal state before seeing the dashboard. | ✅ |
+| ON-1 | On first launch the user MUST choose a UI language, then their federal state, then a daily goal (10 / 20 / 30 / 50 questions a day, 20 preselected, with a rough time per day and how many days one pass through all questions takes) before seeing the dashboard. Small step bars show where they are. | ✅ |
 | ON-2 | The default UI language SHOULD follow the device locale (German if the device is German, else English). | ✅ |
-| ON-3 | Both choices MUST be changeable later in Settings. | ✅ |
+| ON-3 | All three choices MUST be changeable later in Settings. | ✅ |
 | ON-4 | On Android, onboarding SHOULD end with a skippable step that opens the system "Open by default" screen, so that transfer links open in the app. Settings MUST offer the same shortcut. | ✅ |
 
 ### 3.2 Dashboard (main page)
 
 | ID | Requirement | Status |
 | --- | --- | --- |
-| DB-1 | The main page MUST have a **progress section**: mastery % of the user's 310 questions, answered, correct, to review, exams passed / taken. | ✅ |
+| DB-1 | The main page MUST have a **progress section** with two touching rings: the outer ring shows correctly answered questions (green) followed by questions to review (red), out of the user's 310; the inner ring shows today's answers against the daily goal (gold). The center shows only the correct % (no word). Beside it: a legend "Correct n/310", "To review n", "Today n/goal", then exams passed / taken. The readiness hint sits top right, next to the "Progress" overline. | ✅ |
+| DB-5 | Every answer (practice, flashcards, exam) MUST count toward today's total. Counts are kept per local day for 90 days, so later charts can use them. | ✅ |
 | DB-2 | It MUST give access to **All questions**, the **Exam simulator** and **Flashcards**. | ✅ |
-| DB-3 | It SHOULD show recent exam results (score, pass/fail, date, duration) and a readiness hint. | ✅ |
+| DB-3 | It SHOULD show recent exam results (score, pass/fail, date, duration) and a readiness hint (based on mastery and the last three exams). | ✅ |
 | DB-4 | It MUST give access to Settings and Progress transfer. | ✅ |
 
 ### 3.3 Question catalog and practice
@@ -158,7 +159,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 
 | ID | Requirement | Status |
 | --- | --- | --- |
-| ST-1 | Language, federal state, appearance (system / light / dark). | ✅ |
+| ST-1 | Language, federal state, daily goal (10 / 20 / 30 / 50, with today's count), appearance (system / light / dark). | ✅ |
 | ST-2 | Toggle "show translations while practising" (non-German UI). | ✅ |
 | ST-3 | Links to progress transfer and reset; About with the **app version** (e.g. `1.1.0`), source and catalog date. | ✅ |
 

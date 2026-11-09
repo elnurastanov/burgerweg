@@ -13,8 +13,13 @@ export type Settings = {
   state: StateCode | null;
   practiceTranslations: boolean;
   theme: ThemeMode;
+  /** Questions per day the user aims for; fills the inner ring on the home screen. */
+  dailyGoal: number;
   onboarded: boolean;
 };
+
+export const DAILY_GOALS = [10, 20, 30, 50] as const;
+export const DEFAULT_DAILY_GOAL = 20;
 
 /** Per-question learning state. */
 export type QStat = {
@@ -33,12 +38,46 @@ export type ExamRecord = { t: number; score: number; total: number; seconds: num
 export type Progress = {
   stats: Record<string, QStat>;
   exams: ExamRecord[];
+  /** Questions answered per local day ("YYYY-MM-DD"), practice and exams. Kept for DAY_HISTORY days. */
+  days: Record<string, number>;
   updatedAt: number;
 };
+
+/** How many days of answer counts are kept (enough for later charts, small enough for a transfer QR code). */
+export const DAY_HISTORY = 90;
+
+/** Local calendar day as "YYYY-MM-DD". */
+export function dayKey(date: Date = new Date()) {
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${date.getFullYear()}-${m}-${d}`;
+}
+
+/** Drops days older than `keep` days (keys sort chronologically as strings). */
+export function pruneDays(days: Record<string, number>, keep = DAY_HISTORY) {
+  const oldest = dayKey(new Date(Date.now() - keep * 86400000));
+  return Object.fromEntries(Object.entries(days).filter(([k, n]) => k > oldest && n > 0));
+}
+
+function countToday(days: Record<string, number>, n: number) {
+  const today = dayKey();
+  return pruneDays({ ...days, [today]: (days[today] ?? 0) + n });
+}
 
 export type Persisted = { settings: Settings; progress: Progress };
 
 export const EMPTY_STAT: QStat = { r: 0, b: 0, c: 0, w: 0 };
+
+/** Learning state after one more answer: correct answers raise the box, a wrong one resets it to 1. */
+function answered(s: QStat, correct: boolean): QStat {
+  return {
+    ...s,
+    r: correct ? 1 : 2,
+    c: s.c + (correct ? 1 : 0),
+    w: s.w + (correct ? 0 : 1),
+    b: correct ? Math.min(5, Math.max(s.b, 1) + 1) : 1,
+  };
+}
 
 function defaultSettings(): Settings {
   const device = getLocales()[0]?.languageCode ?? 'en';
@@ -47,11 +86,12 @@ function defaultSettings(): Settings {
     state: null,
     practiceTranslations: true,
     theme: 'system',
+    dailyGoal: DEFAULT_DAILY_GOAL,
     onboarded: false,
   };
 }
 
-export const emptyProgress = (): Progress => ({ stats: {}, exams: [], updatedAt: 0 });
+export const emptyProgress = (): Progress => ({ stats: {}, exams: [], days: {}, updatedAt: 0 });
 
 type AppContext = {
   ready: boolean;
@@ -104,17 +144,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
-  const recordAnswer = useCallback(
-    (id: string, correct: boolean) =>
-      patchStat(id, (s) => ({
-        ...s,
-        r: correct ? 1 : 2,
-        c: s.c + (correct ? 1 : 0),
-        w: s.w + (correct ? 0 : 1),
-        b: correct ? Math.min(5, Math.max(s.b, 1) + 1) : 1,
-      })),
-    [patchStat],
-  );
+  const recordAnswer = useCallback((id: string, correct: boolean) => {
+    setProgress((p) => {
+      const s = p.stats[id] ?? EMPTY_STAT;
+      return {
+        ...p,
+        stats: { ...p.stats, [id]: answered(s, correct) },
+        days: countToday(p.days, 1),
+        updatedAt: Date.now(),
+      };
+    });
+  }, []);
 
   const toggleStar = useCallback((id: string) => patchStat(id, (s) => ({ ...s, star: !s.star })), [patchStat]);
 
@@ -122,21 +162,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setProgress((p) => {
       const stats = { ...p.stats };
       for (const { id, correct } of answers) {
-        const s = stats[id] ?? EMPTY_STAT;
-        stats[id] = {
-          ...s,
-          r: correct ? 1 : 2,
-          c: s.c + (correct ? 1 : 0),
-          w: s.w + (correct ? 0 : 1),
-          b: correct ? Math.min(5, Math.max(s.b, 1) + 1) : 1,
-        };
+        stats[id] = answered(stats[id] ?? EMPTY_STAT, correct);
       }
-      return { stats, exams: [exam, ...p.exams].slice(0, 50), updatedAt: Date.now() };
+      return {
+        stats,
+        exams: [exam, ...p.exams].slice(0, 50),
+        days: countToday(p.days, answers.length),
+        updatedAt: Date.now(),
+      };
     });
   }, []);
 
   const replaceProgress = useCallback((next: Progress, state?: StateCode | null) => {
-    setProgress({ ...next, updatedAt: Date.now() });
+    setProgress({ ...next, days: pruneDays(next.days ?? {}), updatedAt: Date.now() });
     // An imported federal state also completes onboarding (e.g. a fresh device opened via a transfer link).
     if (state) setSettings((s) => ({ ...s, state, onboarded: true }));
   }, []);

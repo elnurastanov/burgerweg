@@ -8,15 +8,20 @@ import { SelectOption as Option } from '@/components/select-option';
 import { Button, Screen, Txt } from '@/components/ui';
 import { LANGUAGES, useT } from '@/lib/i18n';
 import { canOpenLinksInApp, linkHost, openLinkSettings } from '@/lib/link-settings';
-import { STATES, stateName } from '@/lib/questions';
-import { useApp } from '@/lib/store';
+import { questionsFor, STATES, stateName } from '@/lib/questions';
+import { DAILY_GOALS, useApp } from '@/lib/store';
 import { space, useTheme } from '@/lib/theme';
 
 export default function Onboarding() {
   const { settings, updateSettings } = useApp();
   const t = useT();
   const { c } = useTheme();
-  const [step, setStep] = useState<'lang' | 'state' | 'links'>('lang');
+  const [step, setStep] = useState<Step>('lang');
+  // The links step only exists where the app can open transfer links itself (Android).
+  const steps: Step[] = canOpenLinksInApp() ? ['lang', 'state', 'goal', 'links'] : ['lang', 'state', 'goal'];
+  const index = steps.indexOf(step);
+  const last = index === steps.length - 1;
+  const total = questionsFor(settings.state).length;
 
   const finish = () => {
     updateSettings({ onboarded: true });
@@ -26,12 +31,15 @@ export default function Onboarding() {
   return (
     <Screen
       footer={
-        step === 'lang' ? (
-          <Button label={t('continue')} icon="arrow-forward" onPress={() => setStep('state')} />
-        ) : step === 'state' && canOpenLinksInApp() ? (
-          <Button label={t('continue')} icon="arrow-forward" disabled={!settings.state} onPress={() => setStep('links')} />
-        ) : (
+        last ? (
           <Button label={t('getStarted')} icon="checkmark" disabled={!settings.state} onPress={finish} />
+        ) : (
+          <Button
+            label={t('continue')}
+            icon="arrow-forward"
+            disabled={step === 'state' && !settings.state}
+            onPress={() => setStep(steps[index + 1])}
+          />
         )
       }>
       <Animated.View entering={FadeInDown.duration(500)} style={{ gap: space.sm, marginTop: space.xxl }}>
@@ -40,6 +48,11 @@ export default function Onboarding() {
         </View>
         <Txt variant="title">{t('appName')}</Txt>
         <Txt muted>{t('subtitle')}</Txt>
+        <View style={styles.steps} accessibilityLabel={`${index + 1} / ${steps.length}`}>
+          {steps.map((s, i) => (
+            <View key={s} style={[styles.stepBar, { backgroundColor: i <= index ? c.primary : c.surfaceAlt }]} />
+          ))}
+        </View>
       </Animated.View>
 
       {step === 'lang' ? (
@@ -53,6 +66,27 @@ export default function Onboarding() {
           {LANGUAGES.map((l) => (
             <Option key={l.code} label={l.name} active={settings.lang === l.code} onPress={() => updateSettings({ lang: l.code })} />
           ))}
+        </Animated.View>
+      ) : step === 'goal' ? (
+        <Animated.View key="goal" entering={FadeInRight.duration(350)} style={{ gap: space.md }}>
+          <View style={{ gap: 2 }}>
+            <Txt variant="heading">{t('goalTitle')}</Txt>
+            <Txt variant="small" muted>
+              {t('goalHint')}
+            </Txt>
+          </View>
+          {DAILY_GOALS.map((n) => (
+            <Option
+              key={n}
+              label={t('goalOption', { count: n })}
+              hint={t('goalMinutes', { level: t(`goalLevel${n}` as const), minutes: Math.round(n / 2) })}
+              active={settings.dailyGoal === n}
+              onPress={() => updateSettings({ dailyGoal: n })}
+            />
+          ))}
+          <Txt variant="small" muted>
+            {t('goalEstimate', { goal: settings.dailyGoal, total, days: Math.ceil(total / settings.dailyGoal) })}
+          </Txt>
         </Animated.View>
       ) : step === 'links' ? (
         <Animated.View key="links" entering={FadeInRight.duration(350)} style={{ gap: space.md }}>
@@ -90,7 +124,11 @@ export default function Onboarding() {
   );
 }
 
+type Step = 'lang' | 'state' | 'goal' | 'links';
+
 const styles = StyleSheet.create({
+  steps: { flexDirection: 'row', gap: 6, marginTop: space.sm },
+  stepBar: { width: 22, height: 5, borderRadius: 3 },
   badge: { width: 52, height: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center', marginBottom: space.sm },
   grid: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -space.xs },
   // One column on phones, two on wider screens.

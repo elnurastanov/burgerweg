@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { EXAM, questionsFor } from '@/lib/questions';
 import type { StringKey } from '@/lib/i18n';
-import { useApp } from '@/lib/store';
+import { dayKey, useApp } from '@/lib/store';
 
 export function useStats() {
   const { progress, settings } = useApp();
@@ -33,8 +33,21 @@ export function useStats() {
           : ratio >= 0.2
             ? 'readinessGrowing'
             : 'readinessStart';
-    return { total, answered, correct, wrong, mastered, ratio, passedExams, examsTaken: exams.length, readiness };
-  }, [progress, settings.state]);
+    const today = progress.days[dayKey()] ?? 0;
+    return {
+      total,
+      answered,
+      correct,
+      wrong,
+      mastered,
+      ratio,
+      passedExams,
+      examsTaken: exams.length,
+      readiness,
+      today,
+      goal: settings.dailyGoal,
+    };
+  }, [progress, settings.state, settings.dailyGoal]);
 }
 
 export function formatDuration(seconds: number) {

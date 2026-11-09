@@ -1,0 +1,1 @@
+Neue Fortschrittsanzeige mit zwei Ringen: außen richtige Antworten und Fragen zum Wiederholen, innen dein heutiges Lernen im Vergleich zum Tagesziel. Das Tagesziel (10 bis 50 Fragen) wählst du beim Start oder in den Einstellungen.
