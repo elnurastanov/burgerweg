@@ -8,7 +8,7 @@
 import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate';
 
 import { CATALOG_VERSION, QUESTIONS, type StateCode } from '@/lib/questions';
-import { EMPTY_STAT, type ExamRecord, type Progress, type QStat } from '@/lib/store';
+import { EMPTY_STAT, pruneDays, type ExamRecord, type Progress, type QStat } from '@/lib/store';
 
 const PREFIX = 'EBT1.';
 
@@ -19,8 +19,13 @@ type Payload = {
   q: string;
   /** Exams as [minutes since epoch, score, total, seconds]. */
   e: [number, number, number, number][];
+  /** Answers per day for the last TRANSFER_DAYS days ("YYYY-MM-DD" → count). Optional: added in 1.7.0. */
+  d?: Record<string, number>;
   u: number;
 };
+
+/** Days of answer counts carried in a transfer code; the daily ring only needs today. */
+const TRANSFER_DAYS = 30;
 
 const b36 = (n: number) => Math.max(0, Math.min(35, n)).toString(36);
 
@@ -68,6 +73,7 @@ export function encodeTransfer(progress: Progress, state: StateCode | null): str
     st: state,
     q: packStats(progress.stats),
     e: progress.exams.slice(0, 20).map((x) => [Math.round(x.t / 60000), x.score, x.total, x.seconds]),
+    d: pruneDays(progress.days, TRANSFER_DAYS),
     u: progress.updatedAt,
   };
   return PREFIX + toBase64Url(deflateSync(strToU8(JSON.stringify(payload)), { level: 9 }));
@@ -84,7 +90,11 @@ export function decodeTransfer(code: string): Decoded | null {
     const payload = JSON.parse(strFromU8(inflateSync(fromBase64Url(body)))) as Payload;
     if (payload.v !== 1 || typeof payload.q !== 'string') return null;
     const exams: ExamRecord[] = payload.e.map(([m, score, total, seconds]) => ({ t: m * 60000, score, total, seconds }));
-    return { progress: { stats: unpackStats(payload.q), exams, updatedAt: payload.u }, state: payload.st };
+    const days: Record<string, number> = {};
+    for (const [k, n] of Object.entries(payload.d ?? {})) {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(k) && Number.isInteger(n) && n > 0) days[k] = n;
+    }
+    return { progress: { stats: unpackStats(payload.q), exams, days, updatedAt: payload.u }, state: payload.st };
   } catch {
     return null;
   }
@@ -159,5 +169,8 @@ export function mergeProgress(local: Progress, incoming: Progress): Progress {
     })
     .sort((a, b) => b.t - a.t)
     .slice(0, 50);
-  return { stats, exams, updatedAt: Date.now() };
+  // The same day counted on two devices is most likely the same practice, so keep the larger count, not the sum.
+  const days = { ...local.days };
+  for (const [k, n] of Object.entries(incoming.days)) days[k] = Math.max(days[k] ?? 0, n);
+  return { stats, exams, days: pruneDays(days), updatedAt: Date.now() };
 }

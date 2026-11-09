@@ -11,7 +11,8 @@ import { LANGUAGES, useT } from '@/lib/i18n';
 import { canOpenLinksInApp, openLinkSettings } from '@/lib/link-settings';
 import { applyUpdate, fetchLatestVersion, isInstalledPwa, isNewer } from '@/lib/pwa';
 import { CATALOG_VERSION, STATES, stateName } from '@/lib/questions';
-import { useApp, type ThemeMode } from '@/lib/store';
+import { DAILY_GOALS, useApp, type ThemeMode } from '@/lib/store';
+import { useStats } from '@/lib/stats';
 import { space, useTheme } from '@/lib/theme';
 
 // From app.json at build time, e.g. "1.1.0".
@@ -23,6 +24,7 @@ export default function Settings() {
   const t = useT();
   const { c } = useTheme();
   const [statesOpen, setStatesOpen] = useState(false);
+  const { today } = useStats();
 
   const themes: [ThemeMode, string][] = [
     ['system', t('themeSystem')],
@@ -69,6 +71,23 @@ export default function Settings() {
             ))}
           </View>
         ) : null}
+      </Section>
+
+      <Section title={t('dailyGoal')}>
+        <Row style={{ justifyContent: 'space-between' }}>
+          <Txt variant="label">{t('goalPerDay')}</Txt>
+          <Txt variant="small" muted>
+            {t('goalDoneToday', { count: today })}
+          </Txt>
+        </Row>
+        <Row gap={space.sm} style={{ flexWrap: 'wrap', marginTop: space.md }}>
+          {DAILY_GOALS.map((n) => (
+            <Chip key={n} label={String(n)} active={settings.dailyGoal === n} onPress={() => updateSettings({ dailyGoal: n })} />
+          ))}
+        </Row>
+        <Txt variant="small" muted style={{ marginTop: space.md }}>
+          {t('goalSettingsHint')}
+        </Txt>
       </Section>
 
       <Section title={t('appearance')}>

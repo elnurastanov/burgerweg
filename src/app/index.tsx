@@ -3,7 +3,7 @@ import { Redirect, router, type Href } from 'expo-router';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
-import { ProgressRing } from '@/components/progress-ring';
+import { ProgressRings } from '@/components/progress-rings';
 import { Card, IconButton, Row, Screen, Txt, type IconName } from '@/components/ui';
 import { useT } from '@/lib/i18n';
 import { EXAM, stateName } from '@/lib/questions';
@@ -16,12 +16,13 @@ export default function Home() {
   const stats = useStats();
   const t = useT();
   const { c } = useTheme();
-  // Phones: stack the progress section and center it. Wider screens keep ring and stats side by side.
-  const compact = useWindowDimensions().width < 520;
+  // Very narrow phones: stack the rings above the stats. From 340 px they sit side by side.
+  const compact = useWindowDimensions().width < 340;
 
   if (!settings.onboarded || !settings.state) return <Redirect href="/onboarding" />;
 
-  const pct = Math.round(stats.ratio * 100);
+  // The ring's green arc and this number show correctly answered questions; readiness still uses mastery.
+  const pct = stats.total ? Math.round((stats.correct / stats.total) * 100) : 0;
   const locale = settings.lang === 'de' ? 'de-DE' : 'en-GB';
 
   return (
@@ -43,31 +44,36 @@ export default function Home() {
 
       <Animated.View entering={FadeInDown.duration(450).delay(60)}>
         <Card>
-          <Txt variant="caption" muted style={[styles.overline, compact && { textAlign: 'center' }]}>
-            {t('progress').toUpperCase()}
-          </Txt>
-          <View style={[styles.progressBody, compact ? styles.progressCompact : styles.progressWide]}>
-            <ProgressRing value={stats.ratio} size={124}>
-              <Txt variant="title">{pct}%</Txt>
-              <Txt variant="caption" muted>
-                {t('mastered')}
+          <Row style={{ justifyContent: 'space-between' }}>
+            <Txt variant="caption" muted style={styles.overline}>
+              {t('progress').toUpperCase()}
+            </Txt>
+            <View style={[styles.readiness, { backgroundColor: c.surfaceAlt }]} accessibilityLabel={`${t('readiness')}: ${t(stats.readiness)}`}>
+              <Ionicons name="sparkles-outline" size={14} color={c.accent} />
+              <Txt variant="small" style={{ fontWeight: '600' }}>
+                {t(stats.readiness)}
               </Txt>
-            </ProgressRing>
-            <View style={[{ gap: space.sm }, compact ? { alignSelf: 'stretch' } : { flex: 1 }]}>
-              <Stat label={t('answered')} value={`${stats.answered} ${t('of')} ${stats.total}`} />
-              <Stat label={t('correct')} value={String(stats.correct)} color={c.success} />
-              <Stat label={t('toReview')} value={String(stats.wrong)} color={stats.wrong ? c.danger : undefined} />
+            </View>
+          </Row>
+          <View style={[styles.progressBody, compact && styles.progressCompact]}>
+            <ProgressRings
+              size={100}
+              outer={[
+                { value: stats.total ? stats.correct / stats.total : 0, color: c.primary },
+                { value: stats.total ? stats.wrong / stats.total : 0, color: c.danger },
+              ]}
+              inner={{ value: stats.goal ? stats.today / stats.goal : 0, color: c.accent }}>
+              <Txt variant="heading" style={{ fontSize: 22 }}>
+                {pct}%
+              </Txt>
+            </ProgressRings>
+            <View style={[{ gap: space.xs }, compact ? { alignSelf: 'stretch' } : { flex: 1 }]}>
+              <Stat dot={c.primary} label={t('correct')} value={`${stats.correct}/${stats.total}`} />
+              <Stat dot={c.danger} label={t('toReview')} value={String(stats.wrong)} color={stats.wrong ? c.danger : undefined} />
+              <Stat dot={c.accent} label={t('today')} value={`${stats.today}/${stats.goal}`} />
+              <View style={[styles.sep, { backgroundColor: c.border }]} />
               <Stat label={t('examsPassed')} value={`${stats.passedExams} ${t('of')} ${stats.examsTaken}`} />
             </View>
-          </View>
-          <View style={[styles.readiness, { backgroundColor: c.surfaceAlt }, compact && { alignSelf: 'center' }]}>
-            <Ionicons name="sparkles-outline" size={16} color={c.accent} />
-            <Txt variant="small" muted>
-              {t('readiness')}:
-            </Txt>
-            <Txt variant="small" style={{ fontWeight: '600' }}>
-              {t(stats.readiness)}
-            </Txt>
           </View>
         </Card>
       </Animated.View>
@@ -143,13 +149,16 @@ export default function Home() {
   );
 }
 
-function Stat({ label, value, color }: { label: string; value: string; color?: string }) {
+function Stat({ label, value, color, dot }: { label: string; value: string; color?: string; dot?: string }) {
   return (
-    <Row style={{ justifyContent: 'space-between' }}>
-      <Txt variant="small" muted>
-        {label}
-      </Txt>
-      <Txt variant="label" color={color}>
+    <Row gap={space.sm} style={{ justifyContent: 'space-between' }}>
+      <Row gap={6} style={{ flexShrink: 1 }}>
+        {dot ? <View style={[styles.dot, { backgroundColor: dot }]} /> : null}
+        <Txt variant="small" muted style={{ flexShrink: 1 }}>
+          {label}
+        </Txt>
+      </Row>
+      <Txt variant="small" color={color} style={{ fontWeight: '700' }}>
         {value}
       </Txt>
     </Row>
@@ -192,19 +201,18 @@ function Feature({
 
 const styles = StyleSheet.create({
   overline: { letterSpacing: 1.2 },
-  progressBody: { marginTop: space.md, gap: space.xl },
-  progressCompact: { flexDirection: 'column', alignItems: 'center', gap: space.lg },
-  progressWide: { flexDirection: 'row', alignItems: 'center' },
+  progressBody: { marginTop: space.md, flexDirection: 'row', alignItems: 'center', gap: space.md },
+  progressCompact: { flexDirection: 'column', gap: space.lg },
   readiness: {
-    marginTop: space.lg,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: space.sm,
+    gap: 6,
     paddingHorizontal: space.md,
-    paddingVertical: space.sm,
+    paddingVertical: 5,
     borderRadius: radius.pill,
-    alignSelf: 'flex-start',
   },
+  dot: { width: 9, height: 9, borderRadius: 5 },
+  sep: { height: StyleSheet.hairlineWidth, marginVertical: space.xs },
   featureIcon: { width: 52, height: 52, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center' },
   examRow: { paddingVertical: space.md },
 });

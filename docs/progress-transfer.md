@@ -23,6 +23,7 @@ Payload:
   st: 'BE' | null,            // federal state
   q: string,                  // 3 chars per question, in QUESTIONS order (460 × 3)
   e: [minutesSinceEpoch, score, total, seconds][],  // last 20 exams
+  d?: { 'YYYY-MM-DD': number },  // answers per local day, last 30 days (since 1.7.0)
   u: number,                  // updatedAt (ms)
 }
 ```
@@ -39,7 +40,10 @@ Unseen questions are `000`, so the string compresses very well. A real code is a
 **Order matters:** stats are matched by index in `questions.de.json`. If a future catalog changes the order or
 count, bump the prefix (`EBT2.`) and keep a decoder for `EBT1.`.
 
-Settings (language, theme) are **not** transferred. The federal state is, and it's applied only on *Replace*.
+`d` is optional, so older app versions ignore it and codes from older versions import with an empty day history.
+It adds about 15 characters per active day before compression.
+
+Settings (language, theme, daily goal) are **not** transferred. The federal state is, and it's applied only on *Replace*.
 
 ## Import flow
 
@@ -58,7 +62,8 @@ Settings (language, theme) are **not** transferred. The federal state is, and it
 2. A "Progress found" card replaces the receive card and shows answered count, exams and state.
 3. The user picks:
    - **Merge** (`mergeProgress`): for each question, keep the record with more attempts (`c + w`); on a tie, the
-     higher box wins. Stars are OR-ed. Exams are combined, de-duplicated by minute, newest first, max 50.
+     higher box wins. Stars are OR-ed. Exams are combined, de-duplicated by minute, newest first, max 50. Day
+     counts keep the larger value per day, not the sum: the same day on two devices is most likely the same practice.
    - **Replace**: incoming progress replaces local, the state is adopted, and onboarding is marked done (so a
      brand-new device opened via a link goes straight to the dashboard).
 
