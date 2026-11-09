@@ -2,7 +2,8 @@
 /**
  * Builds the deployable static website into ./site:
  *
- *   site/<base>/       ← landing page (./landing), SEO files with SITE_URL filled in
+ *   site/<base>/       ← landing page (./landing), state pages (scripts/state-pages.mjs), generated sitemap.xml,
+ *                        SEO files with SITE_URL filled in
  *   site/<base>/app/   ← the Expo web app (PWA), exported with base path <base>/app
  *   site/_headers, site/_redirects  ← host rules, paths prefixed with <base>
  *
@@ -22,6 +23,8 @@
 import { execSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+
+import { statePaths, writeStatePages } from './state-pages.mjs';
 
 const root = new URL('..', import.meta.url).pathname;
 const SITE_URL = (process.env.SITE_URL || process.env.CF_PAGES_URL || 'https://example.org').replace(/\/+$/, '');
@@ -50,6 +53,8 @@ rmSync(out, { recursive: true, force: true });
 // 1. Landing page, with {{SITE_URL}} and {{YEAR}} filled in for text files, and root-relative links
 //    (href="/…", src="/…") moved under BASE.
 cpSync(join(root, 'landing'), content, { recursive: true });
+writeStatePages(content);
+writeSitemap(join(content, 'sitemap.xml'));
 walk(content, (file) => {
   if (!/\.(html|xml|txt|webmanifest|json)$/.test(file)) return;
   let text = readFileSync(file, 'utf8');
@@ -123,6 +128,24 @@ if (fingerprints.length) {
 }
 
 console.log(`✓ Site built in ./site for ${SITE_URL}  (landing at ${BASE}/, app at ${BASE}/app/)`);
+
+/** Every landing page with its language alternates. lastmod is the build date: each deploy rebuilds every page. */
+function writeSitemap(file) {
+  const today = new Date().toISOString().slice(0, 10);
+  const pairs = [['/', '/en/'], ...statePaths()];
+  const entry = (loc, [de, en], priority) =>
+    `  <url>\n    <loc>{{SITE_URL}}${loc}</loc>\n    <lastmod>${today}</lastmod>\n` +
+    `    <xhtml:link rel="alternate" hreflang="de" href="{{SITE_URL}}${de}"/>\n` +
+    `    <xhtml:link rel="alternate" hreflang="en" href="{{SITE_URL}}${en}"/>\n` +
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="{{SITE_URL}}${de}"/>\n` +
+    `    <priority>${priority}</priority>\n  </url>`;
+  const urls = pairs.flatMap((pair, i) => [entry(pair[0], pair, i ? '0.8' : '1.0'), entry(pair[1], pair, i ? '0.7' : '0.9')]);
+  urls.push(`  <url>\n    <loc>{{SITE_URL}}/app/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.6</priority>\n  </url>`);
+  writeFileSync(
+    file,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`,
+  );
+}
 
 function walk(dir, fn) {
   for (const name of readdirSync(dir)) {

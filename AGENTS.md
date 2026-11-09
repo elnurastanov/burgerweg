@@ -4,7 +4,9 @@
 data pipeline, progress transfer, deployment, Android/F-Droid and the dev setup. Keep those docs up to date
 when you change behavior: update `docs/SPEC.md` first, and note the *why* in the doc that covers the area.
 
-**Versioning (every change):** bump the version with each update, in the same commit:
+**Versioning (every app change):** bump the version with each update that affects the app (the web app/PWA under
+`/app/` or the Android build: its code, data, assets or config), in the same commit. Changes that only touch the
+landing page, docs, CI workflows or repo tooling keep the current version:
 - new feature or improvement → minor (`1.1.0` → `1.2.0`); bug fix → patch (`1.2.0` → `1.2.1`); breaking change → major;
 - always `expo.version` in `app.json` **and** `version` in `package.json`, and **+1** on `expo.android.versionCode`;
 - add `fastlane/metadata/android/{en-US,de-DE}/changelogs/<versionCode>.txt` (one or two plain sentences, ≤ 500 chars);

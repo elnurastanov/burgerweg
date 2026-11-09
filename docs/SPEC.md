@@ -152,6 +152,8 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | LP-2 | It MUST introduce the app with real screenshots and link prominently to the app (`/app/`). | ✅ |
 | LP-6 | It MUST present the three ways to use Bürgerweg (browser on any device, installed as an app (PWA), Android app: APK download from the latest GitHub release, F-Droid later) and include an install guide split by device (iPhone/iPad, Android, computer) covering the common browsers (Safari, Chrome, Edge, Firefox, Samsung Internet). | ✅ |
 | LP-3 | SEO: unique title (≤ 60 chars) and meta description (≤ 160 chars), one `h1`, canonical URL, `hreflang` alternates, Open Graph/Twitter cards with a 1200×630 image, JSON-LD (`WebApplication`, `FAQPage`), `robots.txt`, `sitemap.xml`, descriptive `alt` text, image dimensions set. | ✅ |
+| LP-7 | For each federal state there MUST be a static page in German (`/einbuergerungstest-<state>/`) and English (`/en/einbuergerungstest-<state>/`), generated at build time: the test format in that state, facts the state questions ask about (capital, parliament, head of government), how to practise, an FAQ (with `FAQPage` and `BreadcrumbList` JSON-LD), links to the other states and into the app. They MUST NOT list the catalog questions. The main pages link to all 16. | ✅ |
+| LP-8 | Titles, descriptions, `keywords`, and the `h1` SHOULD use the terms people search for (see [deployment.md](deployment.md#search-keywords)). The sitemap MUST list every page with its language alternates and `lastmod`. | ✅ |
 | LP-4 | It MUST state that the project is independent of the BAMF and that translations are unofficial, and describe the privacy model (no cookies, no tracking). | ✅ |
 | LP-5 | Absolute URLs come from `SITE_URL` at build time. | ✅ |
 
