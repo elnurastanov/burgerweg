@@ -138,6 +138,27 @@ start fresh unless they move their progress with a transfer link, so pick the fi
   and `width`/`height` on every image, no broken internal links.
 - After deploying: submit `sitemap.xml` in Google Search Console and Bing Webmaster Tools.
 
+### State pages
+
+`scripts/state-pages.mjs` writes 32 pages (16 states × de/en) into the site during the build, before the
+`{{SITE_URL}}` replacement, so they get the same placeholders and BASE handling as the hand-written pages. The
+German slug is used for both languages (`einbuergerungstest-bayern`), because English speakers search the German word
+too. Long state names fall back to a shorter title (≤ 60) or description (≤ 160). The build also generates
+`sitemap.xml` (all 34 landing pages with hreflang alternates and `lastmod`, plus `/app/`); there is no hand-written
+sitemap any more. The pages don't list catalog questions on purpose.
+
+### Search keywords
+
+Picked on 2026-11-09 from Google autocomplete (`suggestqueries.google.com`, `gl=de`), which lists the most common
+completions; no search-volume tool was used. Re-check about once a year.
+
+| Language | Terms used in title, description, `keywords`, `h1` |
+| --- | --- |
+| de | Einbürgerungstest, … online üben, … Fragen, … Fragen und Antworten, Fragenkatalog, Leben in Deutschland Test, 33 Fragen, 310 Fragen, Einbürgerungstest App, kostenlos, `Einbürgerungstest <Bundesland>` (Bayern, Berlin, NRW rank high) |
+| en | German citizenship test (practice, questions, app), Einbürgerungstest English / in English, questions in English, Leben in Deutschland test English |
+
+Avoid a year in titles: it goes stale until the next deploy.
+
 ## Before going live
 
 - [x] Address: `https://astanov.com/burgerweg` (`SITE_URL` build variable on the Cloudflare Worker). Repository: published.
