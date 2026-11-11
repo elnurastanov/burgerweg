@@ -24,8 +24,8 @@ test (*Einbürgerungstest* / *Leben in Deutschland*). One Expo / React Native co
 - MVP works on **web** (dev and production build), as a **PWA** (offline, installable) and on **Android** (Expo Go
   and a release APK).
 - **Scope:** web + PWA + Android/F-Droid. No native iOS build (iPhone users install the PWA).
-- Landing page in German (`/`) and English (`/en/`); the app lives at `/app/`.
-- App id `com.buergerweg.app`, version 1.7.0 (versionCode 12); every change bumps it (see `AGENTS.md`). Icon: "rainbow arcs", see [branding](branding.md).
+- Landing page in German (`/`), English (`/en/`) and Azerbaijani (`/az/`); the app lives at `/app/`.
+- App id `com.buergerweg.app`, version 1.8.0 (versionCode 13); every change bumps it (see `AGENTS.md`). Icon: "rainbow arcs", see [branding](branding.md).
 - Open source on GitHub (`github.com/elnurastanov/burgerweg`, branch `master`): MIT license, `NOTICE.md`,
   contributing guide, code of conduct, security policy, F-Droid metadata.
 - Website: **https://astanov.com/burgerweg/** on Cloudflare Workers, static assets only
@@ -40,7 +40,7 @@ test (*Einbürgerungstest* / *Leben in Deutschland*). One Expo / React Native co
 
 1. The **exam simulator is always German**. Translations are opt-in via the translate button and render
    *under* the German text, smaller and fainter (`Bilingual` component).
-2. The **UI language** is the user's choice (English or Deutsch for now). Question content stays German everywhere;
+2. The **UI language** is the user's choice (English, Deutsch or Azərbaycanca). Question content stays German everywhere;
    translations are an overlay.
 3. **No accounts, no backend.** Progress lives on the device and moves only through the transfer link/code.
 4. **No proprietary dependencies.** Anything pulling in Google Play Services, Firebase, ML Kit or analytics breaks

@@ -82,7 +82,7 @@ function answered(s: QStat, correct: boolean): QStat {
 function defaultSettings(): Settings {
   const device = getLocales()[0]?.languageCode ?? 'en';
   return {
-    lang: device === 'de' ? 'de' : 'en',
+    lang: ['de', 'az'].includes(device) ? device : 'en',
     state: null,
     practiceTranslations: true,
     theme: 'system',

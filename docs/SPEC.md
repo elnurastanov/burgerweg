@@ -45,7 +45,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | ID | Requirement | Status |
 | --- | --- | --- |
 | ON-1 | On first launch the user MUST choose a UI language, then their federal state, then a daily goal (10 / 20 / 30 / 50 questions a day, 20 preselected, with a rough time per day and how many days one pass through all questions takes) before seeing the dashboard. Small step bars show where they are. | ✅ |
-| ON-2 | The default UI language SHOULD follow the device locale (German if the device is German, else English). | ✅ |
+| ON-2 | The default UI language SHOULD follow the device locale (German or Azerbaijani if the device uses it, else English). | ✅ |
 | ON-3 | All three choices MUST be changeable later in Settings. | ✅ |
 | ON-4 | On Android, onboarding SHOULD end with a skippable step that opens the system "Open by default" screen, so that transfer links open in the app. Settings MUST offer the same shortcut. | ✅ |
 
@@ -78,7 +78,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | EX-1 | An exam MUST draw 33 questions: 30 random general + 3 random from the user's state, in random order. | ✅ |
 | EX-2 | It MUST have a 60-minute countdown and MUST auto-submit at 0:00. Remaining time SHOULD be highlighted when under 5 minutes. | ✅ |
 | EX-3 | A score of **17 or more** correct MUST count as passed. | ✅ |
-| EX-4 | The simulator (questions, answers and its own controls) MUST always be in **German**, regardless of UI language. | ✅ |
+| EX-4 | The simulator (questions, answers and its own controls) MUST always be in **German**, regardless of UI language. On the start screen, the title, the intro text and the three numbers (questions, minutes, pass mark) SHOULD show a small UI-language line under the German, like question translations; the start button stays German. | ✅ |
 | EX-5 | A **translation button** MUST toggle translations, shown **under** the German text, **smaller and with lower opacity**. It MUST be available for every UI language (German UI → English). | ✅ |
 | EX-6 | No right/wrong feedback MUST be shown during the exam. The user MUST be able to change answers, move back/forward and jump via an overview of all 33 questions. | ✅ |
 | EX-7 | Submitting with unanswered questions MUST ask for confirmation, stating how many are open. | ✅ |
@@ -101,13 +101,13 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 
 | ID | Requirement | Status |
 | --- | --- | --- |
-| LN-1 | The UI MUST be available in **English** and **Deutsch**. | ✅ |
+| LN-1 | The UI MUST be available in **English**, **Deutsch** and **Azərbaycanca** (Azerbaijani, Latin script, polite *siz* form). In Azerbaijani, federal states show the German name in brackets where it differs, e.g. "Bavariya (Bayern)". | ✅ |
 | LN-2 | The whole interface (outside the exam simulator) MUST appear in the chosen language. | ✅ |
-| LN-3 | Translations of question content MUST exist for every question in every non-German UI language. | ✅ (en) |
+| LN-3 | Translations of question content MUST exist for every question in every non-German UI language. | ✅ (en, az) |
 | LN-4 | Translations MUST be presented as secondary: under the German text, smaller, fainter. | ✅ |
 | LN-5 | Adding a language SHOULD need only data files (UI strings + question translations), no screen changes. | ✅ |
 | LN-6 | Translations MUST be labeled unofficial in the app's About section. | ✅ |
-| LN-7 | The German question text MUST stay exactly as in the official BAMF catalog. A translation MUST be an exact translation of it, with the same sentence shape and no added hints or explanations. The only additions allowed are the German term in brackets for German institutions and concepts (e.g. "lay assessor (Schöffe)"), and small aids like "22:00 (10 pm)". See [question-data.md](question-data.md#translation-rules). | ✅ (en, reviewed 2026-11-04) |
+| LN-7 | The German question text MUST stay exactly as in the official BAMF catalog. A translation MUST be an exact translation of it, with the same sentence shape and no added hints or explanations. The only additions allowed are the German term in brackets for German institutions and concepts (e.g. "lay assessor (Schöffe)"), and small aids like "22:00 (10 pm)". See [question-data.md](question-data.md#translation-rules). | ✅ (en, reviewed 2026-11-04; az, reviewed 2026-11-11) |
 
 ### 3.7 Progress and storage
 
@@ -148,11 +148,11 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 
 | ID | Requirement | Status |
 | --- | --- | --- |
-| LP-1 | A static, JavaScript-free landing page in **German (`/`)** and **English (`/en/`)**, in the app's calm style, with light and dark mode. | ✅ |
+| LP-1 | A static, JavaScript-free landing page in **German (`/`)**, **English (`/en/`)** and **Azerbaijani (`/az/`)**, in the app's calm style, with light and dark mode. Each links to the other two. | ✅ |
 | LP-2 | It MUST introduce the app with real screenshots and link prominently to the app (`/app/`). | ✅ |
 | LP-6 | It MUST present the three ways to use Bürgerweg (browser on any device, installed as an app (PWA), Android app: APK download from the latest GitHub release, F-Droid later) and include an install guide split by device (iPhone/iPad, Android, computer) covering the common browsers (Safari, Chrome, Edge, Firefox, Samsung Internet). | ✅ |
 | LP-3 | SEO: unique title (≤ 60 chars) and meta description (≤ 160 chars), one `h1`, canonical URL, `hreflang` alternates, Open Graph/Twitter cards with a 1200×630 image, JSON-LD (`WebApplication`, `FAQPage`), `robots.txt`, `sitemap.xml`, descriptive `alt` text, image dimensions set. | ✅ |
-| LP-7 | For each federal state there MUST be a static page in German (`/einbuergerungstest-<state>/`) and English (`/en/einbuergerungstest-<state>/`), generated at build time: the test format in that state, facts the state questions ask about (capital, parliament, head of government), how to practise, an FAQ (with `FAQPage` and `BreadcrumbList` JSON-LD), links to the other states and into the app. They MUST NOT list the catalog questions. The main pages link to all 16. | ✅ |
+| LP-7 | For each federal state there MUST be a static page in German (`/einbuergerungstest-<state>/`), English (`/en/einbuergerungstest-<state>/`) and Azerbaijani (`/az/einbuergerungstest-<state>/`), generated at build time: the test format in that state, facts the state questions ask about (capital, parliament, head of government), how to practise, an FAQ (with `FAQPage` and `BreadcrumbList` JSON-LD), links to the other states and into the app. They MUST NOT list the catalog questions. The main pages link to all 16. | ✅ |
 | LP-8 | Titles, descriptions, `keywords`, and the `h1` SHOULD use the terms people search for (see [deployment.md](deployment.md#search-keywords)). The sitemap MUST list every page with its language alternates and `lastmod`. | ✅ |
 | LP-4 | It MUST state that the project is independent of the BAMF and that translations are unofficial, and describe the privacy model (no cookies, no tracking). | ✅ |
 | LP-5 | Absolute URLs come from `SITE_URL` at build time. | ✅ |

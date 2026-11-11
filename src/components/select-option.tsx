@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { Txt } from '@/components/ui';
 import { radius, space, useTheme } from '@/lib/theme';
@@ -9,12 +9,14 @@ export function SelectOption({
   hint,
   active,
   onPress,
+  style,
 }: {
   label: string;
   /** Optional second line under the label. */
   hint?: string;
   active: boolean;
   onPress: () => void;
+  style?: StyleProp<ViewStyle>;
 }) {
   const { c } = useTheme();
   return (
@@ -25,6 +27,7 @@ export function SelectOption({
       style={({ pressed }) => [
         styles.option,
         { backgroundColor: active ? c.primarySoft : c.surface, borderColor: active ? c.primary : c.border },
+        style,
         pressed && { opacity: 0.8 },
       ]}>
       <View style={{ flex: 1, gap: 2 }}>

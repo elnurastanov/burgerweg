@@ -29,12 +29,25 @@ export default function ExamIntro() {
         <View style={[styles.hero, { backgroundColor: c.accentSoft }]}>
           <Ionicons name="timer-outline" size={34} color={c.accent} />
         </View>
-        <Txt variant="title">Testsimulation</Txt>
+        <View style={{ gap: 2 }}>
+          <Txt variant="title">Testsimulation</Txt>
+          {showTr ? (
+            <Txt variant="small" muted style={styles.tr}>
+              {t('examSimulator')}
+            </Txt>
+          ) : null}
+        </View>
         <Bilingual de={translate('de', 'examIntro')} tr={translate(settings.lang, 'examIntro')} show={showTr} />
         <Row gap={space.sm} style={{ flexWrap: 'wrap' }}>
-          <Fact icon="help-circle-outline" value={String(EXAM.general + EXAM.state)} label="Fragen" />
-          <Fact icon="time-outline" value={`${EXAM.minutes}`} label="Minuten" />
-          <Fact icon="ribbon-outline" value={`${EXAM.passMark}`} label="zum Bestehen" />
+          {(
+            [
+              ['help-circle-outline', EXAM.general + EXAM.state, 'examFactQuestions'],
+              ['time-outline', EXAM.minutes, 'examFactMinutes'],
+              ['ribbon-outline', EXAM.passMark, 'examFactPass'],
+            ] as const
+          ).map(([icon, value, key]) => (
+            <Fact key={key} icon={icon} value={String(value)} label={translate('de', key)} tr={showTr ? t(key) : undefined} />
+          ))}
         </Row>
         <Card tone="alt">
           <Row style={{ alignItems: 'flex-start' }}>
@@ -49,7 +62,8 @@ export default function ExamIntro() {
   );
 }
 
-function Fact({ icon, value, label }: { icon: IconName; value: string; label: string }) {
+/** One number of the exam format. The label is German like the exam; `tr` is the UI-language line under it. */
+function Fact({ icon, value, label, tr }: { icon: IconName; value: string; label: string; tr?: string }) {
   const { c } = useTheme();
   return (
     <View style={[styles.fact, { backgroundColor: c.surface, borderColor: c.border }]}>
@@ -58,11 +72,17 @@ function Fact({ icon, value, label }: { icon: IconName; value: string; label: st
       <Txt variant="caption" muted>
         {label}
       </Txt>
+      {tr ? (
+        <Txt variant="caption" muted style={styles.tr}>
+          {tr}
+        </Txt>
+      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  tr: { fontStyle: 'italic', opacity: 0.8 },
   hero: { width: 64, height: 64, borderRadius: 32, alignItems: 'center', justifyContent: 'center' },
   fact: {
     flex: 1,

@@ -5,7 +5,7 @@
     <strong>Calm, free and private practice for the German citizenship test</strong><br>
     (<em>Einbürgerungstest</em> / <em>Leben in Deutschland</em>)
   </p>
-  <p>No account, no tracking, works offline. Interface in English and German.</p>
+  <p>No account, no tracking, works offline. Interface in English, German and Azerbaijani.</p>
   <p><a href="https://astanov.com/burgerweg/">Website</a> · <a href="https://astanov.com/burgerweg/app/">Open the app</a></p>
 </div>
 

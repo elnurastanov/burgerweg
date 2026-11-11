@@ -2,9 +2,9 @@
 
   python scripts/landing_assets.py
 
-Inputs:  scripts/shots/{de,en}-{home,exam,flashcards,transfer}.jpg  (750×1624 app screenshots)
+Inputs:  scripts/shots/{de,en,az}-{home,exam,flashcards,transfer}.jpg  (750×1624 app screenshots)
          assets/icon-src/make_icons.py                               (icon artwork, variant Y3)
-Outputs: landing/images/*.webp, hero.svg, og-de.png, og-en.png; landing/favicon.ico, landing/icon-*.png
+Outputs: landing/images/*.webp, hero.svg, og-de.png, og-en.png, og-az.png; landing/favicon.ico, landing/icon-*.png
 """
 import os
 import sys
@@ -57,7 +57,7 @@ def phone(shot, width):
 
 
 def screenshots():
-    for lang in ('de', 'en'):
+    for lang in ('de', 'en', 'az'):
         for name in ('home', 'exam', 'flashcards', 'transfer'):
             src = os.path.join(SHOTS, f'{lang}-{name}.jpg')
             phone(src, 420).save(os.path.join(OUT, f'{lang}-{name}.webp'), quality=82, method=6)
@@ -81,12 +81,17 @@ def hero_svg():
 
 
 def og_image(lang):
-    title = {'de': 'Bürgerweg', 'en': 'Bürgerweg'}[lang]
+    title = 'Bürgerweg'
     lines = {
         'de': ['Ruhig zum bestandenen', 'Einbürgerungstest'],
         'en': ['Calm preparation for the', 'German citizenship test'],
+        'az': ['Vətəndaşlıq testinə', 'sakit hazırlıq'],
     }[lang]
-    sub = {'de': 'Kostenlos · ohne Konto · offline', 'en': 'Free · no account · works offline'}[lang]
+    sub = {
+        'de': 'Kostenlos · ohne Konto · offline',
+        'en': 'Free · no account · works offline',
+        'az': 'Pulsuz · hesabsız · internetsiz',
+    }[lang]
     img = Image.new('RGBA', (1200, 630), BG + (255,))
     art = icons.rounded(icons.icon_image('Y3', 300))
     img.alpha_composite(art, (90, 165))
@@ -114,5 +119,6 @@ if __name__ == '__main__':
     hero_svg()
     og_image('de')
     og_image('en')
+    og_image('az')
     favicons()
     print('landing assets written to landing/ and landing/images/')

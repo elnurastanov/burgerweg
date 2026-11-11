@@ -87,6 +87,9 @@ const en = {
   examIntro: 'Just like the real test: 33 questions, 60 minutes. You pass with 17 correct answers.',
   examIntroHint: 'The exam is in German. Use the translation button whenever you need help.',
   examStart: 'Start exam',
+  examFactQuestions: 'questions',
+  examFactMinutes: 'minutes',
+  examFactPass: 'to pass',
   examQuestionOf: 'Question {n} of {total}',
   examSubmit: 'Submit',
   examSubmitConfirm: 'Submit the exam now? {open} questions are still unanswered.',
@@ -233,6 +236,9 @@ const de: Record<StringKey, string> = {
   examIntro: 'Wie im echten Test: 33 Fragen, 60 Minuten. Mit 17 richtigen Antworten hast du bestanden.',
   examIntroHint: 'Der Test ist auf Deutsch. Mit dem Übersetzungs-Knopf bekommst du jederzeit Hilfe.',
   examStart: 'Test starten',
+  examFactQuestions: 'Fragen',
+  examFactMinutes: 'Minuten',
+  examFactPass: 'zum Bestehen',
   examQuestionOf: 'Frage {n} von {total}',
   examSubmit: 'Abgeben',
   examSubmitConfirm: 'Test jetzt abgeben? {open} Fragen sind noch unbeantwortet.',
@@ -295,13 +301,178 @@ const de: Record<StringKey, string> = {
   importInvalid: 'Das sieht nicht nach einem gültigen Transfercode aus.',
 };
 
-const dictionaries: Record<string, Record<StringKey, string>> = { en, de };
+const az: Record<StringKey, string> = {
+  appName: 'Bürgerweg',
+  greeting: 'Yenidən xoş gəldiniz',
+  greetingNew: 'Xoş gəldiniz',
+  subtitle: 'Vətəndaşlıq testinə (Einbürgerungstest) sakit və ardıcıl hazırlıq.',
+
+  // onboarding
+  chooseLanguage: 'Dili seçin',
+  chooseLanguageHint: 'Bunu sonra parametrlərdə dəyişə bilərsiniz.',
+  chooseState: 'Harada yaşayırsınız?',
+  chooseStateHint: 'Testdə federal əyalətinizlə bağlı 3 sual olur.',
+  continue: 'Davam et',
+  getStarted: 'Başla',
+  linksTitle: 'Köçürmə linklərini bu tətbiqdə açın',
+  linksHint: 'İrəliləyiş QR kodunu skan etdikdə Android linki burada yalnız siz icazə versəniz açır.',
+  linksSteps: 'Parametrlərdə "Tətbiqdə" seçin. Əgər {host} hələ link kimi siyahıda yoxdursa, "Link əlavə et" düyməsinə toxunub onu işarələyin.',
+  linksOpenSettings: 'Android parametrlərini açın',
+
+  // home
+  progress: 'İrəliləyiş',
+  toReview: 'Təkrar',
+  examsPassed: 'Keçilmiş testlər',
+  correct: 'Düzgün',
+  today: 'Bu gün',
+  goalTitle: 'Gündə nə qədər?',
+  goalHint: 'Gündəlik hədəf seçin. Onu istənilən vaxt parametrlərdə dəyişə bilərsiniz.',
+  goalOption: 'Gündə {count} sual',
+  goalMinutes: '{level} · təxminən {minutes} dəqiqə',
+  goalLevel10: 'Rahat',
+  goalLevel20: 'Sabit',
+  goalLevel30: 'Diqqətli',
+  goalLevel50: 'İntensiv',
+  goalEstimate: 'Gündə {goal} sualla bütün {total} suala təxminən {days} günə baxıb keçəcəksiniz.',
+  dailyGoal: 'Gündəlik hədəf',
+  goalPerDay: 'Gündəlik hədəf',
+  goalDoneToday: 'Bu gün {count} edildi',
+  goalSettingsHint: 'Hədəfə çatdıqca ana ekrandakı daxili qızılı halqa dolur.',
+  of: '/',
+  readiness: 'Hazırlıq',
+  readinessStart: 'Yenicə başlamısınız',
+  readinessGrowing: 'İrəliləyir',
+  readinessGood: 'Yaxşı gedir',
+  readinessReady: 'Testə hazırsınız',
+  allQuestions: 'Bütün suallar',
+  allQuestionsSub: '{count} sual · {done} cavablandırılıb',
+  examSimulator: 'Test simulyatoru',
+  examSimulatorSub: '33 sual · 60 dəqiqə · alman dilində',
+  flashcards: 'Kartlar',
+  flashcardsSub: 'Qısa təkrar · təsadüfi suallar',
+  recentExams: 'Son testlər',
+  noExamsYet: 'Hələ test yoxdur. Hazır olduğunuzu hiss edəndə birini sınayın.',
+  passed: 'Keçdi',
+  failed: 'Keçmədi',
+  transferProgress: 'İrəliləyişi köçür',
+  settings: 'Parametrlər',
+
+  // question list
+  search: 'Suallarda axtar',
+  filterAll: 'Hamısı',
+  filterGeneral: 'Ümumi',
+  filterState: 'Əyalətim',
+  filterWrong: 'Səhv',
+  filterStarred: 'İşarələnmiş',
+  filterNew: 'Yeni',
+  noResults: 'Burada hələ heç nə yoxdur.',
+
+  // practice
+  question: 'Sual',
+  next: 'Növbəti',
+  previous: 'Əvvəlki',
+  showTranslation: 'Tərcümə',
+  correctAnswer: 'Düzgündür!',
+  wrongAnswer: 'Tam deyil — düzgün cavab işarələnib.',
+  star: 'İşarələ',
+  done: 'Hazırdır',
+
+  // flashcards & results
+  shuffle: 'Qarışdır',
+  backHome: 'Ana səhifəyə qayıt',
+  answer: 'Cavab',
+
+  // exam simulator (always rendered in German; kept for completeness)
+  examIntro: 'Əsl test kimi: 33 sual, 60 dəqiqə. 17 düzgün cavabla testi keçirsiniz.',
+  examIntroHint: 'Test alman dilindədir. Köməyə ehtiyacınız olanda tərcümə düyməsindən istifadə edin.',
+  examStart: 'Testə başla',
+  examFactQuestions: 'sual',
+  examFactMinutes: 'dəqiqə',
+  examFactPass: 'keçmək üçün',
+  examQuestionOf: 'Sual {n} / {total}',
+  examSubmit: 'Təhvil ver',
+  examSubmitConfirm: 'Test indi təhvil verilsin? {open} sual hələ cavabsızdır.',
+  examSubmitConfirmAll: 'Test indi təhvil verilsin?',
+  examLeave: 'Testdən çıxılsın? Cavablarınız itəcək.',
+  examLeaveYes: 'Çıx',
+  examOverview: 'İcmal',
+
+  // exam result (shown in UI language)
+  result: 'Nəticə',
+  passMark: 'Keçmək üçün ən azı {mark} düzgün cavab lazımdır.',
+  timeUsed: 'Sərf olunan vaxt: {time}',
+  reviewAnswers: 'Cavablara bax',
+  yourAnswer: 'Sizin cavabınız',
+  notAnswered: 'Cavablandırılmayıb',
+  tryAgain: 'Yeni test',
+
+  // settings
+  language: 'Dil',
+  federalState: 'Federal əyalət',
+  practiceTranslations: 'Öyrənərkən tərcümələri göstər',
+  practiceTranslationsHint: 'Test simulyatoru həmişə alman dilində başlayır.',
+  appearance: 'Görünüş',
+  themeSystem: 'Sistem',
+  themeLight: 'Açıq',
+  themeDark: 'Tünd',
+  data: 'Məlumatlarınız',
+  resetProgress: 'İrəliləyişi sıfırla',
+  resetConfirm: 'Bu cihazdakı bütün irəliləyiş silinsin? Bunu geri qaytarmaq olmaz.',
+  cancel: 'Ləğv et',
+  reset: 'Sıfırla',
+  about: 'Haqqında',
+  appVersion: 'Versiya {version}',
+  updateChecking: 'Yeniləmələr yoxlanılır…',
+  updateLatest: 'Ən son versiyadan istifadə edirsiniz.',
+  updateAvailable: 'Versiya {version} mövcuddur.',
+  updateNow: 'İndi yenilə',
+  updateCheckAgain: 'Yenidən yoxla',
+  updateError: 'Yeniləmələri yoxlamaq alınmadı. İnternetə qoşulmusunuz?',
+  aboutText:
+    'Suallar BAMF-ın rəsmi "Leben in Deutschland" / Einbürgerungstest kataloqundandır ({version} tarixinə). Tərcümələr qeyri-rəsmidir və yalnız öyrənmək üçündür.',
+
+  // transfer
+  transferTitle: 'İrəliləyişi köçür',
+  transferIntro:
+    'Hesab lazım deyil. İrəliləyişiniz bu cihazda qalır — onu QR kod, köçürmə kodu və ya fayl ilə başqa telefona, planşetə və ya brauzerə köçürün.',
+  sendTitle: 'Bu cihazdan göndər',
+  sendHint: 'Bu QR kodu digər cihazınızın kamerası ilə skan edin. Bürgerweg açılacaq və irəliləyişinizi idxal etməyi təklif edəcək.',
+  copyCode: 'Linki kopyala',
+  copied: 'Kopyalandı',
+  exportFile: 'Fayl kimi saxla',
+  receiveTitle: 'Bu cihazda qəbul et',
+  pasteCode: 'Köçürmə linkini və ya kodunu yapışdırın',
+  importCode: 'İdxal et',
+  importFile: 'Faylı aç',
+  importFound: 'İrəliləyiş tapıldı',
+  importSummary: '{answered} cavablandırılmış sual, {exams} test, əyalət: {state}.',
+  importMerge: 'Mənimki ilə birləşdir',
+  importMergeHint: 'Hər sual üçün daha çox məşq edilmiş nəticə saxlanılır.',
+  importReplace: 'Mənimkini əvəz et',
+  importReplaceHint: 'Bu cihaz digəri ilə tam eyni olacaq.',
+  importDone: 'İrəliləyiş idxal edildi',
+  importInvalid: 'Bu, düzgün köçürmə koduna oxşamır.',
+};
+
+const dictionaries: Record<string, Record<StringKey, string>> = { en, de, az };
 
 /** UI languages. Add a dictionary above (and a question translation file) to add one. */
 export const LANGUAGES = [
   { code: 'en', name: 'English' },
   { code: 'de', name: 'Deutsch' },
+  { code: 'az', name: 'Azərbaycanca' },
 ] as const;
+
+const AZ_MONTHS = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avq', 'sen', 'okt', 'noy', 'dek'];
+
+/**
+ * A date as "10 Nov 2026" in the UI language. Azerbaijani is written by hand: browsers' locale data for it is
+ * incomplete (short months come out as "M11").
+ */
+export function formatDate(date: Date, lang: string) {
+  if (lang === 'az') return `${date.getDate()} ${AZ_MONTHS[date.getMonth()]} ${date.getFullYear()}`;
+  return date.toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
 
 export function translate(lang: string, key: StringKey, params?: Record<string, string | number>) {
   let s = (dictionaries[lang] ?? en)[key] ?? en[key];
