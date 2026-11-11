@@ -114,6 +114,7 @@ export default function Onboarding() {
                   label={stateName(s.code, settings.lang)}
                   active={settings.state === s.code}
                   onPress={() => updateSettings({ state: s.code })}
+                  style={styles.stateOption}
                 />
               </View>
             ))}
@@ -133,4 +134,6 @@ const styles = StyleSheet.create({
   grid: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -space.xs },
   // One column on phones, two on wider screens.
   gridItem: { flexBasis: 260, flexGrow: 1, padding: space.xs },
+  // Same size for every state: fill the cell and fit a two-line name (e.g. "Mecklenburg-Western Pomerania").
+  stateOption: { flexGrow: 1, minHeight: 72 },
 });
