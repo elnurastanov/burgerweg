@@ -191,6 +191,8 @@ footer a { color: var(--muted); }
 .cta.center { justify-content: center; margin-top: 28px; }
 /* Long state names can wrap a call-to-action onto two lines. */
 .cta .btn { text-align: center; line-height: 1.3; padding-top: 10px; padding-bottom: 10px; }
-.state-links { list-style: none; margin: 0 auto; padding: 0; max-width: 900px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-.state-links a { display: block; height: 100%; padding: 12px 14px; font-size: 15px; line-height: 1.35; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; color: var(--text); text-decoration: none; font-weight: 600; }
+.state-links { list-style: none; margin: 0 auto; padding: 0; max-width: 900px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); grid-auto-rows: 1fr; gap: 10px; }
+/* Every box has the same size (rows share the tallest name's height) with the name centered. */
+.state-links li { display: flex; }
+.state-links a { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 12px 14px; font-size: 15px; line-height: 1.35; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; color: var(--text); text-decoration: none; font-weight: 600; }
 .state-links a:hover { border-color: var(--primary); color: var(--primary); }
