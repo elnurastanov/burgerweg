@@ -400,7 +400,7 @@ const az: Record<StringKey, string> = {
   // settings
   language: 'Dil',
   federalState: 'Federal əyalət',
-  practiceTranslations: 'Məşq zamanı tərcümələri göstər',
+  practiceTranslations: 'Öyrənərkən tərcümələri göstər',
   practiceTranslationsHint: 'Test simulyatoru həmişə alman dilində başlayır.',
   appearance: 'Görünüş',
   themeSystem: 'Sistem',
