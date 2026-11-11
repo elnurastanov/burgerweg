@@ -58,6 +58,9 @@ a { color: var(--primary); }
 .nav a:not(.btn):hover { color: var(--text); }
 .nav .lang { font-weight: 600; }
 @media (max-width: 720px) { .nav .hide-sm { display: none; } }
+/* Two language links plus the app button must fit a 360px phone on one line. */
+.nav .btn { white-space: nowrap; }
+@media (max-width: 420px) { .site-header .wrap { gap: 10px; } .nav { gap: 12px; } .brand { font-size: 17px; } }
 
 /* Buttons */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 24px; border-radius: 16px; font-weight: 600; font-size: 16px; text-decoration: none; transition: transform .15s ease, opacity .15s ease; }

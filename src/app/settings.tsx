@@ -7,7 +7,7 @@ import { Pressable, StyleSheet, Switch, View } from 'react-native';
 import { useDialog } from '@/components/dialog';
 import { SelectOption } from '@/components/select-option';
 import { Button, Card, Chip, Header, Row, Screen, Txt } from '@/components/ui';
-import { dateLocale, LANGUAGES, useT } from '@/lib/i18n';
+import { formatDate, LANGUAGES, useT } from '@/lib/i18n';
 import { canOpenLinksInApp, openLinkSettings } from '@/lib/link-settings';
 import { applyUpdate, fetchLatestVersion, isInstalledPwa, isNewer } from '@/lib/pwa';
 import { CATALOG_VERSION, STATES, stateName } from '@/lib/questions';
@@ -132,7 +132,7 @@ export default function Settings() {
         </Txt>
         {isInstalledPwa() && <PwaUpdate />}
         <Txt variant="small" muted>
-          {t('aboutText', { version: new Date(CATALOG_VERSION).toLocaleDateString(dateLocale(settings.lang)) })}
+          {t('aboutText', { version: formatDate(new Date(CATALOG_VERSION), settings.lang) })}
         </Txt>
       </Section>
     </Screen>

@@ -24,7 +24,7 @@ test (*Einbürgerungstest* / *Leben in Deutschland*). One Expo / React Native co
 - MVP works on **web** (dev and production build), as a **PWA** (offline, installable) and on **Android** (Expo Go
   and a release APK).
 - **Scope:** web + PWA + Android/F-Droid. No native iOS build (iPhone users install the PWA).
-- Landing page in German (`/`) and English (`/en/`); the app lives at `/app/`.
+- Landing page in German (`/`), English (`/en/`) and Azerbaijani (`/az/`); the app lives at `/app/`.
 - App id `com.buergerweg.app`, version 1.8.0 (versionCode 13); every change bumps it (see `AGENTS.md`). Icon: "rainbow arcs", see [branding](branding.md).
 - Open source on GitHub (`github.com/elnurastanov/burgerweg`, branch `master`): MIT license, `NOTICE.md`,
   contributing guide, code of conduct, security policy, F-Droid metadata.

@@ -463,9 +463,15 @@ export const LANGUAGES = [
   { code: 'az', name: 'Azərbaycanca' },
 ] as const;
 
-/** Locale for formatting dates in a UI language. */
-export function dateLocale(lang: string) {
-  return lang === 'de' ? 'de-DE' : lang === 'az' ? 'az-Latn-AZ' : 'en-GB';
+const AZ_MONTHS = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avq', 'sen', 'okt', 'noy', 'dek'];
+
+/**
+ * A date as "10 Nov 2026" in the UI language. Azerbaijani is written by hand: browsers' locale data for it is
+ * incomplete (short months come out as "M11").
+ */
+export function formatDate(date: Date, lang: string) {
+  if (lang === 'az') return `${date.getDate()} ${AZ_MONTHS[date.getMonth()]} ${date.getFullYear()}`;
+  return date.toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 export function translate(lang: string, key: StringKey, params?: Record<string, string | number>) {

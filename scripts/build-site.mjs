@@ -132,14 +132,19 @@ console.log(`✓ Site built in ./site for ${SITE_URL}  (landing at ${BASE}/, app
 /** Every landing page with its language alternates. lastmod is the build date: each deploy rebuilds every page. */
 function writeSitemap(file) {
   const today = new Date().toISOString().slice(0, 10);
-  const pairs = [['/', '/en/'], ...statePaths()];
-  const entry = (loc, [de, en], priority) =>
+  // Each group lists one page per language, German first; the main page also has Azerbaijani (/az/).
+  const groups = [{ de: '/', en: '/en/', az: '/az/' }, ...statePaths().map(([de, en]) => ({ de, en }))];
+  const entry = (loc, group, priority) =>
     `  <url>\n    <loc>{{SITE_URL}}${loc}</loc>\n    <lastmod>${today}</lastmod>\n` +
-    `    <xhtml:link rel="alternate" hreflang="de" href="{{SITE_URL}}${de}"/>\n` +
-    `    <xhtml:link rel="alternate" hreflang="en" href="{{SITE_URL}}${en}"/>\n` +
-    `    <xhtml:link rel="alternate" hreflang="x-default" href="{{SITE_URL}}${de}"/>\n` +
+    Object.entries(group)
+      .map(([lang, path]) => `    <xhtml:link rel="alternate" hreflang="${lang}" href="{{SITE_URL}}${path}"/>\n`)
+      .join('') +
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="{{SITE_URL}}${group.de}"/>\n` +
     `    <priority>${priority}</priority>\n  </url>`;
-  const urls = pairs.flatMap((pair, i) => [entry(pair[0], pair, i ? '0.8' : '1.0'), entry(pair[1], pair, i ? '0.7' : '0.9')]);
+  // Main pages 1.0/0.9/0.8, state pages 0.8/0.7: each further language a step lower.
+  const urls = groups.flatMap((group, i) =>
+    Object.values(group).map((path, j) => entry(path, group, ((i ? 0.8 : 1) - j * 0.1).toFixed(1))),
+  );
   urls.push(`  <url>\n    <loc>{{SITE_URL}}/app/</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.6</priority>\n  </url>`);
   writeFileSync(
     file,
