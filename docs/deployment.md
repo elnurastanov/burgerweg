@@ -140,11 +140,11 @@ start fresh unless they move their progress with a transfer link, so pick the fi
 
 ### State pages
 
-`scripts/state-pages.mjs` writes 32 pages (16 states × de/en) into the site during the build, before the
+`scripts/state-pages.mjs` writes 48 pages (16 states × de/en/az) into the site during the build, before the
 `{{SITE_URL}}` replacement, so they get the same placeholders and BASE handling as the hand-written pages. The
-German slug is used for both languages (`einbuergerungstest-bayern`), because English speakers search the German word
-too. Long state names fall back to a shorter title (≤ 60) or description (≤ 160). The build also generates
-`sitemap.xml` (all 34 landing pages with hreflang alternates and `lastmod`, plus `/app/`); there is no hand-written
+German slug is used for all languages (`einbuergerungstest-bayern`), because people search the German word in
+every language. Long state names fall back to a shorter title (≤ 60) or description (≤ 160). The build also generates
+`sitemap.xml` (all 51 landing pages with hreflang alternates and `lastmod`, plus `/app/`); there is no hand-written
 sitemap any more. The pages don't list catalog questions on purpose.
 
 ### Search keywords

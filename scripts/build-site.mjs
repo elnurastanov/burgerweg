@@ -132,8 +132,8 @@ console.log(`✓ Site built in ./site for ${SITE_URL}  (landing at ${BASE}/, app
 /** Every landing page with its language alternates. lastmod is the build date: each deploy rebuilds every page. */
 function writeSitemap(file) {
   const today = new Date().toISOString().slice(0, 10);
-  // Each group lists one page per language, German first; the main page also has Azerbaijani (/az/).
-  const groups = [{ de: '/', en: '/en/', az: '/az/' }, ...statePaths().map(([de, en]) => ({ de, en }))];
+  // Each group lists one page per language (de, en, az), German first.
+  const groups = [{ de: '/', en: '/en/', az: '/az/' }, ...statePaths()];
   const entry = (loc, group, priority) =>
     `  <url>\n    <loc>{{SITE_URL}}${loc}</loc>\n    <lastmod>${today}</lastmod>\n` +
     Object.entries(group)
@@ -141,7 +141,7 @@ function writeSitemap(file) {
       .join('') +
     `    <xhtml:link rel="alternate" hreflang="x-default" href="{{SITE_URL}}${group.de}"/>\n` +
     `    <priority>${priority}</priority>\n  </url>`;
-  // Main pages 1.0/0.9/0.8, state pages 0.8/0.7: each further language a step lower.
+  // Main pages 1.0/0.9/0.8, state pages 0.8/0.7/0.6: each further language a step lower.
   const urls = groups.flatMap((group, i) =>
     Object.values(group).map((path, j) => entry(path, group, ((i ? 0.8 : 1) - j * 0.1).toFixed(1))),
   );

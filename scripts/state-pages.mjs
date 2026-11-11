@@ -4,45 +4,54 @@
  * {{SITE_URL}} / {{REPO_URL}} / {{YEAR}} and moves root-relative links under BASE, like the hand-written pages.
  *
  *   /einbuergerungstest-<slug>/      German
- *   /en/einbuergerungstest-<slug>/   English (same German slug: people search the German word in English too)
+ *   /en/einbuergerungstest-<slug>/   English (same German slug: people search the German word in other languages too)
+ *   /az/einbuergerungstest-<slug>/   Azerbaijani
  *
  * The pages describe the test in that state and link into the app. They don't list the catalog questions.
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+// az: [name, locative] (Azerbaijani suffixes follow vowel harmony, so the case form is spelled out per state).
 // Facts the state questions ask about. Kept to what is stable: capital, parliament, head of government's title.
 export const STATES = [
-  { code: 'BW', de: 'Baden-Württemberg', en: 'Baden-Württemberg', capital: ['Stuttgart', 'Stuttgart'] },
-  { code: 'BY', de: 'Bayern', en: 'Bavaria', capital: ['München', 'Munich (München)'] },
-  { code: 'BE', de: 'Berlin', en: 'Berlin', capital: null, parliament: 'abgeordnetenhaus', head: 'governing' },
-  { code: 'BB', de: 'Brandenburg', en: 'Brandenburg', capital: ['Potsdam', 'Potsdam'] },
-  { code: 'HB', de: 'Bremen', en: 'Bremen', capital: null, parliament: 'buergerschaftHB', head: 'senate' },
-  { code: 'HH', de: 'Hamburg', en: 'Hamburg', capital: null, parliament: 'buergerschaftHH', head: 'first' },
-  { code: 'HE', de: 'Hessen', en: 'Hesse', capital: ['Wiesbaden', 'Wiesbaden'] },
-  { code: 'MV', de: 'Mecklenburg-Vorpommern', en: 'Mecklenburg-Western Pomerania', capital: ['Schwerin', 'Schwerin'] },
-  { code: 'NI', de: 'Niedersachsen', en: 'Lower Saxony', capital: ['Hannover', 'Hanover (Hannover)'] },
-  { code: 'NW', de: 'Nordrhein-Westfalen', en: 'North Rhine-Westphalia', capital: ['Düsseldorf', 'Düsseldorf'], short: 'NRW' },
-  { code: 'RP', de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', capital: ['Mainz', 'Mainz'] },
-  { code: 'SL', de: 'Saarland', en: 'Saarland', capital: ['Saarbrücken', 'Saarbrücken'] },
-  { code: 'SN', de: 'Sachsen', en: 'Saxony', capital: ['Dresden', 'Dresden'] },
-  { code: 'ST', de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', capital: ['Magdeburg', 'Magdeburg'] },
-  { code: 'SH', de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', capital: ['Kiel', 'Kiel'] },
-  { code: 'TH', de: 'Thüringen', en: 'Thuringia', capital: ['Erfurt', 'Erfurt'] },
+  { code: 'BW', de: 'Baden-Württemberg', en: 'Baden-Württemberg', capital: ['Stuttgart', 'Stuttgart'], az: ['Baden-Vürtemberq', 'Baden-Vürtemberqdə'] },
+  { code: 'BY', de: 'Bayern', en: 'Bavaria', capital: ['München', 'Munich (München)'], az: ['Bavariya', 'Bavariyada'], capitalAz: 'Münhen (München)' },
+  { code: 'BE', de: 'Berlin', en: 'Berlin', capital: null, parliament: 'abgeordnetenhaus', head: 'governing', az: ['Berlin', 'Berlində'] },
+  { code: 'BB', de: 'Brandenburg', en: 'Brandenburg', capital: ['Potsdam', 'Potsdam'], az: ['Brandenburq', 'Brandenburqda'] },
+  { code: 'HB', de: 'Bremen', en: 'Bremen', capital: null, parliament: 'buergerschaftHB', head: 'senate', az: ['Bremen', 'Bremendə'] },
+  { code: 'HH', de: 'Hamburg', en: 'Hamburg', capital: null, parliament: 'buergerschaftHH', head: 'first', az: ['Hamburq', 'Hamburqda'] },
+  { code: 'HE', de: 'Hessen', en: 'Hesse', capital: ['Wiesbaden', 'Wiesbaden'], az: ['Hessen', 'Hessendə'] },
+  { code: 'MV', de: 'Mecklenburg-Vorpommern', en: 'Mecklenburg-Western Pomerania', capital: ['Schwerin', 'Schwerin'], az: ['Meklenburq-Ön Pomeraniya', 'Meklenburq-Ön Pomeraniyada'] },
+  { code: 'NI', de: 'Niedersachsen', en: 'Lower Saxony', capital: ['Hannover', 'Hanover (Hannover)'], az: ['Aşağı Saksoniya', 'Aşağı Saksoniyada'] },
+  { code: 'NW', de: 'Nordrhein-Westfalen', en: 'North Rhine-Westphalia', capital: ['Düsseldorf', 'Düsseldorf'], short: 'NRW', az: ['Şimali Reyn-Vestfaliya', 'Şimali Reyn-Vestfaliyada'] },
+  { code: 'RP', de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', capital: ['Mainz', 'Mainz'], az: ['Reynland-Pfals', 'Reynland-Pfalsda'] },
+  { code: 'SL', de: 'Saarland', en: 'Saarland', capital: ['Saarbrücken', 'Saarbrücken'], az: ['Saarland', 'Saarlandda'] },
+  { code: 'SN', de: 'Sachsen', en: 'Saxony', capital: ['Dresden', 'Dresden'], az: ['Saksoniya', 'Saksoniyada'] },
+  { code: 'ST', de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', capital: ['Magdeburg', 'Magdeburg'], az: ['Saksoniya-Anhalt', 'Saksoniya-Anhaltda'] },
+  { code: 'SH', de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', capital: ['Kiel', 'Kiel'], az: ['Şlezviq-Holşteyn', 'Şlezviq-Holşteyndə'] },
+  { code: 'TH', de: 'Thüringen', en: 'Thuringia', capital: ['Erfurt', 'Erfurt'], az: ['Türingiya', 'Türingiyada'] },
 ].map((s) => ({ ...s, slug: slugify(s.de) }));
 
+// [de, en, az]
 const PARLIAMENT = {
-  landtag: ['Landtag', 'state parliament (Landtag)'],
-  abgeordnetenhaus: ['Abgeordnetenhaus', 'House of Representatives (Abgeordnetenhaus)'],
-  buergerschaftHB: ['Bremische Bürgerschaft', 'Bremen state parliament (Bürgerschaft)'],
-  buergerschaftHH: ['Hamburgische Bürgerschaft', 'Hamburg state parliament (Bürgerschaft)'],
+  landtag: ['Landtag', 'state parliament (Landtag)', 'əyalət parlamenti (Landtag)'],
+  abgeordnetenhaus: ['Abgeordnetenhaus', 'House of Representatives (Abgeordnetenhaus)', 'Nümayəndələr Palatası (Abgeordnetenhaus)'],
+  buergerschaftHB: ['Bremische Bürgerschaft', 'Bremen state parliament (Bürgerschaft)', 'Bremen əyalət parlamenti (Bürgerschaft)'],
+  buergerschaftHH: ['Hamburgische Bürgerschaft', 'Hamburg state parliament (Bürgerschaft)', 'Hamburq əyalət parlamenti (Bürgerschaft)'],
 };
 const HEAD = {
-  mp: ['Ministerpräsidentin oder Ministerpräsident', 'Minister-President (Ministerpräsident)'],
-  governing: ['Regierende Bürgermeisterin oder Regierender Bürgermeister', 'Governing Mayor (Regierender Bürgermeister)'],
-  senate: ['Präsidentin oder Präsident des Senats', 'President of the Senate (Präsident des Senats)'],
-  first: ['Erste Bürgermeisterin oder Erster Bürgermeister', 'First Mayor (Erster Bürgermeister)'],
+  mp: ['Ministerpräsidentin oder Ministerpräsident', 'Minister-President (Ministerpräsident)', 'baş nazir (Ministerpräsident)'],
+  governing: ['Regierende Bürgermeisterin oder Regierender Bürgermeister', 'Governing Mayor (Regierender Bürgermeister)', 'idarəedici bələdiyyə sədri (Regierender Bürgermeister)'],
+  senate: ['Präsidentin oder Präsident des Senats', 'President of the Senate (Präsident des Senats)', 'Senatın prezidenti (Präsident des Senats)'],
+  first: ['Erste Bürgermeisterin oder Erster Bürgermeister', 'First Mayor (Erster Bürgermeister)', 'birinci bələdiyyə sədri (Erster Bürgermeister)'],
 };
+
+const LANGS = ['de', 'en', 'az'];
+const PREFIX = { de: '', en: '/en', az: '/az' };
+const LANG_INDEX = { de: 0, en: 1, az: 2 };
+/** Name of a state in a page's language; Azerbaijani adds the German name where it differs, as in the app. */
+const stateName = (x, lang) => (lang === 'az' ? (x.az[0] === x.de ? x.de : `${x.az[0]} (${x.de})`) : lang === 'de' ? x.de : x.en);
 
 export function slugify(name) {
   return (
@@ -58,14 +67,14 @@ export function slugify(name) {
   );
 }
 
-/** Paths (without SITE_URL) of every state page, as [de, en] pairs, for the sitemap. */
-export const statePaths = () => STATES.map((s) => [`/${s.slug}/`, `/en/${s.slug}/`]);
+/** Paths (without SITE_URL) of every state page, one `{ de, en, az }` group per state, for the sitemap. */
+export const statePaths = () => STATES.map((s) => Object.fromEntries(LANGS.map((l) => [l, `${PREFIX[l]}/${s.slug}/`])));
 
 /** Writes all state pages into `dir` (the copied landing folder). */
 export function writeStatePages(dir) {
   for (const s of STATES) {
-    for (const lang of ['de', 'en']) {
-      const folder = join(dir, lang === 'de' ? '' : 'en', s.slug);
+    for (const lang of LANGS) {
+      const folder = join(dir, PREFIX[lang].slice(1), s.slug);
       mkdirSync(folder, { recursive: true });
       writeFileSync(join(folder, 'index.html'), page(s, lang));
     }
@@ -78,7 +87,7 @@ const fit = (texts, max = 60) => texts.find((x) => x.length <= max) ?? texts.at(
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 function facts(s, lang) {
-  const i = lang === 'de' ? 0 : 1;
+  const i = LANG_INDEX[lang];
   const parliament = PARLIAMENT[s.parliament ?? 'landtag'][i];
   const head = HEAD[s.head ?? 'mp'][i];
   if (lang === 'de') {
@@ -86,6 +95,13 @@ function facts(s, lang) {
       s.capital ? `Landeshauptstadt: ${s.capital[0]}` : `${s.de} ist ein Stadtstaat: Stadt und Land zugleich`,
       `Landesparlament: ${parliament}`,
       `Regierungschef: ${head}`,
+    ];
+  }
+  if (lang === 'az') {
+    return [
+      s.capital ? `Paytaxt: ${s.capitalAz ?? s.capital[0]}` : `${s.az[0]} şəhər-dövlətdir: həm şəhər, həm də federal əyalət`,
+      `Parlament: ${parliament}`,
+      `Hökumət başçısı: ${head}`,
     ];
   }
   return [
@@ -97,11 +113,11 @@ function facts(s, lang) {
 
 function page(s, lang) {
   const de = lang === 'de';
-  const name = de ? s.de : s.en;
-  const self = de ? `/${s.slug}/` : `/en/${s.slug}/`;
-  const other = de ? `/en/${s.slug}/` : `/${s.slug}/`;
-  const home = de ? '/' : '/en/';
+  const name = stateName(s, lang);
+  const self = `${PREFIX[lang]}/${s.slug}/`;
+  const home = `${PREFIX[lang]}/`;
   const searchName = s.short ? `${s.de} (${s.short})` : s.de;
+  const [az, azLoc] = s.az;
 
   const t = de
     ? {
@@ -148,9 +164,55 @@ function page(s, lang) {
         nav: 'Hauptnavigation',
         footer: 'Unabhängiges Open-Source-Projekt zur Vorbereitung auf den Einbürgerungstest. Keine Verbindung zum BAMF. Fragen: BAMF-Gesamtfragenkatalog (Stand 07.05.2025).',
         source: 'Quellcode',
-        langLabel: 'EN',
         locale: 'de_DE',
         og: 'og-de.png',
+      }
+    : lang === 'az'
+    ? {
+        title: fit([`Einbürgerungstest ${s.short ?? s.de} azərbaycanca | Bürgerweg`, `Einbürgerungstest ${s.de} | Bürgerweg`]),
+        description: fit(
+          [
+            `${az} üçün Almaniya vətəndaşlıq testinə (Einbürgerungstest) pulsuz hazırlıq: 300 ümumi və 10 əyalət sualı, test simulyatoru, azərbaycanca tərcümə.`,
+            `Einbürgerungstest ${s.de}: 310 sual, test simulyatoru, azərbaycanca tərcümə. Pulsuz, hesabsız, internetsiz.`,
+          ],
+          160,
+        ),
+        eyebrow: `Almaniya vətəndaşlıq testi · ${esc(az)}`,
+        h1: `Einbürgerungstest ${esc(searchName)}: azərbaycanca pulsuz hazırlıq`,
+        lead: `${esc(azLoc)} yaşayırsınızsa, testdə 3 sual ${esc(az)} haqqında olacaq. Bürgerweg sizə məhz sizin üçün vacib olan 310 sualı göstərir: 300 ümumi sual və ${esc(az)} üçün 10 sual, test simulyatoru və bir toxunuşla azərbaycanca tərcümə ilə.`,
+        cta: `${esc(az)} suallarını öyrən`,
+        factsTitle: 'Rəqəmlərlə test',
+        f: ['testdə sual', 'dəqiqə vaxt', 'keçmək üçün düzgün cavab', 'öyrəniləcək sual'],
+        aboutTitle: `${esc(azLoc)} testdə nə soruşulur`,
+        aboutLead: 'Test ("Leben in Deutschland") bütün Almaniyada eyni qaydada qurulub. 33 sualdan yalnız 3-ü federal əyalətdən asılıdır.',
+        about: [
+          `300 sualdan ibarət kataloqdan <strong>30 ümumi sual</strong>: siyasət və demokratiya, tarix, cəmiyyət və birgə yaşayış.`,
+          `Əyalətiniz üçün 10 sualdan <strong>${esc(az)} haqqında 3 sual</strong>, məsələn, gerb və bayraq, paytaxt, parlament, seçkilər və hökumət haqqında.`,
+          `<strong>60 dəqiqə</strong> vaxtınız var. <strong>17 düzgün cavabla</strong> Einbürgerungstest-i keçirsiniz.`,
+        ],
+        knowTitle: `${esc(az)} haqqında bilmək faydalıdır`,
+        stepsTitle: 'Necə öyrənməli',
+        steps: [
+          ['Əyalətinizi seçin', `Bürgerweg-i açın və federal əyalətinizi seçin. Tətbiq sizə 300 ümumi sualı və ${esc(az)} üçün 10 sualı göstərəcək.`],
+          ['Gündə bir neçə sual', 'Gündəlik hədəf qoyun, məsələn, 20 sual. Daxili halqa bu gün nə qədər etdiyinizi göstərir.'],
+          ['Test simulyatoru', '60 dəqiqədə 33 sual, imtahan günündəki kimi, alman dilində, bir toxunuşla azərbaycanca tərcümə ilə.'],
+        ],
+        faqTitle: 'Tez-tez verilən suallar',
+        faq: [
+          [`${azLoc} vətəndaşlıq testində neçə sual var?`, `33 sual: 300 sualdan ibarət ümumi kataloqdan 30 sual və ${az} üçün 10 sualdan 3-ü. Yəni 310 sual öyrənirsiniz.`],
+          ['Neçə suala düzgün cavab verməliyəm?', '33 sualdan ən azı 17-sinə. Bunun üçün 60 dəqiqə vaxtınız var.'],
+          [`${azLoc} Einbürgerungstest-i harada verə bilərəm?`, `${azLoc} təsdiq olunmuş imtahan məntəqəsində, adətən xalq ali məktəbində (Volkshochschule, VHS). Qeydiyyat orada aparılır. Test 25 avroya başa gəlir.`],
+          ['Test alman dilindədir?', 'Bəli, testin özü alman dilindədir. Bürgerweg-də alman suallarını azərbaycanca tərcümə ilə öyrənirsiniz, beləcə testdə görəcəyiniz alman ifadələrini tanıyırsınız.'],
+        ],
+        othersTitle: 'Digər federal əyalətlərdə Einbürgerungstest',
+        open: 'Tətbiqi aç',
+        homeLabel: 'Ana səhifə',
+        skip: 'Məzmuna keç',
+        nav: 'Əsas naviqasiya',
+        footer: 'Almaniya vətəndaşlıq testinə hazırlıq üçün müstəqil açıq mənbəli layihə. BAMF ilə əlaqəsi yoxdur. Suallar: BAMF kataloqu (7 may 2025). Tərcümələr qeyri-rəsmidir.',
+        source: 'Mənbə kodu',
+        locale: 'az_AZ',
+        og: 'og-az.png',
       }
     : {
         title: fit([`Einbürgerungstest ${s.en} in English | Bürgerweg`, `Einbürgerungstest ${s.en} | Bürgerweg`]),
@@ -196,7 +258,6 @@ function page(s, lang) {
         nav: 'Main navigation',
         footer: 'Independent open-source project to prepare for the German citizenship test. Not affiliated with the BAMF. Questions: BAMF catalogue (as of 7 May 2025). Translations are unofficial.',
         source: 'Source code',
-        langLabel: 'DE',
         locale: 'en_GB',
         og: 'og-en.png',
       };
@@ -219,8 +280,11 @@ function page(s, lang) {
   };
 
   const others = STATES.filter((x) => x.code !== s.code)
-    .map((x) => `<li><a href="${de ? '' : '/en'}/${x.slug}/">${esc(de ? x.de : x.en)}</a></li>`)
+    .map((x) => `<li><a href="${PREFIX[lang]}/${x.slug}/">${esc(stateName(x, lang))}</a></li>`)
     .join('');
+  const langLinks = LANGS.filter((l) => l !== lang)
+    .map((l) => `<a class="lang" href="${PREFIX[l]}/${s.slug}/" hreflang="${l}" lang="${l}">${l.toUpperCase()}</a>`)
+    .join('\n        ');
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -230,8 +294,7 @@ function page(s, lang) {
   <title>${esc(t.title)}</title>
   <meta name="description" content="${esc(t.description)}">
   <link rel="canonical" href="{{SITE_URL}}${self}">
-  <link rel="alternate" hreflang="de" href="{{SITE_URL}}/${s.slug}/">
-  <link rel="alternate" hreflang="en" href="{{SITE_URL}}/en/${s.slug}/">
+${LANGS.map((l) => `  <link rel="alternate" hreflang="${l}" href="{{SITE_URL}}${PREFIX[l]}/${s.slug}/">`).join('\n')}
   <link rel="alternate" hreflang="x-default" href="{{SITE_URL}}/${s.slug}/">
   <meta name="theme-color" content="#4A4544">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -255,7 +318,7 @@ function page(s, lang) {
     <div class="wrap">
       <a class="brand" href="${home}" aria-label="Bürgerweg ${t.homeLabel}"><img src="/icon-192.png" alt="" width="34" height="34">Bürgerweg</a>
       <nav class="nav" aria-label="${t.nav}">
-        <a class="lang" href="${other}" hreflang="${de ? 'en' : 'de'}" lang="${de ? 'en' : 'de'}">${t.langLabel}</a>
+        ${langLinks}
         <a class="btn btn-primary btn-sm" href="/app/">${t.open}</a>
       </nav>
     </div>
@@ -273,7 +336,7 @@ function page(s, lang) {
         </div>
         <div class="hero-art">
           <img class="scene" src="/images/hero.svg" alt="" width="460" height="460">
-          <img class="phone" src="/images/${lang}-home.webp" alt="${de ? 'Bürgerweg Startseite mit Lernfortschritt' : 'Bürgerweg home screen with learning progress'}" width="482" height="971" fetchpriority="high">
+          <img class="phone" src="/images/${lang}-home.webp" alt="${{ de: 'Bürgerweg Startseite mit Lernfortschritt', en: 'Bürgerweg home screen with learning progress', az: 'Bürgerweg ana ekranı və irəliləyiş' }[lang]}" width="482" height="971" fetchpriority="high">
         </div>
       </div>
     </section>
