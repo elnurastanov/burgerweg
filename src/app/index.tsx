@@ -5,7 +5,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { ProgressRings } from '@/components/progress-rings';
 import { Card, IconButton, Row, Screen, Txt, type IconName } from '@/components/ui';
-import { useT } from '@/lib/i18n';
+import { dateLocale, useT } from '@/lib/i18n';
 import { EXAM, stateName } from '@/lib/questions';
 import { formatDuration, useStats } from '@/lib/stats';
 import { useApp } from '@/lib/store';
@@ -23,7 +23,7 @@ export default function Home() {
 
   // The ring's green arc and this number show correctly answered questions; readiness still uses mastery.
   const pct = stats.total ? Math.round((stats.correct / stats.total) * 100) : 0;
-  const locale = settings.lang === 'de' ? 'de-DE' : 'en-GB';
+  const locale = dateLocale(settings.lang);
 
   return (
     <Screen>

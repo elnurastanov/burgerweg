@@ -1,0 +1,1 @@
+Bürgerweg now speaks Azerbaijani: the whole interface and translations of all exam questions. The questions themselves stay in German, as in the test.

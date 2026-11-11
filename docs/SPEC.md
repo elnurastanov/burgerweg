@@ -45,7 +45,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | ID | Requirement | Status |
 | --- | --- | --- |
 | ON-1 | On first launch the user MUST choose a UI language, then their federal state, then a daily goal (10 / 20 / 30 / 50 questions a day, 20 preselected, with a rough time per day and how many days one pass through all questions takes) before seeing the dashboard. Small step bars show where they are. | ✅ |
-| ON-2 | The default UI language SHOULD follow the device locale (German if the device is German, else English). | ✅ |
+| ON-2 | The default UI language SHOULD follow the device locale (German or Azerbaijani if the device uses it, else English). | ✅ |
 | ON-3 | All three choices MUST be changeable later in Settings. | ✅ |
 | ON-4 | On Android, onboarding SHOULD end with a skippable step that opens the system "Open by default" screen, so that transfer links open in the app. Settings MUST offer the same shortcut. | ✅ |
 
@@ -101,13 +101,13 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 
 | ID | Requirement | Status |
 | --- | --- | --- |
-| LN-1 | The UI MUST be available in **English** and **Deutsch**. | ✅ |
+| LN-1 | The UI MUST be available in **English**, **Deutsch** and **Azərbaycanca** (Azerbaijani, Latin script, polite *siz* form). In Azerbaijani, federal states show the German name in brackets where it differs, e.g. "Bavariya (Bayern)". | ✅ |
 | LN-2 | The whole interface (outside the exam simulator) MUST appear in the chosen language. | ✅ |
-| LN-3 | Translations of question content MUST exist for every question in every non-German UI language. | ✅ (en) |
+| LN-3 | Translations of question content MUST exist for every question in every non-German UI language. | ✅ (en, az) |
 | LN-4 | Translations MUST be presented as secondary: under the German text, smaller, fainter. | ✅ |
 | LN-5 | Adding a language SHOULD need only data files (UI strings + question translations), no screen changes. | ✅ |
 | LN-6 | Translations MUST be labeled unofficial in the app's About section. | ✅ |
-| LN-7 | The German question text MUST stay exactly as in the official BAMF catalog. A translation MUST be an exact translation of it, with the same sentence shape and no added hints or explanations. The only additions allowed are the German term in brackets for German institutions and concepts (e.g. "lay assessor (Schöffe)"), and small aids like "22:00 (10 pm)". See [question-data.md](question-data.md#translation-rules). | ✅ (en, reviewed 2026-11-04) |
+| LN-7 | The German question text MUST stay exactly as in the official BAMF catalog. A translation MUST be an exact translation of it, with the same sentence shape and no added hints or explanations. The only additions allowed are the German term in brackets for German institutions and concepts (e.g. "lay assessor (Schöffe)"), and small aids like "22:00 (10 pm)". See [question-data.md](question-data.md#translation-rules). | ✅ (en, reviewed 2026-11-04; az, reviewed 2026-11-11) |
 
 ### 3.7 Progress and storage
 

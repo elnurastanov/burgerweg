@@ -57,6 +57,14 @@ python3 scripts/build_data.py questions.json scripts/catalog/en img/ src/data
   (states where the municipal voting age is 18: BY, HE, SN), Bremen's Landtag term of 4 years, flag colors
   (always option 2 in this catalog), the head-of-government title, and "which minister does X not have" (foreign).
 
+### translations_az.py: Azerbaijani
+
+`python3 scripts/translations_az.py` writes `src/data/translations/az.json` from `questions.de.json` alone (no raw
+PDF output needed). General questions come from `scripts/catalog/az/p1.json`–`p6.json` (50 each,
+`"gN": ["question", "opt1", …]`, no answer index: answers stay in the German data). State questions are built from
+templates for the ten German patterns, with case forms per state name (genitive, locative), because Azerbaijani
+suffixes follow vowel harmony. City and district names in options stay German; state names are translated.
+
 ## Translation rules
 
 The German text is the official BAMF wording and is never edited (except the PDF caption fix in `FIX_Q`). Translations
@@ -87,6 +95,31 @@ must match them.
   | Ehrenamt, ehrenamtlich | honorary office (Ehrenamt), honorary |
   | DDR | GDR |
 
+**Azerbaijani terms** (same rules: exact, no hints, German term in brackets for German institutions):
+
+| German | Azerbaijani |
+| --- | --- |
+| Grundgesetz | Əsas Qanun (Grundgesetz) |
+| Rechtsstaat | hüquqi dövlət (Rechtsstaat) |
+| Meinungsfreiheit | ifadə azadlığı |
+| Bundestag, Bundesrat | Bundestaq (Bundestag), Bundesrat |
+| Bundesversammlung | Federal Məclis (Bundesversammlung) |
+| Landtag | əyalət parlamenti (Landtag) |
+| Bundesland | federal əyalət |
+| Ministerpräsident/in | baş nazir (Ministerpräsident) |
+| Fraktion | parlament fraksiyası (Fraktion) |
+| Schöffe | xalq iclasçısı (Schöffe) |
+| Ehrenamt, ehrenamtlich | fəxri vəzifə (Ehrenamt), könüllü (ehrenamtlich) |
+| DDR | ADR (DDR) |
+| Jugendamt | gənclərə yardım idarəsi (Jugendamt) |
+
+**Azerbaijani review 2026-11-11:** all 460 questions were translated with DeepL (DE → AZ) as a second opinion and
+compared with ours (`difflib` similarity per text; every text below 0.5 was read against the German). DeepL's Azerbaijani
+was too weak to use directly (e.g. *Bundeskanzler* as "treasurer", *Faustrecht* as "rule of thumb", *Schöffe* as
+"non-professional judge", which would hint at g150's answer). Fixed in ours: g36 *soziale Sicherheit* (sosial təminat),
+g80 *Oberlandesgericht* (Ali Əyalət Məhkəməsi, not *torpaq*), g139 towing (evakuatorla), g207 *Europabündnis*
+(Avropa Alyansı, so it can't be confused with the EU), flag *blau* as "mavi", and "haradan" in the state questions.
+
 **Review 2026-11-04:** all 460 questions were translated with DeepL (DE → EN-GB) as an independent second opinion
 and compared with ours; differing questions were checked against the German, and every English text was scanned for
 additions. DeepL's own output was not used as the translation (it changed meanings, e.g. parties as "she",
@@ -103,6 +136,7 @@ they were **not** taken from an official answer key. Before release:
       g213 (84 million inhabitants).
 - [ ] Have a fluent speaker proofread the English translations (they are unofficial and marked as such in the app).
       A machine-assisted review against the rules above was done on 2026-11-04.
+- [ ] Have a native speaker proofread the Azerbaijani translations and UI strings (machine-assisted review 2026-11-11).
 - Already fixed after the visual check: g209 is image 4 (GDR emblem), g226 is image 2 (EU flag).
 
 ## Updating for a new catalog
