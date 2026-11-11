@@ -78,7 +78,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | EX-1 | An exam MUST draw 33 questions: 30 random general + 3 random from the user's state, in random order. | ✅ |
 | EX-2 | It MUST have a 60-minute countdown and MUST auto-submit at 0:00. Remaining time SHOULD be highlighted when under 5 minutes. | ✅ |
 | EX-3 | A score of **17 or more** correct MUST count as passed. | ✅ |
-| EX-4 | The simulator (questions, answers and its own controls) MUST always be in **German**, regardless of UI language. | ✅ |
+| EX-4 | The simulator (questions, answers and its own controls) MUST always be in **German**, regardless of UI language. On the start screen, the title, the intro text and the three numbers (questions, minutes, pass mark) SHOULD show a small UI-language line under the German, like question translations; the start button stays German. | ✅ |
 | EX-5 | A **translation button** MUST toggle translations, shown **under** the German text, **smaller and with lower opacity**. It MUST be available for every UI language (German UI → English). | ✅ |
 | EX-6 | No right/wrong feedback MUST be shown during the exam. The user MUST be able to change answers, move back/forward and jump via an overview of all 33 questions. | ✅ |
 | EX-7 | Submitting with unanswered questions MUST ask for confirmation, stating how many are open. | ✅ |
