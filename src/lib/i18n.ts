@@ -329,7 +329,7 @@ const az: Record<StringKey, string> = {
   goalLevel50: 'İntensiv',
   goalEstimate: 'Gündə {goal} sualla bütün {total} suala təxminən {days} günə baxıb keçəcəksiniz.',
   dailyGoal: 'Gündəlik hədəf',
-  goalPerDay: 'Gündə sual',
+  goalPerDay: 'Gündəlik hədəf',
   goalDoneToday: 'Bu gün {count} edildi',
   goalSettingsHint: 'Hədəfə çatdıqca ana ekrandakı daxili qızılı halqa dolur.',
   of: '/',
