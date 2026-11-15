@@ -75,6 +75,12 @@ in `site/burgerweg/`, the request path matches the file path 1:1. The `workers.d
   build variable `ANDROID_CERT_SHA256` to the app's signing-certificate fingerprint(s). The build then writes
   `site/.well-known/assetlinks.json` (see progress-transfer.md). Check it after a deploy:
   `curl https://astanov.com/.well-known/assetlinks.json`.
+- **Visitor counts (Cloudflare Web Analytics):** *Analytics & Logs → Web Analytics → Add a site*, hostname
+  `astanov.com`, and choose the **manual JS snippet** (not automatic setup, which would also inject it into the
+  rest of the domain). Copy the `token` value from the snippet into the build variable `CF_ANALYTICS_TOKEN` and
+  redeploy. The build then adds the cookieless beacon to every HTML page (landing, state pages, web app; the beacon
+  also counts page changes inside the app). Without the variable no page loads it. The Android app never does.
+  Numbers appear under *Web Analytics* after a few minutes; bots are filtered out, so they are real visits.
 - **`wrangler.jsonc` must stay in the repo.** Without it, `wrangler deploy` auto-detects "Expo", runs
   `expo export` again and uploads only `dist/`: the bare app at `/` without the landing page, with broken asset
   paths. This is what happened on the first deploy.
