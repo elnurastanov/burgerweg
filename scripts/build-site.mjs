@@ -19,6 +19,8 @@
  * for production. REPO_URL is the public source repository linked from the landing page.
  * ANDROID_CERT_SHA256 (comma-separated SHA-256 signing-certificate fingerprints) writes
  * site/.well-known/assetlinks.json at the domain root, so Android opens transfer links in the installed app.
+ * CF_ANALYTICS_TOKEN (the site token from Cloudflare Web Analytics) adds the cookieless Cloudflare beacon to every
+ * HTML page, landing and web app. Without it no page loads any third-party script.
  */
 import { execSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
@@ -108,6 +110,19 @@ walk(app, (file) => {
   const html = readFileSync(file, 'utf8');
   if (!html.includes('rel="manifest"')) writeFileSync(file, html.replace('</head>', `${headTags}</head>`));
 });
+
+// Cloudflare Web Analytics: cookieless visit counts, no personal data. The beacon follows client-side
+// navigation in the web app on its own (SPA mode is its default). The Android app never loads it.
+const analyticsToken = (process.env.CF_ANALYTICS_TOKEN || '').trim();
+if (analyticsToken) {
+  if (!/^[0-9a-f]{32}$/i.test(analyticsToken)) throw new Error('CF_ANALYTICS_TOKEN must be the 32-character site token.');
+  const beacon = `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${analyticsToken}"}'></script>`;
+  walk(out, (file) => {
+    if (!file.endsWith('.html')) return;
+    const html = readFileSync(file, 'utf8');
+    if (!html.includes('cloudflareinsights.com')) writeFileSync(file, html.replace('</body>', `${beacon}</body>`));
+  });
+}
 
 // Crawlers read robots.txt only at the domain root. For a site under a path, serve one there too (the host must
 // route /robots.txt to this site), pointing to the sitemap.

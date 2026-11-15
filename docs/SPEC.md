@@ -21,7 +21,7 @@ official question catalog, simulating the real exam and repeating weak questions
 **In scope:** the official BAMF catalog (300 general + 16 × 10 state questions), practice, exam simulation, flashcards,
 progress tracking, UI in multiple languages, device-to-device progress transfer.
 
-**Out of scope (v1):** user accounts, cloud sync / any backend, payments, ads, analytics, answer explanations,
+**Out of scope (v1):** user accounts, cloud sync / any backend, payments, ads, in-app analytics, answer explanations,
 push notifications, the *Orientierungskurs* content beyond the catalog, **a native iOS app** (iOS is served by the
 PWA), and paid app stores. The MVP must stay **free to build, host and publish**.
 
@@ -154,7 +154,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | LP-3 | SEO: unique title (≤ 60 chars) and meta description (≤ 160 chars), one `h1`, canonical URL, `hreflang` alternates, Open Graph/Twitter cards with a 1200×630 image, JSON-LD (`WebApplication`, `FAQPage`), `robots.txt`, `sitemap.xml`, descriptive `alt` text, image dimensions set. | ✅ |
 | LP-7 | For each federal state there MUST be a static page in German (`/einbuergerungstest-<state>/`), English (`/en/einbuergerungstest-<state>/`) and Azerbaijani (`/az/einbuergerungstest-<state>/`), generated at build time: the test format in that state, facts the state questions ask about (capital, parliament, head of government), how to practise, an FAQ (with `FAQPage` and `BreadcrumbList` JSON-LD), links to the other states and into the app. They MUST NOT list the catalog questions. The main pages link to all 16. | ✅ |
 | LP-8 | Titles, descriptions, `keywords`, and the `h1` SHOULD use the terms people search for (see [deployment.md](deployment.md#search-keywords)). The sitemap MUST list every page with its language alternates and `lastmod`. | ✅ |
-| LP-4 | It MUST state that the project is independent of the BAMF and that translations are unofficial, and describe the privacy model (no cookies, no tracking). | ✅ |
+| LP-4 | It MUST state that the project is independent of the BAMF and that translations are unofficial, and describe the privacy model (no cookies, no accounts, anonymous cookieless visit counts on the website only). | ✅ |
 | LP-5 | Absolute URLs come from `SITE_URL` at build time. | ✅ |
 
 ### 3.11 Settings
@@ -172,7 +172,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 | NF-1 | **Calm, smooth design:** soft muted palette, generous spacing, rounded cards, gentle fade/zoom/flip animations, no aggressive colors or sounds. | ✅ |
 | NF-2 | Light and dark mode, following the system by default. | ✅ |
 | NF-3 | Phone-first layouts that also read well on tablets/desktop (content max width 720). Long button labels MUST NOT break mid-word. | ✅ |
-| NF-4 | Privacy: no tracking, no cookies, no network calls for app features, no camera or other runtime permissions. | ✅ |
+| NF-4 | Privacy: no tracking, no cookies, no network calls for app features, no camera or other runtime permissions. Exception: the website (landing and web app) may load the cookieless Cloudflare Web Analytics beacon for anonymous visit counts; the Android app never does. | ✅ |
 | NF-8 | **Free & FOSS:** no proprietary dependencies (no Google Play Services, Firebase, ML Kit, analytics), so the Android app qualifies for F-Droid. Hosting must work on any free static host. | ✅ (dependency scan clean) |
 | NF-5 | Performance: the list of 310 questions scrolls smoothly (virtualized). Question images ≤ ~1.5 MB total. | ✅ |
 | NF-6 | Accessibility: buttons and options carry roles/labels. Text uses system fonts and respects platform text scaling. | ⚠️ basic; no full audit yet |
