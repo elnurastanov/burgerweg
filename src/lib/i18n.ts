@@ -607,7 +607,160 @@ const tr: Record<StringKey, string> = {
   importInvalid: 'Bu geçerli bir aktarım koduna benzemiyor.',
 };
 
-const dictionaries: Record<string, Record<StringKey, string>> = { en, de, az, tr };
+const ru: Record<StringKey, string> = {
+  appName: 'Bürgerweg',
+  greeting: 'С возвращением',
+  greetingNew: 'Добро пожаловать',
+  subtitle: 'Спокойная и последовательная подготовка к тесту на гражданство (Einbürgerungstest).',
+
+  // onboarding
+  chooseLanguage: 'Выберите язык',
+  chooseLanguageHint: 'Его можно изменить позже в настройках.',
+  chooseState: 'Где вы живёте?',
+  chooseStateHint: 'В тесте 3 вопроса о вашей федеральной земле.',
+  continue: 'Далее',
+  getStarted: 'Начать',
+  linksTitle: 'Открывать ссылки переноса в этом приложении',
+  linksHint: 'Когда вы сканируете QR-код с прогрессом, Android откроет ссылку здесь, только если вы это разрешите.',
+  linksSteps: 'В настройках выберите «В приложении». Если {host} ещё нет в списке ссылок, нажмите «Добавить ссылку» и отметьте его.',
+  linksOpenSettings: 'Открыть настройки Android',
+
+  // home
+  progress: 'Прогресс',
+  toReview: 'Повторить',
+  examsPassed: 'Сдано тестов',
+  correct: 'Верно',
+  today: 'Сегодня',
+  goalTitle: 'Сколько в день?',
+  goalHint: 'Выберите цель на день. Её можно изменить в любое время в настройках.',
+  goalOption: '{count} вопросов в день',
+  goalMinutes: '{level} · около {minutes} минут',
+  goalLevel10: 'Спокойно',
+  goalLevel20: 'Равномерно',
+  goalLevel30: 'Сосредоточенно',
+  goalLevel50: 'Интенсивно',
+  goalEstimate: 'С {goal} вопросами в день вы пройдёте все {total} вопросов примерно за {days} дн.',
+  dailyGoal: 'Цель на день',
+  goalPerDay: 'Вопросов в день',
+  goalDoneToday: 'Сегодня: {count}',
+  goalSettingsHint: 'Внутреннее золотое кольцо на главном экране заполняется по мере приближения к цели.',
+  of: 'из',
+  readiness: 'Готовность',
+  readinessStart: 'Только начинаете',
+  readinessGrowing: 'Набираете темп',
+  readinessGood: 'Хорошо идёт',
+  readinessReady: 'Готовы к тесту',
+  allQuestions: 'Все вопросы',
+  allQuestionsSub: 'Вопросов: {count} · отвечено: {done}',
+  examSimulator: 'Симулятор теста',
+  examSimulatorSub: '33 вопроса · 60 минут · на немецком',
+  flashcards: 'Карточки',
+  flashcardsSub: 'Быстрое повторение · случайные вопросы',
+  recentExams: 'Последние тесты',
+  noExamsYet: 'Тестов пока нет. Попробуйте, когда почувствуете себя готовыми.',
+  passed: 'Сдан',
+  failed: 'Не сдан',
+  transferProgress: 'Перенести прогресс',
+  settings: 'Настройки',
+
+  // question list
+  search: 'Поиск по вопросам',
+  filterAll: 'Все',
+  filterGeneral: 'Общие',
+  filterState: 'Моя земля',
+  filterWrong: 'Ошибки',
+  filterStarred: 'Отмеченные',
+  filterNew: 'Новые',
+  noResults: 'Здесь пока ничего нет.',
+
+  // practice
+  question: 'Вопрос',
+  next: 'Дальше',
+  previous: 'Назад',
+  showTranslation: 'Перевод',
+  correctAnswer: 'Верно!',
+  wrongAnswer: 'Не совсем — правильный ответ выделен.',
+  star: 'Отметить',
+  done: 'Готово',
+
+  // flashcards & results
+  shuffle: 'Перемешать',
+  backHome: 'На главную',
+  answer: 'Ответ',
+
+  // exam simulator (always rendered in German; kept for completeness)
+  examIntro: 'Как настоящий тест: 33 вопроса, 60 минут. Чтобы сдать, нужно 17 правильных ответов.',
+  examIntroHint: 'Тест на немецком. Если нужна помощь, нажмите кнопку перевода.',
+  examStart: 'Начать тест',
+  examFactQuestions: 'вопроса',
+  examFactMinutes: 'минут',
+  examFactPass: 'чтобы сдать',
+  examQuestionOf: 'Вопрос {n} из {total}',
+  examSubmit: 'Сдать',
+  examSubmitConfirm: 'Сдать тест сейчас? Без ответа ещё вопросов: {open}.',
+  examSubmitConfirmAll: 'Сдать тест сейчас?',
+  examLeave: 'Выйти из теста? Ваши ответы будут потеряны.',
+  examLeaveYes: 'Выйти',
+  examOverview: 'Обзор',
+
+  // exam result (shown in UI language)
+  result: 'Результат',
+  passMark: 'Чтобы сдать, нужно не менее {mark} правильных ответов.',
+  timeUsed: 'Затрачено времени: {time}',
+  reviewAnswers: 'Посмотреть ответы',
+  yourAnswer: 'Ваш ответ',
+  notAnswered: 'Нет ответа',
+  tryAgain: 'Новый тест',
+
+  // settings
+  language: 'Язык',
+  federalState: 'Федеральная земля',
+  practiceTranslations: 'Показывать перевод при обучении',
+  practiceTranslationsHint: 'Симулятор теста всегда начинается на немецком.',
+  appearance: 'Оформление',
+  themeSystem: 'Как в системе',
+  themeLight: 'Светлое',
+  themeDark: 'Тёмное',
+  data: 'Ваши данные',
+  resetProgress: 'Сбросить прогресс',
+  resetConfirm: 'Удалить весь прогресс на этом устройстве? Это нельзя отменить.',
+  cancel: 'Отмена',
+  reset: 'Сбросить',
+  about: 'О приложении',
+  appVersion: 'Версия {version}',
+  updateChecking: 'Проверка обновлений…',
+  updateLatest: 'У вас последняя версия.',
+  updateAvailable: 'Доступна версия {version}.',
+  updateNow: 'Обновить',
+  updateCheckAgain: 'Проверить снова',
+  updateError: 'Не удалось проверить обновления. Вы подключены к интернету?',
+  aboutText:
+    'Вопросы из официального каталога BAMF «Leben in Deutschland» / Einbürgerungstest (по состоянию на {version}). Переводы неофициальные и служат только для обучения.',
+
+  // transfer
+  transferTitle: 'Перенести прогресс',
+  transferIntro:
+    'Аккаунт не нужен. Ваш прогресс хранится на этом устройстве — перенесите его на другой телефон, планшет или в браузер с помощью QR-кода, кода переноса или файла.',
+  sendTitle: 'Отправить с этого устройства',
+  sendHint: 'Отсканируйте этот QR-код камерой другого устройства. Откроется Bürgerweg и предложит импортировать ваш прогресс.',
+  copyCode: 'Скопировать ссылку',
+  copied: 'Скопировано',
+  exportFile: 'Сохранить файл',
+  receiveTitle: 'Получить на этом устройстве',
+  pasteCode: 'Вставьте ссылку или код переноса',
+  importCode: 'Импортировать',
+  importFile: 'Открыть файл',
+  importFound: 'Прогресс найден',
+  importSummary: 'Отвечено вопросов: {answered}, тестов: {exams}, земля: {state}.',
+  importMerge: 'Объединить с моим',
+  importMergeHint: 'Для каждого вопроса сохраняется более отработанный результат.',
+  importReplace: 'Заменить мой',
+  importReplaceHint: 'Это устройство станет точной копией другого.',
+  importDone: 'Прогресс импортирован',
+  importInvalid: 'Это не похоже на действительный код переноса.',
+};
+
+const dictionaries: Record<string, Record<StringKey, string>> = { en, de, az, tr, ru };
 
 /** UI languages. Add a dictionary above (and a question translation file) to add one. */
 export const LANGUAGES = [
@@ -615,9 +768,10 @@ export const LANGUAGES = [
   { code: 'de', name: 'Deutsch' },
   { code: 'az', name: 'Azərbaycanca' },
   { code: 'tr', name: 'Türkçe' },
+  { code: 'ru', name: 'Русский' },
 ] as const;
 
-const DATE_LOCALES: Record<string, string> = { de: 'de-DE', tr: 'tr-TR' };
+const DATE_LOCALES: Record<string, string> = { de: 'de-DE', tr: 'tr-TR', ru: 'ru-RU' };
 
 const AZ_MONTHS = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avq', 'sen', 'okt', 'noy', 'dek'];
 
