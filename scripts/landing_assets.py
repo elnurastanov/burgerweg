@@ -2,7 +2,7 @@
 
   python scripts/landing_assets.py
 
-Inputs:  scripts/shots/{de,en,az,tr,ru}-{home,exam,flashcards,transfer}.jpg  (750×1624 app screenshots)
+Inputs:  scripts/shots/{de,en,az,tr,ru,uk}-{home,exam,flashcards,transfer}.jpg  (750×1624 app screenshots)
          assets/icon-src/make_icons.py                               (icon artwork, variant Y3)
 Outputs: landing/images/*.webp, hero.svg, og-<lang>.png; landing/favicon.ico, landing/icon-*.png
 """
@@ -11,7 +11,7 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-LANGS = ('de', 'en', 'az', 'tr', 'ru')
+LANGS = ('de', 'en', 'az', 'tr', 'ru', 'uk')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'assets', 'icon-src'))
 import make_icons as icons  # noqa: E402
@@ -89,6 +89,7 @@ def og_image(lang):
         'az': ['Vətəndaşlıq testinə', 'sakit hazırlıq'],
         'tr': ['Vatandaşlık testine', 'sakin hazırlık'],
         'ru': ['Спокойная подготовка', 'к тесту на гражданство'],
+        'uk': ['Спокійна підготовка', 'до тесту на громадянство'],
     }[lang]
     sub = {
         'de': 'Kostenlos · ohne Konto · offline',
@@ -96,6 +97,7 @@ def og_image(lang):
         'az': 'Pulsuz · hesabsız · internetsiz',
         'tr': 'Ücretsiz · hesapsız · çevrimdışı',
         'ru': 'Бесплатно · без аккаунта · офлайн',
+        'uk': 'Безкоштовно · без реєстрації',
     }[lang]
     img = Image.new('RGBA', (1200, 630), BG + (255,))
     art = icons.rounded(icons.icon_image('Y3', 300))

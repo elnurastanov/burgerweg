@@ -3,6 +3,7 @@ import az from '@/data/translations/az.json';
 import en from '@/data/translations/en.json';
 import ru from '@/data/translations/ru.json';
 import tr from '@/data/translations/tr.json';
+import uk from '@/data/translations/uk.json';
 
 export type StateCode =
   | 'BW' | 'BY' | 'BE' | 'BB' | 'HB' | 'HH' | 'HE' | 'MV'
@@ -32,7 +33,7 @@ const byId = new Map(QUESTIONS.map((q) => [q.id, q]));
 export const getQuestion = (id: string) => byId.get(id);
 
 // Question translations per UI language. German is the source, so it has none.
-const translations: Record<string, Record<string, Translation>> = { en, az, tr, ru };
+const translations: Record<string, Record<string, Translation>> = { en, az, tr, ru, uk };
 
 export function getTranslation(lang: string, id: string): Translation | undefined {
   return translations[lang]?.[id];
@@ -42,23 +43,23 @@ export function getTranslation(lang: string, id: string): Translation | undefine
 export const translationLang = (uiLang: string) => (uiLang !== 'de' && uiLang in translations ? uiLang : 'en');
 
 /** State names per UI language; a translated name carries the German one in brackets where they differ. */
-export const STATES: { code: StateCode; de: string; en: string; az: string; tr: string; ru: string }[] = [
-  { code: 'BW', de: 'Baden-Württemberg', en: 'Baden-Württemberg', az: 'Baden-Vürtemberq (Baden-Württemberg)', tr: 'Baden-Württemberg', ru: 'Баден-Вюртемберг (Baden-Württemberg)' },
-  { code: 'BY', de: 'Bayern', en: 'Bavaria', az: 'Bavariya (Bayern)', tr: 'Bavyera (Bayern)', ru: 'Бавария (Bayern)' },
-  { code: 'BE', de: 'Berlin', en: 'Berlin', az: 'Berlin', tr: 'Berlin', ru: 'Берлин (Berlin)' },
-  { code: 'BB', de: 'Brandenburg', en: 'Brandenburg', az: 'Brandenburq (Brandenburg)', tr: 'Brandenburg', ru: 'Бранденбург (Brandenburg)' },
-  { code: 'HB', de: 'Bremen', en: 'Bremen', az: 'Bremen', tr: 'Bremen', ru: 'Бремен (Bremen)' },
-  { code: 'HH', de: 'Hamburg', en: 'Hamburg', az: 'Hamburq (Hamburg)', tr: 'Hamburg', ru: 'Гамбург (Hamburg)' },
-  { code: 'HE', de: 'Hessen', en: 'Hesse', az: 'Hessen', tr: 'Hessen', ru: 'Гессен (Hessen)' },
-  { code: 'MV', de: 'Mecklenburg-Vorpommern', en: 'Mecklenburg-Western Pomerania', az: 'Meklenburq-Ön Pomeraniya (Mecklenburg-Vorpommern)', tr: 'Mecklenburg-Ön Pomeranya (Mecklenburg-Vorpommern)', ru: 'Мекленбург-Передняя Померания (Mecklenburg-Vorpommern)' },
-  { code: 'NI', de: 'Niedersachsen', en: 'Lower Saxony', az: 'Aşağı Saksoniya (Niedersachsen)', tr: 'Aşağı Saksonya (Niedersachsen)', ru: 'Нижняя Саксония (Niedersachsen)' },
-  { code: 'NW', de: 'Nordrhein-Westfalen', en: 'North Rhine-Westphalia', az: 'Şimali Reyn-Vestfaliya (Nordrhein-Westfalen)', tr: 'Kuzey Ren-Vestfalya (Nordrhein-Westfalen)', ru: 'Северный Рейн-Вестфалия (Nordrhein-Westfalen)' },
-  { code: 'RP', de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', az: 'Reynland-Pfals (Rheinland-Pfalz)', tr: 'Renanya-Palatina (Rheinland-Pfalz)', ru: 'Рейнланд-Пфальц (Rheinland-Pfalz)' },
-  { code: 'SL', de: 'Saarland', en: 'Saarland', az: 'Saarland', tr: 'Saarland', ru: 'Саар (Saarland)' },
-  { code: 'SN', de: 'Sachsen', en: 'Saxony', az: 'Saksoniya (Sachsen)', tr: 'Saksonya (Sachsen)', ru: 'Саксония (Sachsen)' },
-  { code: 'ST', de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', az: 'Saksoniya-Anhalt (Sachsen-Anhalt)', tr: 'Saksonya-Anhalt (Sachsen-Anhalt)', ru: 'Саксония-Анхальт (Sachsen-Anhalt)' },
-  { code: 'SH', de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', az: 'Şlezviq-Holşteyn (Schleswig-Holstein)', tr: 'Schleswig-Holstein', ru: 'Шлезвиг-Гольштейн (Schleswig-Holstein)' },
-  { code: 'TH', de: 'Thüringen', en: 'Thuringia', az: 'Türingiya (Thüringen)', tr: 'Thüringen', ru: 'Тюрингия (Thüringen)' },
+export const STATES: { code: StateCode; de: string; en: string; az: string; tr: string; ru: string; uk: string }[] = [
+  { code: 'BW', de: 'Baden-Württemberg', en: 'Baden-Württemberg', az: 'Baden-Vürtemberq (Baden-Württemberg)', tr: 'Baden-Württemberg', ru: 'Баден-Вюртемберг (Baden-Württemberg)', uk: 'Баден-Вюртемберг (Baden-Württemberg)' },
+  { code: 'BY', de: 'Bayern', en: 'Bavaria', az: 'Bavariya (Bayern)', tr: 'Bavyera (Bayern)', ru: 'Бавария (Bayern)', uk: 'Баварія (Bayern)' },
+  { code: 'BE', de: 'Berlin', en: 'Berlin', az: 'Berlin', tr: 'Berlin', ru: 'Берлин (Berlin)', uk: 'Берлін (Berlin)' },
+  { code: 'BB', de: 'Brandenburg', en: 'Brandenburg', az: 'Brandenburq (Brandenburg)', tr: 'Brandenburg', ru: 'Бранденбург (Brandenburg)', uk: 'Бранденбург (Brandenburg)' },
+  { code: 'HB', de: 'Bremen', en: 'Bremen', az: 'Bremen', tr: 'Bremen', ru: 'Бремен (Bremen)', uk: 'Бремен (Bremen)' },
+  { code: 'HH', de: 'Hamburg', en: 'Hamburg', az: 'Hamburq (Hamburg)', tr: 'Hamburg', ru: 'Гамбург (Hamburg)', uk: 'Гамбург (Hamburg)' },
+  { code: 'HE', de: 'Hessen', en: 'Hesse', az: 'Hessen', tr: 'Hessen', ru: 'Гессен (Hessen)', uk: 'Гессен (Hessen)' },
+  { code: 'MV', de: 'Mecklenburg-Vorpommern', en: 'Mecklenburg-Western Pomerania', az: 'Meklenburq-Ön Pomeraniya (Mecklenburg-Vorpommern)', tr: 'Mecklenburg-Ön Pomeranya (Mecklenburg-Vorpommern)', ru: 'Мекленбург-Передняя Померания (Mecklenburg-Vorpommern)', uk: 'Мекленбург-Передня Померанія (Mecklenburg-Vorpommern)' },
+  { code: 'NI', de: 'Niedersachsen', en: 'Lower Saxony', az: 'Aşağı Saksoniya (Niedersachsen)', tr: 'Aşağı Saksonya (Niedersachsen)', ru: 'Нижняя Саксония (Niedersachsen)', uk: 'Нижня Саксонія (Niedersachsen)' },
+  { code: 'NW', de: 'Nordrhein-Westfalen', en: 'North Rhine-Westphalia', az: 'Şimali Reyn-Vestfaliya (Nordrhein-Westfalen)', tr: 'Kuzey Ren-Vestfalya (Nordrhein-Westfalen)', ru: 'Северный Рейн-Вестфалия (Nordrhein-Westfalen)', uk: 'Північний Рейн-Вестфалія (Nordrhein-Westfalen)' },
+  { code: 'RP', de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', az: 'Reynland-Pfals (Rheinland-Pfalz)', tr: 'Renanya-Palatina (Rheinland-Pfalz)', ru: 'Рейнланд-Пфальц (Rheinland-Pfalz)', uk: 'Рейнланд-Пфальц (Rheinland-Pfalz)' },
+  { code: 'SL', de: 'Saarland', en: 'Saarland', az: 'Saarland', tr: 'Saarland', ru: 'Саар (Saarland)', uk: 'Саар (Saarland)' },
+  { code: 'SN', de: 'Sachsen', en: 'Saxony', az: 'Saksoniya (Sachsen)', tr: 'Saksonya (Sachsen)', ru: 'Саксония (Sachsen)', uk: 'Саксонія (Sachsen)' },
+  { code: 'ST', de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', az: 'Saksoniya-Anhalt (Sachsen-Anhalt)', tr: 'Saksonya-Anhalt (Sachsen-Anhalt)', ru: 'Саксония-Анхальт (Sachsen-Anhalt)', uk: 'Саксонія-Ангальт (Sachsen-Anhalt)' },
+  { code: 'SH', de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', az: 'Şlezviq-Holşteyn (Schleswig-Holstein)', tr: 'Schleswig-Holstein', ru: 'Шлезвиг-Гольштейн (Schleswig-Holstein)', uk: 'Шлезвіг-Гольштейн (Schleswig-Holstein)' },
+  { code: 'TH', de: 'Thüringen', en: 'Thuringia', az: 'Türingiya (Thüringen)', tr: 'Thüringen', ru: 'Тюрингия (Thüringen)', uk: 'Тюрингія (Thüringen)' },
 ];
 
 export function stateName(code: StateCode | null, lang: string) {
