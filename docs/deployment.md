@@ -165,6 +165,7 @@ completions; no search-volume tool was used. Re-check about once a year.
 | az | Azerbaijani searches are too rare for autocomplete (checked 2026-11-11), so the page leads with the German terms (Einbürgerungstest, Leben in Deutschland Test) plus "Einbürgerungstest azərbaycanca", "Almaniya vətəndaşlıq testi" |
 | tr | Almanya vatandaşlık testi (… soruları ranks), Einbürgerungstest Türkçe (checked 2026-11-20) |
 | ru | тест на гражданство Германии (… онлайн, пробный …), Einbürgerungstest на русском (checked 2026-11-20) |
+| uk | тест на громадянство Німеччини (… онлайн), Einbürgerungstest українською; few Ukrainian searches yet, many Ukrainians search in Russian (checked 2026-11-20) |
 
 Avoid a year in titles: it goes stale until the next deploy.
 

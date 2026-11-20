@@ -16,42 +16,42 @@ import { join } from 'node:path';
 // per state).
 // Facts the state questions ask about. Kept to what is stable: capital, parliament, head of government's title.
 export const STATES = [
-  { code: 'BW', de: 'Baden-Württemberg', en: 'Baden-Württemberg', capital: ['Stuttgart', 'Stuttgart'], az: ['Baden-Vürtemberq', 'Baden-Vürtemberqdə'], tr: ['Baden-Württemberg', "Baden-Württemberg'de"], ru: ['Баден-Вюртемберг', 'в Баден-Вюртемберге'], capitalRu: 'Штутгарт (Stuttgart)' },
-  { code: 'BY', de: 'Bayern', en: 'Bavaria', capital: ['München', 'Munich (München)'], az: ['Bavariya', 'Bavariyada'], capitalAz: 'Münhen (München)', tr: ['Bavyera', "Bavyera'da"], capitalTr: 'Münih (München)', ru: ['Бавария', 'в Баварии'], capitalRu: 'Мюнхен (München)' },
-  { code: 'BE', de: 'Berlin', en: 'Berlin', capital: null, parliament: 'abgeordnetenhaus', head: 'governing', az: ['Berlin', 'Berlində'], tr: ['Berlin', "Berlin'de"], ru: ['Берлин', 'в Берлине'], capitalRu: null },
-  { code: 'BB', de: 'Brandenburg', en: 'Brandenburg', capital: ['Potsdam', 'Potsdam'], az: ['Brandenburq', 'Brandenburqda'], tr: ['Brandenburg', "Brandenburg'da"], ru: ['Бранденбург', 'в Бранденбурге'], capitalRu: 'Потсдам (Potsdam)' },
-  { code: 'HB', de: 'Bremen', en: 'Bremen', capital: null, parliament: 'buergerschaftHB', head: 'senate', az: ['Bremen', 'Bremendə'], tr: ['Bremen', "Bremen'de"], ru: ['Бремен', 'в Бремене'], capitalRu: null },
-  { code: 'HH', de: 'Hamburg', en: 'Hamburg', capital: null, parliament: 'buergerschaftHH', head: 'first', az: ['Hamburq', 'Hamburqda'], tr: ['Hamburg', "Hamburg'da"], ru: ['Гамбург', 'в Гамбурге'], capitalRu: null },
-  { code: 'HE', de: 'Hessen', en: 'Hesse', capital: ['Wiesbaden', 'Wiesbaden'], az: ['Hessen', 'Hessendə'], tr: ['Hessen', "Hessen'de"], ru: ['Гессен', 'в Гессене'], capitalRu: 'Висбаден (Wiesbaden)' },
-  { code: 'MV', de: 'Mecklenburg-Vorpommern', en: 'Mecklenburg-Western Pomerania', capital: ['Schwerin', 'Schwerin'], az: ['Meklenburq-Ön Pomeraniya', 'Meklenburq-Ön Pomeraniyada'], tr: ['Mecklenburg-Ön Pomeranya', "Mecklenburg-Ön Pomeranya'da"], ru: ['Мекленбург-Передняя Померания', 'в Мекленбурге-Передней Померании'], capitalRu: 'Шверин (Schwerin)' },
-  { code: 'NI', de: 'Niedersachsen', en: 'Lower Saxony', capital: ['Hannover', 'Hanover (Hannover)'], az: ['Aşağı Saksoniya', 'Aşağı Saksoniyada'], tr: ['Aşağı Saksonya', "Aşağı Saksonya'da"], ru: ['Нижняя Саксония', 'в Нижней Саксонии'], capitalRu: 'Ганновер (Hannover)' },
-  { code: 'NW', de: 'Nordrhein-Westfalen', en: 'North Rhine-Westphalia', capital: ['Düsseldorf', 'Düsseldorf'], short: 'NRW', az: ['Şimali Reyn-Vestfaliya', 'Şimali Reyn-Vestfaliyada'], tr: ['Kuzey Ren-Vestfalya', "Kuzey Ren-Vestfalya'da"], ru: ['Северный Рейн-Вестфалия', 'в Северном Рейне-Вестфалии'], capitalRu: 'Дюссельдорф (Düsseldorf)' },
-  { code: 'RP', de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', capital: ['Mainz', 'Mainz'], az: ['Reynland-Pfals', 'Reynland-Pfalsda'], tr: ['Renanya-Palatina', "Renanya-Palatina'da"], ru: ['Рейнланд-Пфальц', 'в Рейнланд-Пфальце'], capitalRu: 'Майнц (Mainz)' },
-  { code: 'SL', de: 'Saarland', en: 'Saarland', capital: ['Saarbrücken', 'Saarbrücken'], az: ['Saarland', 'Saarlandda'], tr: ['Saarland', "Saarland'da"], ru: ['Саар', 'в Сааре'], capitalRu: 'Саарбрюккен (Saarbrücken)' },
-  { code: 'SN', de: 'Sachsen', en: 'Saxony', capital: ['Dresden', 'Dresden'], az: ['Saksoniya', 'Saksoniyada'], tr: ['Saksonya', "Saksonya'da"], ru: ['Саксония', 'в Саксонии'], capitalRu: 'Дрезден (Dresden)' },
-  { code: 'ST', de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', capital: ['Magdeburg', 'Magdeburg'], az: ['Saksoniya-Anhalt', 'Saksoniya-Anhaltda'], tr: ['Saksonya-Anhalt', "Saksonya-Anhalt'ta"], ru: ['Саксония-Анхальт', 'в Саксонии-Анхальт'], capitalRu: 'Магдебург (Magdeburg)' },
-  { code: 'SH', de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', capital: ['Kiel', 'Kiel'], az: ['Şlezviq-Holşteyn', 'Şlezviq-Holşteyndə'], tr: ['Schleswig-Holstein', "Schleswig-Holstein'da"], ru: ['Шлезвиг-Гольштейн', 'в Шлезвиг-Гольштейне'], capitalRu: 'Киль (Kiel)' },
-  { code: 'TH', de: 'Thüringen', en: 'Thuringia', capital: ['Erfurt', 'Erfurt'], az: ['Türingiya', 'Türingiyada'], tr: ['Thüringen', "Thüringen'de"], ru: ['Тюрингия', 'в Тюрингии'], capitalRu: 'Эрфурт (Erfurt)' },
+  { code: 'BW', de: 'Baden-Württemberg', en: 'Baden-Württemberg', capital: ['Stuttgart', 'Stuttgart'], az: ['Baden-Vürtemberq', 'Baden-Vürtemberqdə'], tr: ['Baden-Württemberg', "Baden-Württemberg'de"], ru: ['Баден-Вюртемберг', 'в Баден-Вюртемберге'], capitalRu: 'Штутгарт (Stuttgart)', uk: ['Баден-Вюртемберг', 'у Баден-Вюртемберзі'], capitalUk: 'Штутгарт (Stuttgart)' },
+  { code: 'BY', de: 'Bayern', en: 'Bavaria', capital: ['München', 'Munich (München)'], az: ['Bavariya', 'Bavariyada'], capitalAz: 'Münhen (München)', tr: ['Bavyera', "Bavyera'da"], capitalTr: 'Münih (München)', ru: ['Бавария', 'в Баварии'], capitalRu: 'Мюнхен (München)', uk: ['Баварія', 'у Баварії'], capitalUk: 'Мюнхен (München)' },
+  { code: 'BE', de: 'Berlin', en: 'Berlin', capital: null, parliament: 'abgeordnetenhaus', head: 'governing', az: ['Berlin', 'Berlində'], tr: ['Berlin', "Berlin'de"], ru: ['Берлин', 'в Берлине'], capitalRu: null, uk: ['Берлін', 'у Берліні'], capitalUk: null },
+  { code: 'BB', de: 'Brandenburg', en: 'Brandenburg', capital: ['Potsdam', 'Potsdam'], az: ['Brandenburq', 'Brandenburqda'], tr: ['Brandenburg', "Brandenburg'da"], ru: ['Бранденбург', 'в Бранденбурге'], capitalRu: 'Потсдам (Potsdam)', uk: ['Бранденбург', 'у Бранденбурзі'], capitalUk: 'Потсдам (Potsdam)' },
+  { code: 'HB', de: 'Bremen', en: 'Bremen', capital: null, parliament: 'buergerschaftHB', head: 'senate', az: ['Bremen', 'Bremendə'], tr: ['Bremen', "Bremen'de"], ru: ['Бремен', 'в Бремене'], capitalRu: null, uk: ['Бремен', 'у Бремені'], capitalUk: null },
+  { code: 'HH', de: 'Hamburg', en: 'Hamburg', capital: null, parliament: 'buergerschaftHH', head: 'first', az: ['Hamburq', 'Hamburqda'], tr: ['Hamburg', "Hamburg'da"], ru: ['Гамбург', 'в Гамбурге'], capitalRu: null, uk: ['Гамбург', 'у Гамбурзі'], capitalUk: null },
+  { code: 'HE', de: 'Hessen', en: 'Hesse', capital: ['Wiesbaden', 'Wiesbaden'], az: ['Hessen', 'Hessendə'], tr: ['Hessen', "Hessen'de"], ru: ['Гессен', 'в Гессене'], capitalRu: 'Висбаден (Wiesbaden)', uk: ['Гессен', 'у Гессені'], capitalUk: 'Вісбаден (Wiesbaden)' },
+  { code: 'MV', de: 'Mecklenburg-Vorpommern', en: 'Mecklenburg-Western Pomerania', capital: ['Schwerin', 'Schwerin'], az: ['Meklenburq-Ön Pomeraniya', 'Meklenburq-Ön Pomeraniyada'], tr: ['Mecklenburg-Ön Pomeranya', "Mecklenburg-Ön Pomeranya'da"], ru: ['Мекленбург-Передняя Померания', 'в Мекленбурге-Передней Померании'], capitalRu: 'Шверин (Schwerin)', uk: ['Мекленбург-Передня Померанія', 'у Мекленбурзі-Передній Померанії'], capitalUk: 'Шверін (Schwerin)' },
+  { code: 'NI', de: 'Niedersachsen', en: 'Lower Saxony', capital: ['Hannover', 'Hanover (Hannover)'], az: ['Aşağı Saksoniya', 'Aşağı Saksoniyada'], tr: ['Aşağı Saksonya', "Aşağı Saksonya'da"], ru: ['Нижняя Саксония', 'в Нижней Саксонии'], capitalRu: 'Ганновер (Hannover)', uk: ['Нижня Саксонія', 'у Нижній Саксонії'], capitalUk: 'Ганновер (Hannover)' },
+  { code: 'NW', de: 'Nordrhein-Westfalen', en: 'North Rhine-Westphalia', capital: ['Düsseldorf', 'Düsseldorf'], short: 'NRW', az: ['Şimali Reyn-Vestfaliya', 'Şimali Reyn-Vestfaliyada'], tr: ['Kuzey Ren-Vestfalya', "Kuzey Ren-Vestfalya'da"], ru: ['Северный Рейн-Вестфалия', 'в Северном Рейне-Вестфалии'], capitalRu: 'Дюссельдорф (Düsseldorf)', uk: ['Північний Рейн-Вестфалія', 'у Північному Рейні-Вестфалії'], capitalUk: 'Дюссельдорф (Düsseldorf)' },
+  { code: 'RP', de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', capital: ['Mainz', 'Mainz'], az: ['Reynland-Pfals', 'Reynland-Pfalsda'], tr: ['Renanya-Palatina', "Renanya-Palatina'da"], ru: ['Рейнланд-Пфальц', 'в Рейнланд-Пфальце'], capitalRu: 'Майнц (Mainz)', uk: ['Рейнланд-Пфальц', 'у Рейнланд-Пфальці'], capitalUk: 'Майнц (Mainz)' },
+  { code: 'SL', de: 'Saarland', en: 'Saarland', capital: ['Saarbrücken', 'Saarbrücken'], az: ['Saarland', 'Saarlandda'], tr: ['Saarland', "Saarland'da"], ru: ['Саар', 'в Сааре'], capitalRu: 'Саарбрюккен (Saarbrücken)', uk: ['Саар', 'у Саарі'], capitalUk: 'Саарбрюккен (Saarbrücken)' },
+  { code: 'SN', de: 'Sachsen', en: 'Saxony', capital: ['Dresden', 'Dresden'], az: ['Saksoniya', 'Saksoniyada'], tr: ['Saksonya', "Saksonya'da"], ru: ['Саксония', 'в Саксонии'], capitalRu: 'Дрезден (Dresden)', uk: ['Саксонія', 'у Саксонії'], capitalUk: 'Дрезден (Dresden)' },
+  { code: 'ST', de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', capital: ['Magdeburg', 'Magdeburg'], az: ['Saksoniya-Anhalt', 'Saksoniya-Anhaltda'], tr: ['Saksonya-Anhalt', "Saksonya-Anhalt'ta"], ru: ['Саксония-Анхальт', 'в Саксонии-Анхальт'], capitalRu: 'Магдебург (Magdeburg)', uk: ['Саксонія-Ангальт', 'у Саксонії-Ангальт'], capitalUk: 'Магдебург (Magdeburg)' },
+  { code: 'SH', de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', capital: ['Kiel', 'Kiel'], az: ['Şlezviq-Holşteyn', 'Şlezviq-Holşteyndə'], tr: ['Schleswig-Holstein', "Schleswig-Holstein'da"], ru: ['Шлезвиг-Гольштейн', 'в Шлезвиг-Гольштейне'], capitalRu: 'Киль (Kiel)', uk: ['Шлезвіг-Гольштейн', 'у Шлезвіг-Гольштейні'], capitalUk: 'Кіль (Kiel)' },
+  { code: 'TH', de: 'Thüringen', en: 'Thuringia', capital: ['Erfurt', 'Erfurt'], az: ['Türingiya', 'Türingiyada'], tr: ['Thüringen', "Thüringen'de"], ru: ['Тюрингия', 'в Тюрингии'], capitalRu: 'Эрфурт (Erfurt)', uk: ['Тюрингія', 'у Тюрингії'], capitalUk: 'Ерфурт (Erfurt)' },
 ].map((s) => ({ ...s, slug: slugify(s.de) }));
 
-// [de, en, az, tr, ru]
+// [de, en, az, tr, ru, uk]
 const PARLIAMENT = {
-  landtag: ['Landtag', 'state parliament (Landtag)', 'əyalət parlamenti (Landtag)', 'eyalet parlamentosu (Landtag)', 'ландтаг (Landtag)'],
-  abgeordnetenhaus: ['Abgeordnetenhaus', 'House of Representatives (Abgeordnetenhaus)', 'Nümayəndələr Palatası (Abgeordnetenhaus)', 'Temsilciler Meclisi (Abgeordnetenhaus)', 'Палата депутатов (Abgeordnetenhaus)'],
-  buergerschaftHB: ['Bremische Bürgerschaft', 'Bremen state parliament (Bürgerschaft)', 'Bremen əyalət parlamenti (Bürgerschaft)', 'Bremen eyalet parlamentosu (Bürgerschaft)', 'парламент Бремена (Bürgerschaft)'],
-  buergerschaftHH: ['Hamburgische Bürgerschaft', 'Hamburg state parliament (Bürgerschaft)', 'Hamburq əyalət parlamenti (Bürgerschaft)', 'Hamburg eyalet parlamentosu (Bürgerschaft)', 'парламент Гамбурга (Bürgerschaft)'],
+  landtag: ['Landtag', 'state parliament (Landtag)', 'əyalət parlamenti (Landtag)', 'eyalet parlamentosu (Landtag)', 'ландтаг (Landtag)', 'ландтаг (Landtag)'],
+  abgeordnetenhaus: ['Abgeordnetenhaus', 'House of Representatives (Abgeordnetenhaus)', 'Nümayəndələr Palatası (Abgeordnetenhaus)', 'Temsilciler Meclisi (Abgeordnetenhaus)', 'Палата депутатов (Abgeordnetenhaus)', 'Палата депутатів (Abgeordnetenhaus)'],
+  buergerschaftHB: ['Bremische Bürgerschaft', 'Bremen state parliament (Bürgerschaft)', 'Bremen əyalət parlamenti (Bürgerschaft)', 'Bremen eyalet parlamentosu (Bürgerschaft)', 'парламент Бремена (Bürgerschaft)', 'парламент Бремена (Bürgerschaft)'],
+  buergerschaftHH: ['Hamburgische Bürgerschaft', 'Hamburg state parliament (Bürgerschaft)', 'Hamburq əyalət parlamenti (Bürgerschaft)', 'Hamburg eyalet parlamentosu (Bürgerschaft)', 'парламент Гамбурга (Bürgerschaft)', 'парламент Гамбурга (Bürgerschaft)'],
 };
 const HEAD = {
-  mp: ['Ministerpräsidentin oder Ministerpräsident', 'Minister-President (Ministerpräsident)', 'baş nazir (Ministerpräsident)', 'Bakan-Başkan (Ministerpräsident)', 'министр-президент (Ministerpräsident)'],
-  governing: ['Regierende Bürgermeisterin oder Regierender Bürgermeister', 'Governing Mayor (Regierender Bürgermeister)', 'idarəedici bələdiyyə sədri (Regierender Bürgermeister)', 'Yöneten Belediye Başkanı (Regierender Bürgermeister)', 'правящий бургомистр (Regierender Bürgermeister)'],
-  senate: ['Präsidentin oder Präsident des Senats', 'President of the Senate (Präsident des Senats)', 'Senatın prezidenti (Präsident des Senats)', 'Senato Başkanı (Präsident des Senats)', 'председатель сената (Präsident des Senats)'],
-  first: ['Erste Bürgermeisterin oder Erster Bürgermeister', 'First Mayor (Erster Bürgermeister)', 'birinci bələdiyyə sədri (Erster Bürgermeister)', 'Birinci Belediye Başkanı (Erster Bürgermeister)', 'первый бургомистр (Erster Bürgermeister)'],
+  mp: ['Ministerpräsidentin oder Ministerpräsident', 'Minister-President (Ministerpräsident)', 'baş nazir (Ministerpräsident)', 'Bakan-Başkan (Ministerpräsident)', 'министр-президент (Ministerpräsident)', 'міністр-президент (Ministerpräsident)'],
+  governing: ['Regierende Bürgermeisterin oder Regierender Bürgermeister', 'Governing Mayor (Regierender Bürgermeister)', 'idarəedici bələdiyyə sədri (Regierender Bürgermeister)', 'Yöneten Belediye Başkanı (Regierender Bürgermeister)', 'правящий бургомистр (Regierender Bürgermeister)', 'правлячий бургомістр (Regierender Bürgermeister)'],
+  senate: ['Präsidentin oder Präsident des Senats', 'President of the Senate (Präsident des Senats)', 'Senatın prezidenti (Präsident des Senats)', 'Senato Başkanı (Präsident des Senats)', 'председатель сената (Präsident des Senats)', 'голова сенату (Präsident des Senats)'],
+  first: ['Erste Bürgermeisterin oder Erster Bürgermeister', 'First Mayor (Erster Bürgermeister)', 'birinci bələdiyyə sədri (Erster Bürgermeister)', 'Birinci Belediye Başkanı (Erster Bürgermeister)', 'первый бургомистр (Erster Bürgermeister)', 'перший бургомістр (Erster Bürgermeister)'],
 };
 
-const LANGS = ['de', 'en', 'az', 'tr', 'ru'];
-const PREFIX = { de: '', en: '/en', az: '/az', tr: '/tr', ru: '/ru' };
-const LANG_INDEX = { de: 0, en: 1, az: 2, tr: 3, ru: 4 };
-const LANG_NAMES = { de: 'Deutsch', en: 'English', az: 'Azərbaycanca', tr: 'Türkçe', ru: 'Русский' };
+const LANGS = ['de', 'en', 'az', 'tr', 'ru', 'uk'];
+const PREFIX = { de: '', en: '/en', az: '/az', tr: '/tr', ru: '/ru', uk: '/uk' };
+const LANG_INDEX = { de: 0, en: 1, az: 2, tr: 3, ru: 4, uk: 5 };
+const LANG_NAMES = { de: 'Deutsch', en: 'English', az: 'Azərbaycanca', tr: 'Türkçe', ru: 'Русский', uk: 'Українська' };
 /** Name of a state in a page's language; a translated name carries the German one where they differ, as in the app. */
 const stateName = (x, lang) =>
   lang === 'de' ? x.de : lang === 'en' ? x.en : x[lang][0] === x.de ? x.de : `${x[lang][0]} (${x.de})`;
@@ -121,6 +121,13 @@ function facts(s, lang) {
       `Глава правительства: ${head}`,
     ];
   }
+  if (lang === 'uk') {
+    return [
+      s.capital ? `Столиця землі: ${s.capitalUk}` : `${s.uk[0]} — місто-держава: водночас місто і федеральна земля`,
+      `Парламент: ${parliament}`,
+      `Очільник уряду: ${head}`,
+    ];
+  }
   return [
     s.capital ? `State capital: ${s.capital[1]}` : `${s.en} is a city-state: a city and a federal state at once`,
     `State parliament: ${parliament}`,
@@ -136,6 +143,7 @@ function page(s, lang) {
   const searchName = s.short ? `${s.de} (${s.short})` : s.de;
   const [az, azLoc] = s.az;
   const [tr, trLoc] = s.tr;
+  const [uk, ukLoc] = s.uk;
   const [ru, ruLoc] = s.ru;
 
   const t = de
@@ -331,6 +339,55 @@ function page(s, lang) {
         locale: 'ru_RU',
         og: 'og-ru.png',
       }
+    : lang === 'uk'
+    ? {
+        title: fit([`Einbürgerungstest ${s.short ?? s.de} українською | Bürgerweg`, `Einbürgerungstest ${s.de} | Bürgerweg`]),
+        description: fit(
+          [
+            `Безкоштовна підготовка до тесту на громадянство Німеччини (Einbürgerungstest) для землі ${uk}: 300 загальних і 10 питань землі, симулятор, переклад українською.`,
+            `Einbürgerungstest ${s.de}: 310 питань, симулятор тесту, переклад українською. Безкоштовно, без облікового запису, офлайн.`,
+            `Einbürgerungstest ${s.de}: 310 питань, симулятор тесту, переклад українською. Безкоштовно й офлайн.`,
+          ],
+          160,
+        ),
+        eyebrow: `Тест на громадянство Німеччини · ${esc(uk)}`,
+        h1: `Einbürgerungstest ${esc(searchName)}: безкоштовна підготовка українською`,
+        lead: `Якщо ви живете ${esc(ukLoc)}, 3 питання в тесті будуть про землю ${esc(uk)}. Bürgerweg показує саме ті 310 питань, які важливі для вас: 300 загальних і 10 питань для землі ${esc(uk)}, із симулятором тесту та перекладом українською одним дотиком.`,
+        cta: `Учити питання: ${esc(uk)}`,
+        factsTitle: 'Тест у цифрах',
+        f: ['питання в тесті', 'хвилин', 'правильних відповідей, щоб скласти', 'питань для підготовки'],
+        aboutTitle: `Що запитують у тесті ${esc(ukLoc)}`,
+        aboutLead: 'Тест («Leben in Deutschland») однаковий по всій Німеччині. Лише 3 з 33 питань залежать від федеральної землі.',
+        about: [
+          `<strong>30 загальних питань</strong> з каталогу на 300 питань: політика й демократія, історія, суспільство та спільне життя.`,
+          `<strong>3 питання про землю ${esc(uk)}</strong> з 10 питань для вашої землі, наприклад про герб і прапор, столицю, парламент, вибори та уряд.`,
+          `У вас <strong>60 хвилин</strong>. З <strong>17 правильними відповідями</strong> ви склали Einbürgerungstest.`,
+        ],
+        knowTitle: `Корисно знати про землю ${esc(uk)}`,
+        stepsTitle: 'Як готуватися',
+        steps: [
+          ['Оберіть землю', `Відкрийте Bürgerweg і оберіть свою федеральну землю. Застосунок покаже 300 загальних питань і 10 питань для землі ${esc(uk)}.`],
+          ['Кілька питань на день', 'Поставте ціль на день, наприклад 20 питань. Внутрішнє кільце показує, скільки ви зробили сьогодні.'],
+          ['Симулятор тесту', '33 питання за 60 хвилин, як у день іспиту, німецькою, з перекладом українською одним дотиком.'],
+        ],
+        faqTitle: 'Часті запитання',
+        faq: [
+          [`Скільки питань у тесті на громадянство ${ukLoc}?`, `33 питання: 30 із загального каталогу на 300 питань і 3 з 10 питань для землі ${uk}. Тобто ви вчите 310 питань.`],
+          ['На скільки питань треба відповісти правильно?', 'Щонайменше на 17 з 33. На це у вас 60 хвилин.'],
+          [`Де скласти Einbürgerungstest ${ukLoc}?`, `В акредитованому екзаменаційному центрі ${ukLoc}, зазвичай у народній вищій школі (Volkshochschule, VHS). Там і реєстрація. Тест коштує 25 євро.`],
+          ['Тест німецькою?', 'Так, сам тест німецькою. У Bürgerweg ви вчите німецькі питання з перекладом українською й запам’ятовуєте німецькі формулювання, які побачите на тесті.'],
+        ],
+        othersTitle: 'Einbürgerungstest в інших федеральних землях',
+        open: 'Відкрити застосунок',
+        homeLabel: 'Головна',
+        skip: 'Перейти до вмісту',
+        nav: 'Основна навігація',
+        footer: 'Незалежний проєкт із відкритим кодом для підготовки до тесту на громадянство Німеччини. Не пов’язаний з BAMF. Питання: каталог BAMF (7 травня 2025). Переклади неофіційні.',
+        source: 'Вихідний код',
+        language: 'Мова',
+        locale: 'uk_UA',
+        og: 'og-uk.png',
+      }
     : {
         title: fit([`Einbürgerungstest ${s.en} in English | Bürgerweg`, `Einbürgerungstest ${s.en} | Bürgerweg`]),
         description: fit(
@@ -456,7 +513,7 @@ ${LANGS.map((l) => `  <link rel="alternate" hreflang="${l}" href="{{SITE_URL}}${
         </div>
         <div class="hero-art">
           <img class="scene" src="/images/hero.svg" alt="" width="460" height="460">
-          <img class="phone" src="/images/${lang}-home.webp" alt="${{ de: 'Bürgerweg Startseite mit Lernfortschritt', en: 'Bürgerweg home screen with learning progress', az: 'Bürgerweg ana ekranı və irəliləyiş', tr: 'Bürgerweg ana ekranı ve ilerleme', ru: 'Главный экран Bürgerweg с прогрессом' }[lang]}" width="482" height="971" fetchpriority="high">
+          <img class="phone" src="/images/${lang}-home.webp" alt="${{ de: 'Bürgerweg Startseite mit Lernfortschritt', en: 'Bürgerweg home screen with learning progress', az: 'Bürgerweg ana ekranı və irəliləyiş', tr: 'Bürgerweg ana ekranı ve ilerleme', ru: 'Главный экран Bürgerweg с прогрессом', uk: 'Головний екран Bürgerweg із прогресом' }[lang]}" width="482" height="971" fetchpriority="high">
         </div>
       </div>
     </section>

@@ -67,7 +67,8 @@ suffixes follow vowel harmony. City and district names in options stay German; s
 
 `translations_tr.py` (Turkish) works the same way, from `scripts/catalog/tr/`. Turkish proper nouns take their case
 suffix after an apostrophe (*Bavyera'da*, *Saksonya-Anhalt'ta*), so the state names carry spelled-out forms too. `translations_ru.py` (Russian) does the same with Russian
-cases (genitive, prepositional with its "в").
+cases (genitive, prepositional with its "в"), and `translations_uk.py` (Ukrainian) with Ukrainian ones ("у").
+Ukrainian uses the typographic apostrophe (’), as in *сім’ї*.
 
 ## Translation rules
 
@@ -153,6 +154,27 @@ must match them.
 | DDR | ГДР (DDR) |
 | Jugendamt | ведомство по делам молодёжи (Jugendamt) |
 
+**Ukrainian terms** (same rules):
+
+| German | Ukrainian |
+| --- | --- |
+| Grundgesetz | Основний закон (Grundgesetz) |
+| Rechtsstaat | правова держава (Rechtsstaat) |
+| Meinungsfreiheit | свобода вираження поглядів |
+| Bundestag, Bundesrat | бундестаг (Bundestag), бундесрат (Bundesrat) |
+| Bundesversammlung | Федеральні збори (Bundesversammlung) |
+| Landtag | ландтаг (Landtag) |
+| Bundesland | федеральна земля |
+| Ministerpräsident/in | міністр-президент (Ministerpräsident) |
+| Fraktion | фракція (Fraktion) |
+| Schöffe | народний засідатель (Schöffe); no *суддя*, because of g150 |
+| Ehrenamt, ehrenamtlich | почесна посада (Ehrenamt), на громадських засадах (ehrenamtlich) |
+| DDR | НДР (DDR) |
+| Jugendamt | служба у справах молоді (Jugendamt) |
+
+**Ukrainian review 2026-11-20:** DeepL (DE → UK) as a second opinion. Its differences were wording only, or its own
+errors (e.g. *Faustrecht* as "Faust's law", *Bundespräsident* as "President of the Federation"); nothing to fix in ours.
+
 **Russian review 2026-11-20:** DeepL (DE → RU) as a second opinion. Its differences were wording only, or its own
 errors (e.g. *Schöffe* as "присяжный", *planende Gewalt* as "planned violence"). Fixed in ours before the comparison:
 g224 "Euro Union" as "Союз евро" (not "Евросоюз", which would be a second correct answer).
@@ -187,6 +209,7 @@ they were **not** taken from an official answer key. Before release:
 - [ ] Have a native speaker proofread the Azerbaijani translations and UI strings (machine-assisted review 2026-11-11).
 - [ ] Have a native speaker proofread the Turkish translations and UI strings (machine-assisted review 2026-11-20).
 - [ ] Have a native speaker proofread the Russian translations and UI strings (machine-assisted review 2026-11-20).
+- [ ] Have a native speaker proofread the Ukrainian translations and UI strings (machine-assisted review 2026-11-20).
 - Already fixed after the visual check: g209 is image 4 (GDR emblem), g226 is image 2 (EU flag).
 
 ## Updating for a new catalog
