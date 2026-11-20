@@ -66,7 +66,8 @@ templates for the ten German patterns, with case forms per state name (genitive,
 suffixes follow vowel harmony. City and district names in options stay German; state names are translated.
 
 `translations_tr.py` (Turkish) works the same way, from `scripts/catalog/tr/`. Turkish proper nouns take their case
-suffix after an apostrophe (*Bavyera'da*, *Saksonya-Anhalt'ta*), so the state names carry spelled-out forms too.
+suffix after an apostrophe (*Bavyera'da*, *Saksonya-Anhalt'ta*), so the state names carry spelled-out forms too. `translations_ru.py` (Russian) does the same with Russian
+cases (genitive, prepositional with its "в").
 
 ## Translation rules
 
@@ -134,6 +135,28 @@ must match them.
 | DDR | ADC (DDR) |
 | Jugendamt | Gençlik Dairesi (Jugendamt) |
 
+**Russian terms** (same rules):
+
+| German | Russian |
+| --- | --- |
+| Grundgesetz | Основной закон (Grundgesetz) |
+| Rechtsstaat | правовое государство (Rechtsstaat) |
+| Meinungsfreiheit | свобода выражения мнений |
+| Bundestag, Bundesrat | бундестаг (Bundestag), бундесрат (Bundesrat) |
+| Bundesversammlung | Федеральное собрание (Bundesversammlung) |
+| Landtag | ландтаг (Landtag) |
+| Bundesland | федеральная земля |
+| Ministerpräsident/in | министр-президент (Ministerpräsident); not "премьер-министр", which is another option in g37 |
+| Fraktion | фракция (Fraktion) |
+| Schöffe | народный заседатель (Schöffe); no *судья*, because of g150 |
+| Ehrenamt, ehrenamtlich | почётная должность (Ehrenamt), на общественных началах (ehrenamtlich) |
+| DDR | ГДР (DDR) |
+| Jugendamt | ведомство по делам молодёжи (Jugendamt) |
+
+**Russian review 2026-11-20:** DeepL (DE → RU) as a second opinion. Its differences were wording only, or its own
+errors (e.g. *Schöffe* as "присяжный", *planende Gewalt* as "planned violence"). Fixed in ours before the comparison:
+g224 "Euro Union" as "Союз евро" (not "Евросоюз", which would be a second correct answer).
+
 **Turkish review 2026-11-20:** DeepL (DE → TR) as a second opinion, compared the same way. DeepL used *Anayasa* for
 *Grundgesetz* and *Federal Meclis* for both Bundestag and Bundesversammlung, so it was not used as the translation.
 Fixed in ours: g15 *freie Berufswahl* ("serbest meslek" reads as "self-employment").
@@ -163,6 +186,7 @@ they were **not** taken from an official answer key. Before release:
       A machine-assisted review against the rules above was done on 2026-11-04.
 - [ ] Have a native speaker proofread the Azerbaijani translations and UI strings (machine-assisted review 2026-11-11).
 - [ ] Have a native speaker proofread the Turkish translations and UI strings (machine-assisted review 2026-11-20).
+- [ ] Have a native speaker proofread the Russian translations and UI strings (machine-assisted review 2026-11-20).
 - Already fixed after the visual check: g209 is image 4 (GDR emblem), g226 is image 2 (EU flag).
 
 ## Updating for a new catalog

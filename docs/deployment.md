@@ -164,6 +164,7 @@ completions; no search-volume tool was used. Re-check about once a year.
 | en | German citizenship test (practice, questions, app), Einbürgerungstest English / in English, questions in English, Leben in Deutschland test English |
 | az | Azerbaijani searches are too rare for autocomplete (checked 2026-11-11), so the page leads with the German terms (Einbürgerungstest, Leben in Deutschland Test) plus "Einbürgerungstest azərbaycanca", "Almaniya vətəndaşlıq testi" |
 | tr | Almanya vatandaşlık testi (… soruları ranks), Einbürgerungstest Türkçe (checked 2026-11-20) |
+| ru | тест на гражданство Германии (… онлайн, пробный …), Einbürgerungstest на русском (checked 2026-11-20) |
 
 Avoid a year in titles: it goes stale until the next deploy.
 

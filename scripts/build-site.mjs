@@ -147,8 +147,8 @@ console.log(`✓ Site built in ./site for ${SITE_URL}  (landing at ${BASE}/, app
 /** Every landing page with its language alternates. lastmod is the build date: each deploy rebuilds every page. */
 function writeSitemap(file) {
   const today = new Date().toISOString().slice(0, 10);
-  // Each group lists one page per language (de, en, az, tr), German first.
-  const groups = [{ de: '/', en: '/en/', az: '/az/', tr: '/tr/' }, ...statePaths()];
+  // Each group lists one page per language (de, en, az, tr, ru), German first.
+  const groups = [{ de: '/', en: '/en/', az: '/az/', tr: '/tr/', ru: '/ru/' }, ...statePaths()];
   const entry = (loc, group, priority) =>
     `  <url>\n    <loc>{{SITE_URL}}${loc}</loc>\n    <lastmod>${today}</lastmod>\n` +
     Object.entries(group)
