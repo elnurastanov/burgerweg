@@ -454,14 +454,170 @@ const az: Record<StringKey, string> = {
   importInvalid: 'Bu, düzgün köçürmə koduna oxşamır.',
 };
 
-const dictionaries: Record<string, Record<StringKey, string>> = { en, de, az };
+const tr: Record<StringKey, string> = {
+  appName: 'Bürgerweg',
+  greeting: 'Tekrar hoş geldiniz',
+  greetingNew: 'Hoş geldiniz',
+  subtitle: 'Vatandaşlık testine (Einbürgerungstest) sakin ve düzenli hazırlık.',
+
+  // onboarding
+  chooseLanguage: 'Dilinizi seçin',
+  chooseLanguageHint: 'Bunu daha sonra ayarlarda değiştirebilirsiniz.',
+  chooseState: 'Nerede yaşıyorsunuz?',
+  chooseStateHint: 'Testte federal eyaletinizle ilgili 3 soru vardır.',
+  continue: 'Devam',
+  getStarted: 'Başla',
+  linksTitle: 'Aktarım bağlantılarını bu uygulamada açın',
+  linksHint: 'Bir ilerleme QR kodunu taradığınızda Android bağlantıyı burada yalnızca siz izin verirseniz açar.',
+  linksSteps: 'Ayarlarda "Uygulamada" seçeneğini seçin. {host} henüz bağlantı olarak listelenmiyorsa "Bağlantı ekle"ye dokunup işaretleyin.',
+  linksOpenSettings: 'Android ayarlarını aç',
+
+  // home
+  progress: 'İlerleme',
+  toReview: 'Tekrar',
+  examsPassed: 'Geçilen sınavlar',
+  correct: 'Doğru',
+  today: 'Bugün',
+  goalTitle: 'Günde ne kadar?',
+  goalHint: 'Günlük bir hedef seçin. Bunu istediğiniz zaman ayarlarda değiştirebilirsiniz.',
+  goalOption: 'Günde {count} soru',
+  goalMinutes: '{level} · yaklaşık {minutes} dakika',
+  goalLevel10: 'Rahat',
+  goalLevel20: 'Düzenli',
+  goalLevel30: 'Odaklı',
+  goalLevel50: 'Yoğun',
+  goalEstimate: 'Günde {goal} soruyla {total} sorunun hepsini yaklaşık {days} günde bitirirsiniz.',
+  dailyGoal: 'Günlük hedef',
+  goalPerDay: 'Günlük soru sayısı',
+  goalDoneToday: 'Bugün {count} tamamlandı',
+  goalSettingsHint: 'Hedefe yaklaştıkça ana ekrandaki iç altın halka dolar.',
+  of: '/',
+  readiness: 'Hazırlık',
+  readinessStart: 'Yeni başlıyorsunuz',
+  readinessGrowing: 'Gelişiyor',
+  readinessGood: 'İyi gidiyor',
+  readinessReady: 'Sınava hazır',
+  allQuestions: 'Tüm sorular',
+  allQuestionsSub: '{count} soru · {done} cevaplandı',
+  examSimulator: 'Sınav simülatörü',
+  examSimulatorSub: '33 soru · 60 dakika · Almanca',
+  flashcards: 'Kartlar',
+  flashcardsSub: 'Kısa tekrar · rastgele sorular',
+  recentExams: 'Son sınavlar',
+  noExamsYet: 'Henüz sınav yok. Kendinizi hazır hissettiğinizde bir tane deneyin.',
+  passed: 'Geçti',
+  failed: 'Geçmedi',
+  transferProgress: 'İlerlemeyi aktar',
+  settings: 'Ayarlar',
+
+  // question list
+  search: 'Sorularda ara',
+  filterAll: 'Tümü',
+  filterGeneral: 'Genel',
+  filterState: 'Eyaletim',
+  filterWrong: 'Yanlış',
+  filterStarred: 'Yıldızlı',
+  filterNew: 'Yeni',
+  noResults: 'Burada henüz bir şey yok.',
+
+  // practice
+  question: 'Soru',
+  next: 'Sonraki',
+  previous: 'Önceki',
+  showTranslation: 'Çeviri',
+  correctAnswer: 'Doğru!',
+  wrongAnswer: 'Tam değil — doğru cevap işaretlendi.',
+  star: 'Yıldızla',
+  done: 'Bitti',
+
+  // flashcards & results
+  shuffle: 'Karıştır',
+  backHome: 'Ana sayfaya dön',
+  answer: 'Cevap',
+
+  // exam simulator (always rendered in German; kept for completeness)
+  examIntro: 'Gerçek sınav gibi: 33 soru, 60 dakika. 17 doğru cevapla geçersiniz.',
+  examIntroHint: 'Sınav Almancadır. Yardıma ihtiyacınız olduğunda çeviri düğmesini kullanın.',
+  examStart: 'Sınava başla',
+  examFactQuestions: 'soru',
+  examFactMinutes: 'dakika',
+  examFactPass: 'geçmek için',
+  examQuestionOf: 'Soru {n} / {total}',
+  examSubmit: 'Teslim et',
+  examSubmitConfirm: 'Sınav şimdi teslim edilsin mi? {open} soru hâlâ cevapsız.',
+  examSubmitConfirmAll: 'Sınav şimdi teslim edilsin mi?',
+  examLeave: 'Sınavdan çıkılsın mı? Cevaplarınız kaybolacak.',
+  examLeaveYes: 'Çık',
+  examOverview: 'Genel bakış',
+
+  // exam result (shown in UI language)
+  result: 'Sonuç',
+  passMark: 'Geçmek için en az {mark} doğru cevap gerekir.',
+  timeUsed: 'Kullanılan süre: {time}',
+  reviewAnswers: 'Cevaplara bak',
+  yourAnswer: 'Cevabınız',
+  notAnswered: 'Cevaplanmadı',
+  tryAgain: 'Yeni sınav',
+
+  // settings
+  language: 'Dil',
+  federalState: 'Federal eyalet',
+  practiceTranslations: 'Çalışırken çevirileri göster',
+  practiceTranslationsHint: 'Sınav simülatörü her zaman Almanca başlar.',
+  appearance: 'Görünüm',
+  themeSystem: 'Sistem',
+  themeLight: 'Açık',
+  themeDark: 'Koyu',
+  data: 'Verileriniz',
+  resetProgress: 'İlerlemeyi sıfırla',
+  resetConfirm: 'Bu cihazdaki tüm ilerleme silinsin mi? Bu geri alınamaz.',
+  cancel: 'İptal',
+  reset: 'Sıfırla',
+  about: 'Hakkında',
+  appVersion: 'Sürüm {version}',
+  updateChecking: 'Güncellemeler denetleniyor…',
+  updateLatest: 'En son sürümü kullanıyorsunuz.',
+  updateAvailable: 'Sürüm {version} mevcut.',
+  updateNow: 'Şimdi güncelle',
+  updateCheckAgain: 'Tekrar denetle',
+  updateError: 'Güncellemeler denetlenemedi. İnternete bağlı mısınız?',
+  aboutText:
+    'Sorular BAMF\'ın resmî "Leben in Deutschland" / Einbürgerungstest kataloğundandır ({version} itibarıyla). Çeviriler resmî değildir ve yalnızca öğrenme amaçlıdır.',
+
+  // transfer
+  transferTitle: 'İlerlemeyi aktar',
+  transferIntro:
+    'Hesap gerekmez. İlerlemeniz bu cihazda kalır — QR kod, aktarım kodu veya dosya ile başka bir telefona, tablete ya da tarayıcıya taşıyın.',
+  sendTitle: 'Bu cihazdan gönder',
+  sendHint: 'Bu QR kodu diğer cihazınızın kamerasıyla tarayın. Bürgerweg açılır ve ilerlemenizi içe aktarmayı önerir.',
+  copyCode: 'Bağlantıyı kopyala',
+  copied: 'Kopyalandı',
+  exportFile: 'Dosya olarak kaydet',
+  receiveTitle: 'Bu cihazda al',
+  pasteCode: 'Aktarım bağlantısını veya kodunu yapıştırın',
+  importCode: 'İçe aktar',
+  importFile: 'Dosya aç',
+  importFound: 'İlerleme bulundu',
+  importSummary: '{answered} cevaplanmış soru, {exams} sınav, eyalet: {state}.',
+  importMerge: 'Benimkiyle birleştir',
+  importMergeHint: 'Her soru için daha çok çalışılmış sonuç korunur.',
+  importReplace: 'Benimkinin yerine koy',
+  importReplaceHint: 'Bu cihaz diğeriyle tamamen aynı olur.',
+  importDone: 'İlerleme içe aktarıldı',
+  importInvalid: 'Bu geçerli bir aktarım koduna benzemiyor.',
+};
+
+const dictionaries: Record<string, Record<StringKey, string>> = { en, de, az, tr };
 
 /** UI languages. Add a dictionary above (and a question translation file) to add one. */
 export const LANGUAGES = [
   { code: 'en', name: 'English' },
   { code: 'de', name: 'Deutsch' },
   { code: 'az', name: 'Azərbaycanca' },
+  { code: 'tr', name: 'Türkçe' },
 ] as const;
+
+const DATE_LOCALES: Record<string, string> = { de: 'de-DE', tr: 'tr-TR' };
 
 const AZ_MONTHS = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avq', 'sen', 'okt', 'noy', 'dek'];
 
@@ -471,7 +627,7 @@ const AZ_MONTHS = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avq', 'sen'
  */
 export function formatDate(date: Date, lang: string) {
   if (lang === 'az') return `${date.getDate()} ${AZ_MONTHS[date.getMonth()]} ${date.getFullYear()}`;
-  return date.toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  return date.toLocaleDateString(DATE_LOCALES[lang] ?? 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 export function translate(lang: string, key: StringKey, params?: Record<string, string | number>) {

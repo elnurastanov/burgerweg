@@ -1,6 +1,7 @@
 import base from '@/data/questions.de.json';
 import az from '@/data/translations/az.json';
 import en from '@/data/translations/en.json';
+import tr from '@/data/translations/tr.json';
 
 export type StateCode =
   | 'BW' | 'BY' | 'BE' | 'BB' | 'HB' | 'HH' | 'HE' | 'MV'
@@ -30,7 +31,7 @@ const byId = new Map(QUESTIONS.map((q) => [q.id, q]));
 export const getQuestion = (id: string) => byId.get(id);
 
 // Question translations per UI language. German is the source, so it has none.
-const translations: Record<string, Record<string, Translation>> = { en, az };
+const translations: Record<string, Record<string, Translation>> = { en, az, tr };
 
 export function getTranslation(lang: string, id: string): Translation | undefined {
   return translations[lang]?.[id];
@@ -39,29 +40,30 @@ export function getTranslation(lang: string, id: string): Translation | undefine
 /** Language German content is translated into: the UI language, or English when the UI itself is German. */
 export const translationLang = (uiLang: string) => (uiLang !== 'de' && uiLang in translations ? uiLang : 'en');
 
-export const STATES: { code: StateCode; de: string; en: string; az: string }[] = [
-  { code: 'BW', de: 'Baden-Württemberg', en: 'Baden-Württemberg', az: 'Baden-Vürtemberq (Baden-Württemberg)' },
-  { code: 'BY', de: 'Bayern', en: 'Bavaria', az: 'Bavariya (Bayern)' },
-  { code: 'BE', de: 'Berlin', en: 'Berlin', az: 'Berlin' },
-  { code: 'BB', de: 'Brandenburg', en: 'Brandenburg', az: 'Brandenburq (Brandenburg)' },
-  { code: 'HB', de: 'Bremen', en: 'Bremen', az: 'Bremen' },
-  { code: 'HH', de: 'Hamburg', en: 'Hamburg', az: 'Hamburq (Hamburg)' },
-  { code: 'HE', de: 'Hessen', en: 'Hesse', az: 'Hessen' },
-  { code: 'MV', de: 'Mecklenburg-Vorpommern', en: 'Mecklenburg-Western Pomerania', az: 'Meklenburq-Ön Pomeraniya (Mecklenburg-Vorpommern)' },
-  { code: 'NI', de: 'Niedersachsen', en: 'Lower Saxony', az: 'Aşağı Saksoniya (Niedersachsen)' },
-  { code: 'NW', de: 'Nordrhein-Westfalen', en: 'North Rhine-Westphalia', az: 'Şimali Reyn-Vestfaliya (Nordrhein-Westfalen)' },
-  { code: 'RP', de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', az: 'Reynland-Pfals (Rheinland-Pfalz)' },
-  { code: 'SL', de: 'Saarland', en: 'Saarland', az: 'Saarland' },
-  { code: 'SN', de: 'Sachsen', en: 'Saxony', az: 'Saksoniya (Sachsen)' },
-  { code: 'ST', de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', az: 'Saksoniya-Anhalt (Sachsen-Anhalt)' },
-  { code: 'SH', de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', az: 'Şlezviq-Holşteyn (Schleswig-Holstein)' },
-  { code: 'TH', de: 'Thüringen', en: 'Thuringia', az: 'Türingiya (Thüringen)' },
+/** State names per UI language; a translated name carries the German one in brackets where they differ. */
+export const STATES: { code: StateCode; de: string; en: string; az: string; tr: string }[] = [
+  { code: 'BW', de: 'Baden-Württemberg', en: 'Baden-Württemberg', az: 'Baden-Vürtemberq (Baden-Württemberg)', tr: 'Baden-Württemberg' },
+  { code: 'BY', de: 'Bayern', en: 'Bavaria', az: 'Bavariya (Bayern)', tr: 'Bavyera (Bayern)' },
+  { code: 'BE', de: 'Berlin', en: 'Berlin', az: 'Berlin', tr: 'Berlin' },
+  { code: 'BB', de: 'Brandenburg', en: 'Brandenburg', az: 'Brandenburq (Brandenburg)', tr: 'Brandenburg' },
+  { code: 'HB', de: 'Bremen', en: 'Bremen', az: 'Bremen', tr: 'Bremen' },
+  { code: 'HH', de: 'Hamburg', en: 'Hamburg', az: 'Hamburq (Hamburg)', tr: 'Hamburg' },
+  { code: 'HE', de: 'Hessen', en: 'Hesse', az: 'Hessen', tr: 'Hessen' },
+  { code: 'MV', de: 'Mecklenburg-Vorpommern', en: 'Mecklenburg-Western Pomerania', az: 'Meklenburq-Ön Pomeraniya (Mecklenburg-Vorpommern)', tr: 'Mecklenburg-Ön Pomeranya (Mecklenburg-Vorpommern)' },
+  { code: 'NI', de: 'Niedersachsen', en: 'Lower Saxony', az: 'Aşağı Saksoniya (Niedersachsen)', tr: 'Aşağı Saksonya (Niedersachsen)' },
+  { code: 'NW', de: 'Nordrhein-Westfalen', en: 'North Rhine-Westphalia', az: 'Şimali Reyn-Vestfaliya (Nordrhein-Westfalen)', tr: 'Kuzey Ren-Vestfalya (Nordrhein-Westfalen)' },
+  { code: 'RP', de: 'Rheinland-Pfalz', en: 'Rhineland-Palatinate', az: 'Reynland-Pfals (Rheinland-Pfalz)', tr: 'Renanya-Palatina (Rheinland-Pfalz)' },
+  { code: 'SL', de: 'Saarland', en: 'Saarland', az: 'Saarland', tr: 'Saarland' },
+  { code: 'SN', de: 'Sachsen', en: 'Saxony', az: 'Saksoniya (Sachsen)', tr: 'Saksonya (Sachsen)' },
+  { code: 'ST', de: 'Sachsen-Anhalt', en: 'Saxony-Anhalt', az: 'Saksoniya-Anhalt (Sachsen-Anhalt)', tr: 'Saksonya-Anhalt (Sachsen-Anhalt)' },
+  { code: 'SH', de: 'Schleswig-Holstein', en: 'Schleswig-Holstein', az: 'Şlezviq-Holşteyn (Schleswig-Holstein)', tr: 'Schleswig-Holstein' },
+  { code: 'TH', de: 'Thüringen', en: 'Thuringia', az: 'Türingiya (Thüringen)', tr: 'Thüringen' },
 ];
 
 export function stateName(code: StateCode | null, lang: string) {
   const s = STATES.find((x) => x.code === code);
   if (!s) return '';
-  return lang === 'de' ? s.de : lang === 'az' ? s.az : s.en;
+  return (s as Record<string, string>)[lang] ?? s.en;
 }
 
 /** The questions relevant for a user: the 300 general ones plus the 10 for their state. */
