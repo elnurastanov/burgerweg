@@ -65,6 +65,9 @@ PDF output needed). General questions come from `scripts/catalog/az/p1.json`–`
 templates for the ten German patterns, with case forms per state name (genitive, locative), because Azerbaijani
 suffixes follow vowel harmony. City and district names in options stay German; state names are translated.
 
+`translations_tr.py` (Turkish) works the same way, from `scripts/catalog/tr/`. Turkish proper nouns take their case
+suffix after an apostrophe (*Bavyera'da*, *Saksonya-Anhalt'ta*), so the state names carry spelled-out forms too.
+
 ## Translation rules
 
 The German text is the official BAMF wording and is never edited (except the PDF caption fix in `FIX_Q`). Translations
@@ -113,6 +116,28 @@ must match them.
 | DDR | ADR (DDR) |
 | Jugendamt | gənclərə yardım idarəsi (Jugendamt) |
 
+**Turkish terms** (same rules):
+
+| German | Turkish |
+| --- | --- |
+| Grundgesetz | Temel Yasa (Grundgesetz) |
+| Rechtsstaat | hukuk devleti (Rechtsstaat) |
+| Meinungsfreiheit | ifade özgürlüğü |
+| Bundestag, Bundesrat | Federal Meclis (Bundestag), Bundesrat |
+| Bundesversammlung | Federal Kurul (Bundesversammlung) |
+| Landtag | eyalet parlamentosu (Landtag) |
+| Bundesland | federal eyalet |
+| Ministerpräsident/in | Bakan-Başkan (Ministerpräsident); not "Eyalet Başbakanı", which would give away g37 and the state questions |
+| Fraktion | meclis grubu (Fraktion) |
+| Schöffe | Schöffe (jüri üyesi); not *hâkim*, because of g150 |
+| Ehrenamt, ehrenamtlich | fahri görev (Ehrenamt), fahri (ehrenamtlich) |
+| DDR | ADC (DDR) |
+| Jugendamt | Gençlik Dairesi (Jugendamt) |
+
+**Turkish review 2026-11-20:** DeepL (DE → TR) as a second opinion, compared the same way. DeepL used *Anayasa* for
+*Grundgesetz* and *Federal Meclis* for both Bundestag and Bundesversammlung, so it was not used as the translation.
+Fixed in ours: g15 *freie Berufswahl* ("serbest meslek" reads as "self-employment").
+
 **Azerbaijani review 2026-11-11:** all 460 questions were translated with DeepL (DE → AZ) as a second opinion and
 compared with ours (`difflib` similarity per text; every text below 0.5 was read against the German). DeepL's Azerbaijani
 was too weak to use directly (e.g. *Bundeskanzler* as "treasurer", *Faustrecht* as "rule of thumb", *Schöffe* as
@@ -137,6 +162,7 @@ they were **not** taken from an official answer key. Before release:
 - [ ] Have a fluent speaker proofread the English translations (they are unofficial and marked as such in the app).
       A machine-assisted review against the rules above was done on 2026-11-04.
 - [ ] Have a native speaker proofread the Azerbaijani translations and UI strings (machine-assisted review 2026-11-11).
+- [ ] Have a native speaker proofread the Turkish translations and UI strings (machine-assisted review 2026-11-20).
 - Already fixed after the visual check: g209 is image 4 (GDR emblem), g226 is image 2 (EU flag).
 
 ## Updating for a new catalog
