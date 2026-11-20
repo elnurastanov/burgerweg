@@ -148,7 +148,7 @@ PWA), and paid app stores. The MVP must stay **free to build, host and publish**
 
 | ID | Requirement | Status |
 | --- | --- | --- |
-| LP-1 | A static, JavaScript-free landing page in **German (`/`)**, **English (`/en/`)**, **Azerbaijani (`/az/`)** **Turkish (`/tr/`)**, **Russian (`/ru/`)** and **Ukrainian (`/uk/`)**, in the app's calm style, with light and dark mode. Each links to the others (the header to German and English, the footer to all). | ✅ |
+| LP-1 | A static, JavaScript-free landing page in **German (`/`)**, **English (`/en/`)**, **Azerbaijani (`/az/`)** **Turkish (`/tr/`)**, **Russian (`/ru/`)** and **Ukrainian (`/uk/`)**, in the app's calm style, with light and dark mode. Each links to the others: a JavaScript-free language menu in the header (`<details>`; a full-width panel on narrow phones, where the header shows only the logo) and a language list in the footer. | ✅ |
 | LP-2 | It MUST introduce the app with real screenshots and link prominently to the app (`/app/`). | ✅ |
 | LP-6 | It MUST present the three ways to use Bürgerweg (browser on any device, installed as an app (PWA), Android app: APK download from the latest GitHub release, F-Droid later) and include an install guide split by device (iPhone/iPad, Android, computer) covering the common browsers (Safari, Chrome, Edge, Firefox, Samsung Internet). | ✅ |
 | LP-3 | SEO: unique title (≤ 60 chars) and meta description (≤ 160 chars), one `h1`, canonical URL, `hreflang` alternates, Open Graph/Twitter cards with a 1200×630 image, JSON-LD (`WebApplication`, `FAQPage`), `robots.txt`, `sitemap.xml`, descriptive `alt` text, image dimensions set. | ✅ |

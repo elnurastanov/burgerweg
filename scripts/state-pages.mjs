@@ -457,11 +457,13 @@ function page(s, lang) {
   const others = STATES.filter((x) => x.code !== s.code)
     .map((x) => `<li><a href="${PREFIX[lang]}/${x.slug}/">${esc(stateName(x, lang))}</a></li>`)
     .join('');
-  // The header has room for two language links; every language is listed in the footer.
-  const langLinks = ['de', 'en']
-    .filter((l) => l !== lang)
-    .map((l) => `<a class="lang" href="${PREFIX[l]}/${s.slug}/" hreflang="${l}" lang="${l}">${l.toUpperCase()}</a>`)
-    .join('\n        ');
+  // Language menu: a <details> dropdown, so it works without JavaScript and has room for every language.
+  const langMenu = `<details class="lang-menu">
+          <summary aria-label="${t.language}: ${LANG_NAMES[lang]}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span>${lang.toUpperCase()}</span></summary>
+          <ul>
+${LANGS.map((l) => `            <li><a href="${PREFIX[l]}/${s.slug}/" hreflang="${l}" ${l === lang ? 'aria-current="page"' : `lang="${l}"`}>${LANG_NAMES[l]}</a></li>`).join('\n')}
+          </ul>
+        </details>`;
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -495,7 +497,7 @@ ${LANGS.map((l) => `  <link rel="alternate" hreflang="${l}" href="{{SITE_URL}}${
     <div class="wrap">
       <a class="brand" href="${home}" aria-label="Bürgerweg ${t.homeLabel}"><img src="/icon-192.png" alt="" width="34" height="34">Bürgerweg</a>
       <nav class="nav" aria-label="${t.nav}">
-        ${langLinks}
+        ${langMenu}
         <a class="btn btn-primary btn-sm" href="/app/">${t.open}</a>
       </nav>
     </div>
